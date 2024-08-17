@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { redHatDisplay } from "./ui/fonts";
 import "@/app/ui/global.css"
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -20,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${redHatDisplay.className} antialiased`}>{children}</body>
     </html>
   );
 }

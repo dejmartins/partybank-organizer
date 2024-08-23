@@ -13,7 +13,7 @@ export default function Page() {
             <div className="w-full">
                 <div className="mb-10">
                     <p className="text-[18px] font-[600]">dej@gmail.com</p>
-                    <span className="underline underline-offset-4 text-[var(--pb-c-red)]">
+                    <span className="underline underline-offset-4 text-[var(--pb-c-red)] cursor-pointer">
                         Change Email
                     </span>
                 </div>

@@ -1,7 +1,18 @@
+'use client'
 import Image from "next/image";
 import Button from "../buttons/button";
+import Loader from "../modals/loader";
+import { useState } from "react";
 
 export default function SigninForm() {
+    const [isOtpModalOpen, setIsOtpModalOpen] = useState(true);
+
+    const openOtpModal = (e: any) => {
+        e.preventDefault();
+        setIsOtpModalOpen(true);
+    };
+    const closeOtpModal = () => setIsOtpModalOpen(false);
+
     return (
         <form className='text-left w-full'>
             <label className="text-[18px] font-[500]">Email</label>
@@ -12,6 +23,8 @@ export default function SigninForm() {
             <hr className='my-8 border-[1px]' />
 
             <GoogleButton />
+
+            <Loader isOpen={isOtpModalOpen} onClose={closeOtpModal} />
         </form>
     );
 }

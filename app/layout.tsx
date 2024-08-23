@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { redHatDisplay } from "./ui/fonts";
-import "@/app/ui/global.css"
+import "@/app/ui/styles/global.css"
 
 export const metadata: Metadata = {
   title: {

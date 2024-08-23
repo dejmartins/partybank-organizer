@@ -19,7 +19,7 @@ export default function Loader({ isOpen, message }: { isOpen: boolean, message: 
           <div className="absolute inset-0 bg-slate-950 opacity-75"></div>
         </Transition.Child>
 
-        <span className="hiden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
         <Transition.Child
           as="div"
@@ -31,8 +31,8 @@ export default function Loader({ isOpen, message }: { isOpen: boolean, message: 
           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           className="inline-block overflow-hidden text-center align-bottom transition-all transform rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
         >
-          <div className="flex flex-col items-center text-[var(--pb-c-white)]">
-            <Image src='/loader.png' width={100} height={100} alt='Partybank Loader' className='mb-4' />
+          <div className="flex flex-col items-center text-[var(--pb-c-white)] p-10">
+            <Image src='/loader.png' width={100} height={100} alt='Partybank Loader' className='mb-4 animate-pulse' />
             <p className='text-[22px] font-[700]'>{ message }</p>
             <p className='text-[15px]'>This will only take few seconds</p>
           </div>

@@ -16,7 +16,7 @@ export default function Loader({ isOpen, message }: { isOpen: boolean, message: 
           className="fixed inset-0 transition-opacity"
           aria-hidden="true"
         >
-          <div className="absolute inset-0 bg-slate-950 opacity-75"></div>
+          <div className="absolute inset-0 bg-slate-950 md:opacity-75 opacity-85"></div>
         </Transition.Child>
 
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>

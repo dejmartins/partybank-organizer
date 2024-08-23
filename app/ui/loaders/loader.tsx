@@ -29,7 +29,7 @@ export default function Loader({ isOpen, message }: { isOpen: boolean, message: 
           leave="ease-in duration-200"
           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          className="inline-block overflow-hidden text-center align-bottom transition-all transform rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+          className="inline-block overflow-hidden text-center align-bottom transition-all transform rounded-lg sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
         >
           <div className="flex flex-col items-center text-[var(--pb-c-white)] p-10">
             <Image src='/loader.png' width={100} height={100} alt='Partybank Loader' className='mb-4 animate-pulse' />

@@ -1,6 +1,7 @@
 import { Transition } from '@headlessui/react';
+import Image from 'next/image';
 
-export default function Loader({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+export default function Loader({ isOpen, message }: { isOpen: boolean, message: string }) {
   return (
     <Transition show={isOpen} as="div" className="fixed inset-0 z-10 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4 pb-20 text-center sm:block sm:p-0">
@@ -28,28 +29,13 @@ export default function Loader({ isOpen, onClose }: { isOpen: boolean, onClose: 
           leave="ease-in duration-200"
           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          className="inline-block overflow-hidden text-left align-bottom transition-all transform rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+          className="inline-block overflow-hidden text-center align-bottom transition-all transform rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
         >
-          <div className="">
-            <p>Loader</p>
+          <div className="flex flex-col items-center text-[var(--pb-c-white)]">
+            <Image src='/loader.png' width={100} height={100} alt='Partybank Loader' className='mb-4' />
+            <p className='text-[22px] font-[700]'>{ message }</p>
+            <p className='text-[15px]'>This will only take few seconds</p>
           </div>
-          {/* <div className="px-4 py-3 bg-[#F8BE4FCC] sm:px-6 sm:flex sm:flex-row-reverse">
-            
-            <button
-              type="button"
-              className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-              onClick={onClose}
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              className="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-          </div> */}
         </Transition.Child>
       </div>
     </Transition>

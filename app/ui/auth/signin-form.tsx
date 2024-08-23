@@ -24,7 +24,7 @@ export default function SigninForm() {
 
             <GoogleButton />
 
-            <Loader isOpen={isOtpModalOpen} onClose={closeOtpModal} />
+            <Loader isOpen={isOtpModalOpen} message='Verifying Email' />
         </form>
     );
 }

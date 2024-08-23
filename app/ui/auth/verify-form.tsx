@@ -4,7 +4,7 @@ import Loader from "../loaders/loader";
 
 export default function VerifyEmailForm() {
     const [code, setCode] = useState(["", "", "", ""]);
-    const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(true);
+    const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
 
     const openLoaderModal = (e: any) => {
         e.preventDefault();

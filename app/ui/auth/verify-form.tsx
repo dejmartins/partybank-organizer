@@ -1,4 +1,4 @@
-export default function VerifyEmail() {
+export default function VerifyEmailForm() {
     return (
         <form className="text-left">
             <input

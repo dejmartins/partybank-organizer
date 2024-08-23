@@ -1,4 +1,4 @@
-import VerifyEmail from '@/app/ui/auth/verify-form';
+import VerifyEmailForm from '@/app/ui/auth/verify-form';
 
 export default function Page() {
     return (
@@ -18,7 +18,7 @@ export default function Page() {
                     </span>
                 </div>
 
-                <VerifyEmail />
+                <VerifyEmailForm />
 
             </div>
 

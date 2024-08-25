@@ -18,11 +18,15 @@ export default function TopNav() {
                 <BellIcon className="w-5 text-white stroke-black stroke-2" />
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
-                    <div className="rounded-full border-4 border-blue-500">
-                        <UserCircleIcon className="w-7 stroke-black stroke-1" />
-                    </div>
+                        <div className="relative w-8 h-8 rounded-full overflow-hidden">
+                            <div className="absolute inset-0  bg-gradient-to-b from-[#950ECD] to-[#5CF4D8]"></div>
+                            <div className="absolute inset-[4px] bg-white rounded-full flex items-center justify-center">
+                                <UserCircleIcon className="w-7 stroke-black stroke-1" />
+                            </div>
+                        </div>
 
-                    <p>Michael O.</p>
+
+                        <p>Michael O.</p>
                     </div>
                     <ChevronDownIcon className="w-5 stroke-black stroke-1" />
                 </div>

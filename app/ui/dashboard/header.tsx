@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { BellIcon, ChevronDownIcon, MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 
-export default function TopNav() {
+export default function Header() {
     return (
         <div className="flex items-center justify-between bg-[var(--pb-c-white)] h-[64px] w-full px-[24px] py-[16px]">
             <div>
@@ -25,7 +25,7 @@ export default function TopNav() {
                             </div>
                         </div>
 
-                        <p>Michael O.</p>
+                        <p className="font-[600] text-[16px] md:text-[18px]">Michael O.</p>
                     </div>
                     <ChevronDownIcon className="w-5 stroke-black stroke-1" />
                 </div>

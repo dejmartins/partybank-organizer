@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import clsx from 'clsx'
+import clsx from 'clsx';
 
 const links = [
     { 
@@ -21,14 +21,14 @@ const links = [
         icon: CalendarIcon ,
     },
     { 
-        name: 'Series', href: 
-        '/dashboard/series', 
+        name: 'Series', 
+        href: '/dashboard/series', 
         icon: LinkIcon 
     },
 ];
 
 export default function NavLinks() {
-  const pathName = usePathname()
+  const pathName = usePathname();
   return (
     <>
       {links.map((link) => {
@@ -37,21 +37,22 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className={clsx('flex h-[40px] w-[170px] flex-grow rounded-md bg-[var(--pb-c-mid-red)] md:flex-none md:justify-start',
+            className={clsx(
+              'flex h-[40px] w-[170px] flex-grow rounded-md bg-[var(--pb-c-mid-red)] md:flex-none md:justify-start transition-all duration-300 ease-in-out hover:bg-[#ed4161] hover:shadow-lg',
               {
-                'bg-[#E91B41] text-white border border-black': pathName === link.href,
+                'bg-[#E91B41] text-white border border-black hover:bg-[#E91B41]': pathName === link.href,
               }
             )}
           >
             <div className='flex gap-2 justify-center items-center w-full'>
               <LinkIcon 
-                className={clsx('w-4 stroke-black stroke-2', 
+                className={clsx('w-4 stroke-black stroke-2 transition-all duration-300 ease-in-out', 
                 {
                   'stroke-white': pathName === link.href
                 }
               )} />
               <p 
-                className={clsx("hidden md:block text-[14px] font-[400]",
+                className={clsx("hidden md:block text-[14px] font-[400] transition-all duration-300 ease-in-out",
                 {
                   'font-bold': pathName === link.href
                 }

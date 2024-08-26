@@ -8,7 +8,7 @@ export default async function Page() {
             </div>
 
             <div className="md:mt-20 p-6 lg:p-8">
-                <div className="w-full flex flex-col items-center absolute bottom-[12%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+                <div className="w-full flex flex-col items-center mt-12 md:mt-0">
                     <div className="bg-[#F8F9F9] rounded-[50px] w-[200px] h-[200px] flex items-center justify-center mb-3">
                         <Image src='/empty-state.png' width={130} height={130} alt="Blank Phone Screens" />
                     </div>

@@ -3,6 +3,10 @@ import Image from "next/image"
 export default async function Page() {
     return (
         <div className="">
+            <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
+                <h3 className="font-[700] text-[22px]">Dashboard</h3>
+            </div>
+
             <div className="py-3 px-6 border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
                 <p className="text-[23px] md:text-[30px]">Welcome aboard, <span className="font-[700]">Michael!</span></p>
             </div>

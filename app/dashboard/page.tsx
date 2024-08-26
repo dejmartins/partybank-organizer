@@ -3,7 +3,7 @@ import EmptyState from "../ui/dashboard/empty-state"
 
 export default async function Page() {
     return (
-        <div className="">
+        <main className="">
             <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
                 <h3 className="font-[700] text-[25px]">Dashboard</h3>
             </div>
@@ -15,6 +15,6 @@ export default async function Page() {
             <div className="md:mt-20 p-6 lg:p-8">
                 <EmptyState />
             </div>
-        </div>
+        </main>
     )
 }

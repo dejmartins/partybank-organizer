@@ -1,3 +1,19 @@
+import EmptyState from "@/app/ui/dashboard/empty-state"
+
 export default async function Page() {
-    return <p>Series of Events</p>
+    return (
+        <div className="">
+            <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
+                <h3 className="font-[700] text-[25px]">Series</h3>
+            </div>
+
+            <div className="py-3 px-6 border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
+                <p className="text-[23px] md:text-[30px] md:font-[700]">My Series</p>
+            </div>
+
+            <div className="md:mt-20 p-6 lg:p-8">
+                <EmptyState />
+            </div>
+        </div>
+    )
 }

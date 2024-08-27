@@ -15,12 +15,12 @@ export default async function Page() {
                 <p className="text-[23px] md:text-[30px] md:font-[700]">My Series</p>
             </div>
 
-            <div className="p-6 lg:p-8">
+            <div className="p-6 lg:p-8 border">
                 {series.length > 0 ? (
-                    <div>
+                    <div className="flex flex-wrap gap-6">
                         {seriesOfEvent.map((serie) => (
-                            <div key={serie.id} className="mb-6">
-                                <Card imageUrl={serie.image_url} name={serie.name} description={serie.description} />
+                            <div key={serie.id} className="">
+                                <Card imageUrl={serie.image_url} name={serie.name} description={serie.description}/>
                             </div>
                         ))}
                     </div>

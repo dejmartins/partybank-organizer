@@ -1,15 +1,13 @@
-'use client'
-import Image from "next/image";
-import { useState } from "react";
-
 export default function Card(
     { imageUrl, name, description }: { imageUrl: string | null, name: string, description: string }) {
   
+    const backgroundImageUrl = imageUrl || '/defaultImage.png';
+
     return (
       <div className="border w-[350px] p-4">
         <div className="h-[200px] border bg-cover bg-center rounded-[10px] overflow-hidden"
                 style={{
-                    backgroundImage: `url("${imageUrl}")` || '/defaultImage.png',
+                    backgroundImage: `url("${backgroundImageUrl}")`,
                 }}
             >
         </div>

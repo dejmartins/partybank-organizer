@@ -1,8 +1,8 @@
 import { PencilIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
+import { EditSeries } from "./buttons";
 
 export default function Card(
-    { imageUrl, name, description }: { imageUrl: string | null, name: string, description: string }) {
+    { imageUrl, name, description, id }: { imageUrl: string | null, name: string, description: string, id: string }) {
   
     const backgroundImageUrl = imageUrl || '/defaultImage.png';
 
@@ -19,9 +19,10 @@ export default function Card(
                 <h4 className="text-xl font-bold line-clamp-1">{name}</h4>
                 <p className="text-[15px] line-clamp-2">{description}</p>
             </div>
-            <div className="border cursor-pointer absolute right-0 top-3 bg-[#F3F5F5] px-[10px] py-[5px] rounded-[15px]">
+            {/* <div className="z-50 border cursor-pointer absolute right-0 top-3 bg-[#F3F5F5] px-[10px] py-[5px] rounded-[15px]">
                 <PencilIcon className="w-[20px] h-[30px]" />
-            </div>
+            </div> */}
+            <EditSeries id={id} />
         </div>
       </div>
     );

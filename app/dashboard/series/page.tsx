@@ -23,7 +23,7 @@ export default async function Page() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
                         {seriesOfEvent.map((serie) => (
                             <div key={serie.id}>
-                                <Card imageUrl={serie.image_url} name={serie.name} description={serie.description}/>
+                                <Card imageUrl={serie.image_url} name={serie.name} description={serie.description} id={serie.id} />
                             </div>
                         ))}
                         <div>

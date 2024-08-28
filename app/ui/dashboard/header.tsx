@@ -3,7 +3,7 @@ import { BellIcon, ChevronDownIcon, MagnifyingGlassIcon, UserCircleIcon } from '
 
 export default function Header() {
     return (
-        <div className="flex items-center justify-between fixed top-0 left-0 right-0 bg-[var(--pb-c-white)] h-[64px] w-full px-[24px] py-[16px] z-50 shadow-sm">
+        <div className="flex items-center justify-between fixed top-0 left-0 right-0 bg-[var(--pb-c-white)] h-[64px] w-full px-[24px] py-[16px] z-50 border-0 border-b-4 border-[var(--pb-c-soft-grey)]">
             <div>
                 <Image
                     src="/logo.svg"

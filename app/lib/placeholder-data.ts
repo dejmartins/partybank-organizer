@@ -2,7 +2,7 @@ export const series = [
     {
         "id": "series_001",
         "name": "Summer Party Series",
-        "description": "A collection of the hottest summer",
+        "description": "A collection of the hottest summer.",
         "image_url": "https://res.cloudinary.com/drddoxnsi/image/upload/v1720742531/PARTYBANK/rave_cmqhw8.png"
     },
     {

@@ -1,4 +1,5 @@
 import { series } from "@/app/lib/placeholder-data";
+import AddMore from "@/app/ui/dashboard/add-more";
 import EmptyState from "@/app/ui/dashboard/empty-state"
 import Card from "@/app/ui/series/card";
 
@@ -19,10 +20,13 @@ export default async function Page() {
                 {series.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
                         {seriesOfEvent.map((serie) => (
-                            <div key={serie.id} className="">
+                            <div key={serie.id}>
                                 <Card imageUrl={serie.image_url} name={serie.name} description={serie.description}/>
                             </div>
                         ))}
+                        <div>
+                            <AddMore />
+                        </div>
                     </div>
                 ) : (
                     <div className="md:mt-20">

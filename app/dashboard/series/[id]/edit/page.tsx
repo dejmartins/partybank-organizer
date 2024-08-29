@@ -1,5 +1,7 @@
 export default function Page() {
     return (
-        <p>Edit Series</p>
+        <div>
+            <p>Edit Series</p>
+        </div>
     )
 }

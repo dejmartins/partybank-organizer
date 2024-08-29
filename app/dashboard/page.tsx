@@ -1,9 +1,8 @@
-import Image from "next/image"
 import EmptyState from "../ui/dashboard/empty-state"
 
 export default async function Page() {
     return (
-        <main className="">
+        <main className="flex flex-col flex-grow h-full border-0 md:border-x-[20px] border-[var(--pb-c-soft-grey)]">
             <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
                 <h3 className="font-[700] text-[25px]">Dashboard</h3>
             </div>

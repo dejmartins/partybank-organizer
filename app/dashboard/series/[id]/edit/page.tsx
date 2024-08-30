@@ -35,7 +35,7 @@ export default function Page() {
                     </div>
                 </div>
 
-                <div className="border-0 md:border-l flex-grow overflow-y-auto p-4 max-h-[calc(100vh-170px)]">
+                <div className="border-0 md:border-l border-[var(--pb-c-soft-grey)] flex-grow overflow-y-auto p-4 max-h-[calc(100vh-170px)]">
                     <h2>Add Cover</h2>
                     <p>Upload a high-quality image to represent your collection at the top of the page and in ad campaigns. Images should be at least 1272px wide, and will be cropped at a 3:1 aspect ratio.</p>
                     <p>Image Div Here</p>

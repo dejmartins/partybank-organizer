@@ -7,7 +7,7 @@ export default async function Page() {
     const seriesOfEvent = series;
 
     return (
-        <div className="flex flex-col h-screen border-0 md:border-x-[20px] border-[var(--pb-c-soft-grey)]">
+        <div className="flex flex-col border-0 md:border-x-[20px] border-[var(--pb-c-soft-grey)]">
             <div className="sticky top-0 z-10 w-full">
                 <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
                     <h3 className="font-[700] text-[25px]">Series</h3>

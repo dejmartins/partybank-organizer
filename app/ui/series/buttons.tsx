@@ -25,9 +25,9 @@ export function BackButton({ href }: { href: string }) {
     )
 }
 
-export function SaveSeries() {
+export function SaveSeries({className}: {className: string}) {
     return (
-        <Button className="bg-[var(--pb-c-red)] text-white font-[500] border-[2px] border-black w-[160px] h-[40px]">
+        <Button className={`bg-[var(--pb-c-red)] text-white font-[500] border-[2px] border-black ${className}`}>
             Save Series
         </Button>
     )

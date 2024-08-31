@@ -1,6 +1,7 @@
 import { ArrowLongLeftIcon } from "@heroicons/react/24/outline";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import Button from "../buttons/button";
 
 export function EditSeries({ id }: { id: string }) {
     return (
@@ -21,5 +22,13 @@ export function BackButton({ href }: { href: string }) {
         >
             <ArrowLongLeftIcon className="w-[20px] h-[30px] stroke stroke-[3px]"/>
         </Link>
+    )
+}
+
+export function SaveSeries() {
+    return (
+        <Button className="bg-[var(--pb-c-red)] text-white font-[500] border-[2px] border-black w-[160px] h-[40px]">
+            Save Series
+        </Button>
     )
 }

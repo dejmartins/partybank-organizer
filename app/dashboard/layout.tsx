@@ -8,10 +8,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             <TopNav />
 
-            <div className="flex flex-col flex-grow bg-[var(--pb-c-white)] mx-0 md:mx-5">
-                <div className="flex-grow w-full">
-                    {children}
-                </div>
+            <div className="flex-grow flex flex-col mt-[64px] md:mt-[170px] bg-[var(--pb-c-white)] overflow-y-auto">
+                {children}
             </div>
         </div>
     );

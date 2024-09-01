@@ -18,12 +18,12 @@ export default function Page() {
           <h3 className="font-[700] text-[25px]">Events</h3>
         </div>
 
-        <div className="py-3 px-6 border-0 border-b-[3px] border-[var(--pb-c-soft-grey)] flex justify-between items-center">
-          <p className="text-[23px] md:text-[30px] md:font-[700]">Events Overview</p>
+        <div className="py-3 px-6 border-0 border-b-[3px] border-[var(--pb-c-soft-grey)] flex justify-between items-center overflow-hidden">
+          <p className="text-[23px] md:text-[30px] md:font-[700] line-clamp-1">Events Overview</p>
 
-          <div className="flex gap-2 bg-[#F4F5F6] p-2">
+          <div className="flex gap-0 md:gap-2 bg-[#F4F5F6] p-[2px] md:p-2">
             <button
-              className={`px-4 h-8 rounded-md ${
+              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
                 statusFilter === "active"
                   ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
                   : "bg-white border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
@@ -33,7 +33,7 @@ export default function Page() {
               Active
             </button>
             <button
-              className={`px-4 h-8 rounded-md ${
+              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
                 statusFilter === "upcoming"
                   ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
                   : "bg-white border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
@@ -43,7 +43,7 @@ export default function Page() {
               Upcoming
             </button>
             <button
-              className={`px-4 h-8 rounded-md ${
+              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
                 statusFilter === "past"
                   ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
                   : "bg-white border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
@@ -73,7 +73,7 @@ export default function Page() {
               </div>
             ))}
             <div className={`${statusFilter === 'upcoming' ? 'block' : 'hidden'}`}>
-              <AddMore mainText="New Events" subText="Create events to create more memories" />
+              <AddMore mainText="New Event" subText="Create events to create more memories" />
             </div>
           </div>
         ) : (

@@ -68,6 +68,7 @@ export default function Page() {
                   location={event.location}
                   date={event.date}
                   startTime={event.startTime}
+                  venue={event.venue}
                 />
               </div>
             ))}

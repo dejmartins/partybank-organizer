@@ -26,7 +26,7 @@ export default function Page() {
                                 <Card
                                     imageUrl={event.image}
                                     name={event.name}
-                                    series={selectedSeries.name}
+                                    series={selectedSeries?.name}
                                     location={event.location}
                                     date={event.date}
                                     startTime={event.startTime}

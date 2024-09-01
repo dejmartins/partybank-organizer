@@ -73,7 +73,7 @@ export default function Page() {
               </div>
             ))}
             <div className={`${statusFilter === 'upcoming' ? 'block' : 'hidden'}`}>
-              <AddMore />
+              <AddMore mainText="New Events" subText="Create events to create more memories" />
             </div>
           </div>
         ) : (

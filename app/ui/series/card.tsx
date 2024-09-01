@@ -1,4 +1,3 @@
-import { PencilIcon } from "@heroicons/react/24/solid";
 import { EditSeries } from "./buttons";
 
 export default function Card(

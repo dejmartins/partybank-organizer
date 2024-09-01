@@ -19,7 +19,7 @@ export default function Card(
                 >
             </div>
             <div>
-                <p className="text-[15px] line-clamp-2">{series}</p>
+                <p className="text-[15px] line-clamp-1">{series}</p>
                 <h4 className="text-xl font-bold line-clamp-1">{name}</h4>
             </div>
         </div>
@@ -29,8 +29,8 @@ export default function Card(
                 <div className="flex items-center gap-2">
                     <MapPinIcon className="w-6" />
                     <div>
-                        <p className="text-[15px] line-clamp-2">{location.city}, {location.country}</p>
-                        <p className="text-[15px] line-clamp-2">{venue}</p>
+                        <p className="text-[17px] line-clamp-1 font-[500]">{location.city}, {location.country}</p>
+                        <p className="text-[15px] line-clamp-1">{venue}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">

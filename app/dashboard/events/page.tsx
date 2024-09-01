@@ -72,7 +72,7 @@ export default function Page() {
                 />
               </div>
             ))}
-            <div>
+            <div className={`${statusFilter === 'upcoming' ? 'block' : 'hidden'}`}>
               <AddMore />
             </div>
           </div>

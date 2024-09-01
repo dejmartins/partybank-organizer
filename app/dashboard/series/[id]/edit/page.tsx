@@ -64,7 +64,7 @@ export default function Page() {
                         <p className="text-[23px] md:text-[30px] md:font-[700]">Edit Series</p>
                     </div>
                     <div className='hidden md:block'>
-                        <SaveSeries />
+                        <SaveSeries className='w-[180px] h-[40px]' />
                     </div>
                 </div>
             </div>
@@ -130,6 +130,7 @@ export default function Page() {
                                 className="border w-full p-2 my-2 rounded-[10px] outline-0 focus:outline-2 focus:outline-[#080D18] transition-all duration-300 ease-in-out transform focus:scale-105"
                             />
                         </div>
+                        <SaveSeries className='w-full h-[40px] my-10 block md:hidden' />
                     </div>
                 </div>
             </div>

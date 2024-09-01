@@ -5,7 +5,7 @@ import { CalendarIcon } from "@heroicons/react/24/solid";
 
 export default function Card(
     { imageUrl, name, series, id, location, date, startTime, venue }:
-    { imageUrl: string | null, name: string, series: string, id?: string, location: any, date: string, startTime: string, venue: string }) {
+    { imageUrl: string | null, name: string, series: string | undefined, id?: string, location: any, date: string, startTime: string, venue: string }) {
   
     const backgroundImageUrl = imageUrl || '/defaultImage.png';
 

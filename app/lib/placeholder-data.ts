@@ -5,34 +5,34 @@ export const series = [
     "description": "A collection of the hottest summer parties and events in the city.",
     "image_url": "https://res.cloudinary.com/drddoxnsi/image/upload/v1720742531/PARTYBANK/rave_cmqhw8.png",
     "events": [
-      {
-        "id": "event_001",
-        "name": "Beach Bash",
-        "location": {
-          "city": "Lagos",
-          "state": "Lagos State",
-          "country": "Nigeria"
-        },
-        "venue": "Elegushi Beach",
-        "date": "2024-12-15",
-        "startTime": "14:00",
-        "image": null,
-        "status": "upcoming"
-      },
-      {
-        "id": "event_002",
-        "name": "Summer Night Rave",
-        "location": {
-          "city": "Abuja",
-          "state": "Federal Capital Territory",
-          "country": "Nigeria"
-        },
-        "venue": "The Dome",
-        "date": "2024-07-01",
-        "startTime": "21:00",
-        "image": null,
-        "status": "active"
-      }
+      // {
+      //   "id": "event_001",
+      //   "name": "Beach Bash",
+      //   "location": {
+      //     "city": "Lagos",
+      //     "state": "Lagos State",
+      //     "country": "Nigeria"
+      //   },
+      //   "venue": "Elegushi Beach",
+      //   "date": "2024-12-15",
+      //   "startTime": "14:00",
+      //   "image": null,
+      //   "status": "upcoming"
+      // },
+      // {
+      //   "id": "event_002",
+      //   "name": "Summer Night Rave",
+      //   "location": {
+      //     "city": "Abuja",
+      //     "state": "Federal Capital Territory",
+      //     "country": "Nigeria"
+      //   },
+      //   "venue": "The Dome",
+      //   "date": "2024-07-01",
+      //   "startTime": "21:00",
+      //   "image": null,
+      //   "status": "active"
+      // }
     ]
   },
   {

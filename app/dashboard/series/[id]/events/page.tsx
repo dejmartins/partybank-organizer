@@ -1,7 +1,9 @@
 'use client'
 
 import { series } from "@/app/lib/placeholder-data";
+import EmptyState from "@/app/ui/dashboard/empty-state";
 import Card from "@/app/ui/events/card";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 
 export default function Page() {
@@ -36,7 +38,14 @@ export default function Page() {
                         ))}
                     </div>
                 ) : (
-                    <p>No events found for this series.</p>
+                    <div className="md:mt-20 flex flex-col items-center">
+                        <EmptyState title="No events added yet!" />
+                        
+                        <button className="flex items-center justify-center gap-2 bg-[#E91B410D] text-[var(--pb-c-red)] font-[700] mt-7 rounded-[4px] w-[186px] py-2 cursor-pointer">
+                            <PlusIcon className="w-5 stroke-[2px]" />
+                            Add Event
+                        </button>
+                    </div>
                 )}
             </div>
         </main>

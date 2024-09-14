@@ -32,7 +32,7 @@ export default async function Page() {
                     </div>
                 ) : (
                     <div className="md:mt-20">
-                        <EmptyState />
+                        <EmptyState title="No records yet!" />
                     </div>
                 )}
             </div>

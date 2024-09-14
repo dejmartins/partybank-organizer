@@ -73,12 +73,12 @@ export default function Page() {
               </div>
             ))}
             <div className={`${statusFilter === 'upcoming' ? 'block' : 'hidden'}`}>
-              <AddMore mainText="New Event" subText="Create events to create more memories" />
+              <AddMore href="/" mainText="New Event" subText="Create events to create more memories" />
             </div>
           </div>
         ) : (
           <div className="md:mt-20">
-            <EmptyState />
+            <EmptyState title="No records yet!" />
           </div>
         )}
       </div>

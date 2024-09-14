@@ -2,6 +2,7 @@ import { ArrowLongLeftIcon } from "@heroicons/react/24/outline";
 import Modal from "./base-modal";
 import style from '@/app/ui/styles/modal.module.css'
 import { Event } from "@/app/lib/definitions";
+import EmptyState from "../dashboard/empty-state";
 
 interface AddEventModalProps {
   isOpen: boolean;
@@ -24,7 +25,7 @@ export default function AddEventModal({ isOpen, onClose, events }: AddEventModal
             <h3 className="text-xl font-bold line-clamp-1">My Events</h3>
         </div>
 
-        <div className={`h-[300px] overflow-y-auto ${style.noScrollbar}`}>
+        <div className={`h-[350px] overflow-y-auto ${style.noScrollbar}`}>
           {events.length > 0 ? (
             <div className="px-6">
               {events.map((event, index) => (
@@ -57,8 +58,8 @@ export default function AddEventModal({ isOpen, onClose, events }: AddEventModal
               ))}
             </div>
           ) : (
-            <div>
-              <p>No events available</p>
+            <div className="my-10">
+                <EmptyState title="No records yet!" />
             </div>
           )}
         </div>

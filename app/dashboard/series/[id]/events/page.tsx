@@ -7,6 +7,7 @@ import Card from "@/app/ui/events/card";
 import AddEventModal from "@/app/ui/modal/add-event";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
+import { events as event } from '@/app/lib/placeholder-data';
 
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,7 +60,7 @@ export default function Page() {
         )}
       </div>
 
-      {isModalOpen && <AddEventModal isOpen={isModalOpen} onClose={toggleModal} />}
+      {isModalOpen && <AddEventModal events={event} isOpen={isModalOpen} onClose={toggleModal} />}
     </main>
   );
 }

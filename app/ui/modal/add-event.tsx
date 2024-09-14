@@ -1,14 +1,15 @@
 import { ArrowLongLeftIcon } from "@heroicons/react/24/outline";
 import Modal from "./base-modal";
-import { events } from "@/app/lib/placeholder-data";
 import style from '@/app/ui/styles/modal.module.css'
+import { Event } from "@/app/lib/definitions";
 
 interface AddEventModalProps {
   isOpen: boolean;
   onClose: () => void;
+  events: Array<Event>
 }
 
-export default function AddEventModal({ isOpen, onClose }: AddEventModalProps) {
+export default function AddEventModal({ isOpen, onClose, events }: AddEventModalProps) {
   const handleAddEvent = (event: any) => {
     console.log("Event added:", event);
   };

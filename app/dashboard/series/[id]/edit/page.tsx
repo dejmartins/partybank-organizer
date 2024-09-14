@@ -64,7 +64,7 @@ export default function Page() {
                         <p className="text-[23px] md:text-[30px] md:font-[700]">Edit Series</p>
                     </div>
                     <div className='hidden md:block'>
-                        <SaveSeries className='w-[180px] h-[40px]' />
+                        <SaveSeries className='w-[210px] h-[40px]' />
                     </div>
                 </div>
             </div>
@@ -92,10 +92,10 @@ export default function Page() {
 
                 <div className="border-0 md:border-l border-[var(--pb-c-soft-grey)] flex-grow overflow-y-auto p-6 max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
                     <h2 className='font-[700] text-[20px] mb-1'>Add Cover</h2>
-                    <p className='mb-2'>Upload a high-quality image to represent your collection at the top of the page and in ad campaigns. Images should be at least 1272px wide, and will be cropped at a 3:1 aspect ratio.</p>
+                    <p className='mb-2'>Upload a high-quality image to represent your collection at the top of the page and in ad campaigns.</p>
 
                     <div 
-                        className="relative border border-dashed border-[var(--pb-c-soft-grey)] rounded-lg h-[180px] md:h-[220px] flex items-center justify-center bg-cover bg-center cursor-grab"
+                        className="relative border border-dashed border-[var(--pb-c-soft-grey)] rounded-lg h-[180px] md:h-[250px] flex items-center justify-center bg-cover bg-center cursor-grab"
                         style={{
                             backgroundImage: `url("${selectedImage}")`,
                             backgroundPosition: `${backgroundPosition.x}% ${backgroundPosition.y}%`

@@ -27,7 +27,7 @@ export default async function Page() {
                             </div>
                         ))}
                         <div>
-                            <AddMore mainText="New Series" subText="Create a series to keep your events put together" />
+                            <AddMore href="series/create" mainText="New Series" subText="Create a series to keep your events put together" />
                         </div>
                     </div>
                 ) : (

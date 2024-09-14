@@ -3,6 +3,7 @@
 import { series } from "@/app/lib/placeholder-data";
 import EmptyState from "@/app/ui/dashboard/empty-state";
 import Card from "@/app/ui/events/card";
+import Modal from "@/app/ui/modal/base-modal";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 
@@ -40,7 +41,9 @@ export default function Page() {
                 ) : (
                     <div className="md:mt-20 flex flex-col items-center">
                         <EmptyState title="No events added yet!" />
-                        
+                        <Modal isOpen={true} onClose={() => {}}>
+                            <p>My Events</p>
+                        </Modal>
                         <button className="flex items-center justify-center gap-2 bg-[#E91B410D] text-[var(--pb-c-red)] font-[700] mt-7 rounded-[4px] w-[186px] py-2 cursor-pointer">
                             <PlusIcon className="w-5 stroke-[2px]" />
                             Add Event

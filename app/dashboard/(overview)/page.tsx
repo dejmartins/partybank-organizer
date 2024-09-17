@@ -1,5 +1,6 @@
 import CardWrapper from "@/app/ui/dashboard/cards";
 import EmptyState from "../../ui/dashboard/empty-state"
+import MyEvents from "@/app/ui/dashboard/my-events";
 
 const fetchEventData = async () => {
   return ["add"];
@@ -24,10 +25,16 @@ export default async function Page() {
                 <EmptyState title="No records yet!" />
             </div>
         ) : (
-          <div className="p-6">
-            <h3>Account Overview</h3>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                <CardWrapper />
+          <div>
+            <div className="p-6">
+                <h3>Account Overview</h3>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <CardWrapper />
+                </div>
+            </div>
+
+            <div className="border-0 border-t border-b border-[var(--pb-c-soft-grey)] p-6">
+                <MyEvents />
             </div>
           </div>
         )}

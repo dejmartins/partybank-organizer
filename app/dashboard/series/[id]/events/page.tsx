@@ -8,6 +8,7 @@ import AddEventModal from "@/app/ui/modal/add-event";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import { events as event } from '@/app/lib/placeholder-data';
+import { BackButton } from '@/app/ui/series/buttons';
 
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +25,8 @@ export default function Page() {
 
   return (
     <main className="flex flex-col flex-grow h-full border-0 border-x-[20px] border-[var(--pb-c-soft-grey)]">
-      <div className="py-3 px-6 border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
+      <div className="flex items-center gap-7 py-3 px-6 border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
+        <BackButton href="/dashboard/series" />
         <p className="text-[23px] md:text-[30px] md:font-[700]">{selectedSeries?.name}</p>
       </div>
 

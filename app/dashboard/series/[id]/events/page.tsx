@@ -19,6 +19,8 @@ export default function Page() {
 
   const events = selectedSeries ? selectedSeries.events : [];
 
+  const backgroundImageUrl = selectedSeries?.image_url || '/defaultImage.png';
+
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -27,7 +29,15 @@ export default function Page() {
     <main className="flex flex-col flex-grow h-full border-0 border-x-[20px] border-[var(--pb-c-soft-grey)]">
       <div className="flex items-center gap-7 py-3 px-6 border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
         <BackButton href="/dashboard/series" />
-        <p className="text-[23px] md:text-[30px] md:font-[700]">{selectedSeries?.name}</p>
+        <div className='flex items-center gap-4'>
+          <div className="min-w-[40px] min-h-[40px] border bg-cover bg-center rounded-[10px] overflow-hidden"
+              style={{
+                  backgroundImage: `url("${backgroundImageUrl}")`,
+              }}
+          >
+          </div>
+          <p className="text-[23px] md:text-[30px] md:font-[700]">{selectedSeries?.name}</p>
+        </div>
       </div>
 
       <div className="flex-grow overflow-y-auto p-6 lg:p-8">

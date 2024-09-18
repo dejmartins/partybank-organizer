@@ -28,7 +28,7 @@ export default async function Page() {
         ) : (
           <div>
             <div className="p-6">
-                <h3>Account Overview</h3>
+                <h3 className="text-2xl font-bold mb-4">Account Overview</h3>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     <CardWrapper />
                 </div>

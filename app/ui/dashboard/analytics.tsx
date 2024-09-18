@@ -12,7 +12,6 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-// Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -30,38 +29,44 @@ const dummyData = {
     purchases: [40, 90, 60, 130, 50, 100, 60],
   },
   monthly: {
-    sales: [500, 450, 800, 750, 400, 950, 700],
-    purchases: [600, 650, 500, 400, 850, 700, 800],
+    sales: [500, 450, 800, 750],
+    purchases: [600, 650, 500, 400],
   },
   yearly: {
-    sales: [7000, 5500, 6000, 8500, 7500, 9500, 8000],
-    purchases: [5000, 7000, 6500, 9000, 8000, 6000, 7500],
+    sales: [7000, 5500, 6000, 8500, 7500, 9500, 8000, 2000, 6000, 3000, 1500, 9000],
+    purchases: [5000, 7000, 6500, 9000, 8000, 6000, 7500, 1200, 3400, 8000, 3400, 8200],
   },
 };
 
-const Analytics = () => {
+export default function Analytics() {
   const [filterType, setFilterType] = useState("sales");
   const [timeRange, setTimeRange] = useState("weekly");
 
   const labels = {
     weekly: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    monthly: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7"],
-    yearly: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    monthly: ["Week 1", "Week 2", "Week 3", "Week 4"],
+    yearly: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
   };
 
   const data = {
+    // @ts-ignore
     labels: labels[timeRange],
     datasets: [
       {
         label: filterType === "sales" ? "Sales" : "Purchases",
+        // @ts-ignore
         data: dummyData[timeRange][filterType],
         borderColor: "#E91B41",
         fill: true,
-        tension: 0.4,
+        tension: 0.3,
         pointRadius: 3,
         pointHoverRadius: 10,
       },
     ],
+  };
+
+  const getChartHeight = () => {
+    return window.innerWidth < 768 ? "250px" : "400px";
   };
 
   // Chart options with line shadow
@@ -71,96 +76,91 @@ const Analytics = () => {
     plugins: {
       legend: {
         display: false,
+        tooltip: {
+          enabled: true,
+          callbacks: {
+          },
+        },
       },
     },
     scales: {
       x: {
         grid: {
-          color: 'rgba(200, 200, 200, 0.1)', // Fainter grid color
+          color: 'rgba(200, 200, 200, 0.1)',
           borderDash: [5, 5],
         },
       },
       y: {
         grid: {
-          color: 'rgba(200, 200, 200, 0.1)', // Fainter grid color
+          color: 'rgba(200, 200, 200, 0.1)',
           borderDash: [5, 5],
         },
       },
     },
-    // Add a shadow to the line
     elements: {
       line: {
-        borderWidth: 3, // Make the line thicker
+        borderWidth: 2,
       },
-    },
-    plugins: {
-      tooltip: {
-        enabled: true,
-        callbacks: {
-          // Customize tooltip content here if needed
-        },
-      },
-    },
+    }
   };
 
-  // Custom plugin to add shadow effect
   useEffect(() => {
     const chart = ChartJS.getChart('myChart');
 
-    if (chart) {
-      chart.options.plugins.beforeDraw = function (chart) {
-        const ctx = chart.ctx;
-        ctx.save();
-        ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
-        ctx.shadowBlur = 10;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 4;
-        ctx.restore();
-      };
-    }
+    // if (chart) {
+    //   chart.options.plugins.beforeDraw = function (chart: any) {
+    //     const ctx = chart.ctx;
+    //     ctx.save();
+    //     ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
+    //     ctx.shadowBlur = 10;
+    //     ctx.shadowOffsetX = 0;
+    //     ctx.shadowOffsetY = 4;
+    //     ctx.restore();
+    //   };
+    // }
   }, [timeRange, filterType]);
 
   return (
     <div className="">
       <h3 className="text-2xl font-bold mb-4">Dashboard Analytics</h3>
 
-      <div className="border rounded-[20px] p-6">
-        <div className="flex gap-4 mb-6">
+      <div className="border rounded-[20px]">
+        <div className="flex gap-6 mb-6 border-0 border-b p-6">
           <div>
-            <label className="mr-2">Filter by:</label>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
+              <label className="mr-2 font-[600] text-[16px]">Filter by:</label>
               <button
-                className={`px-4 py-2 rounded-md ${filterType === "sales" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${filterType === "sales" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
                 onClick={() => setFilterType("sales")}
               >
                 Sales
               </button>
               <button
-                className={`px-4 py-2 rounded-md ${filterType === "purchases" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${filterType === "purchases" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
                 onClick={() => setFilterType("purchases")}
               >
-                Purchases
+                Ticket Purchase
               </button>
             </div>
           </div>
 
           <div>
-            <label className="mr-2">Show by:</label>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
+              <label className="mr-2 font-[600] text-[16px]">Show by:</label>
               <button
-                className={`px-4 py-2 rounded-md ${timeRange === "weekly" ? "bg-green-500 text-white" : "bg-gray-200"}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${timeRange === "weekly" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
                 onClick={() => setTimeRange("weekly")}
               >
                 Weekly
               </button>
               <button
-                className={`px-4 py-2 rounded-md ${timeRange === "monthly" ? "bg-green-500 text-white" : "bg-gray-200"}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${timeRange === "monthly" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
                 onClick={() => setTimeRange("monthly")}
               >
                 Monthly
               </button>
               <button
-                className={`px-4 py-2 rounded-md ${timeRange === "yearly" ? "bg-green-500 text-white" : "bg-gray-200"}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${timeRange === "yearly" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
                 onClick={() => setTimeRange("yearly")}
               >
                 Yearly
@@ -169,12 +169,10 @@ const Analytics = () => {
           </div>
         </div>
 
-        <div style={{ height: "400px" }}>
+        <div style={{ height: getChartHeight() }} className="p-6">
           <Line data={data} options={options} id="myChart" />
         </div>
       </div>
     </div>
   );
 };
-
-export default Analytics;

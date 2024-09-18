@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -55,8 +55,7 @@ const Analytics = () => {
       {
         label: filterType === "sales" ? "Sales" : "Purchases",
         data: dummyData[timeRange][filterType],
-        borderColor: filterType === "sales" ? "rgb(75, 192, 192)" : "rgb(255, 99, 132)",
-        backgroundColor: filterType === "sales" ? "rgba(75, 192, 192, 0.2)" : "rgba(255, 99, 132, 0.2)",
+        borderColor: "#E91B41",
         fill: true,
         tension: 0.4,
         pointRadius: 3,
@@ -65,7 +64,7 @@ const Analytics = () => {
     ],
   };
 
-  // Chart options
+  // Chart options with line shadow
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -88,35 +87,48 @@ const Analytics = () => {
         },
       },
     },
-    events: ['click'],
-    onClick: (e: any, elements: any) => {
-      if (elements.length > 0) {
-        const ctx = e.chart.ctx;
-        const xAxis = e.chart.scales.x;
-        const point = elements[0].element;
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(point.x, point.y);
-        ctx.lineTo(point.x, xAxis.top);
-        ctx.strokeStyle = 'red';
-        ctx.setLineDash([5, 5]);
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        ctx.restore();
-      }
+    // Add a shadow to the line
+    elements: {
+      line: {
+        borderWidth: 3, // Make the line thicker
+      },
+    },
+    plugins: {
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          // Customize tooltip content here if needed
+        },
+      },
     },
   };
+
+  // Custom plugin to add shadow effect
+  useEffect(() => {
+    const chart = ChartJS.getChart('myChart');
+
+    if (chart) {
+      chart.options.plugins.beforeDraw = function (chart) {
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 4;
+        ctx.restore();
+      };
+    }
+  }, [timeRange, filterType]);
 
   return (
     <div className="">
       <h3 className="text-2xl font-bold mb-4">Dashboard Analytics</h3>
 
-      <div className="border p-6">
+      <div className="border rounded-[20px] p-6">
         <div className="flex gap-4 mb-6">
           <div>
+            <label className="mr-2">Filter by:</label>
             <div className="flex gap-2">
-                <label className="mr-2">Filter by:</label>
               <button
                 className={`px-4 py-2 rounded-md ${filterType === "sales" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
                 onClick={() => setFilterType("sales")}
@@ -133,8 +145,8 @@ const Analytics = () => {
           </div>
 
           <div>
+            <label className="mr-2">Show by:</label>
             <div className="flex gap-2">
-                <label className="mr-2">Show by:</label>
               <button
                 className={`px-4 py-2 rounded-md ${timeRange === "weekly" ? "bg-green-500 text-white" : "bg-gray-200"}`}
                 onClick={() => setTimeRange("weekly")}
@@ -158,7 +170,7 @@ const Analytics = () => {
         </div>
 
         <div style={{ height: "400px" }}>
-          <Line data={data} options={options} />
+          <Line data={data} options={options} id="myChart" />
         </div>
       </div>
     </div>

@@ -59,10 +59,17 @@ export default function MyEvents() {
             {filteredEvents.length > 0 ? (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {filteredEvents.map((event, index) => (
-                        <div key={index} className="border p-4 rounded-[10px]">
-                            <p>{event.series}</p>
-                            <h4 className="font-bold mb-2">{event.name}</h4>
-                            <p>{event.date}</p>
+                        <div key={index} className="border flex items-center gap-3 p-3 rounded-[10px]">
+                            <div className="min-w-[60px] min-h-[60px] border bg-cover bg-center rounded-[10px] overflow-hidden"
+                                    style={{
+                                        backgroundImage: `url("${event.image || '/defaultImage.png'}")`,
+                                    }}
+                                >
+                            </div>
+                            <div>
+                                <p className="inline-block max-w-max border rounded-[5px] px-2 font-[500]">{event.series}</p>
+                                <h4 className="font-[600] text-[20px] line-clamp-1">{event.name}</h4>
+                            </div>
                         </div>
                     ))}
                 </div>

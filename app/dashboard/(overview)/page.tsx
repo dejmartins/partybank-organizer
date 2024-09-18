@@ -1,6 +1,7 @@
 import CardWrapper from "@/app/ui/dashboard/cards";
 import EmptyState from "../../ui/dashboard/empty-state"
 import MyEvents from "@/app/ui/dashboard/my-events";
+import Analytics from "@/app/ui/dashboard/analytics";
 
 const fetchEventData = async () => {
   return ["add"];
@@ -33,8 +34,12 @@ export default async function Page() {
                 </div>
             </div>
 
-            <div className="border-0 border-t border-b border-[var(--pb-c-soft-grey)] p-6">
+            <div className="border-0 border-t-2 border-b-2 border-[var(--pb-c-soft-grey)] p-6">
                 <MyEvents />
+            </div>
+
+            <div className="p-6">
+                <Analytics />
             </div>
           </div>
         )}

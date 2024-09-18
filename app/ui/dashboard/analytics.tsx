@@ -71,7 +71,7 @@ const Analytics = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false
+        display: false,
       },
     },
     scales: {
@@ -88,7 +88,6 @@ const Analytics = () => {
         },
       },
     },
-    // Custom line drawing
     events: ['click'],
     onClick: (e: any, elements: any) => {
       if (elements.length > 0) {
@@ -115,34 +114,51 @@ const Analytics = () => {
 
       <div className="border p-6">
         <div className="flex gap-4 mb-6">
-            <div>
-            <label className="mr-2">Filter by:</label>
-            <select
-                value={filterType}
-                onChange={(e) => setFilterType(e.target.value)}
-                className="border rounded-md p-2"
-            >
-                <option value="sales">Sales</option>
-                <option value="purchases">Purchases</option>
-            </select>
+          <div>
+            <div className="flex gap-2">
+                <label className="mr-2">Filter by:</label>
+              <button
+                className={`px-4 py-2 rounded-md ${filterType === "sales" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                onClick={() => setFilterType("sales")}
+              >
+                Sales
+              </button>
+              <button
+                className={`px-4 py-2 rounded-md ${filterType === "purchases" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                onClick={() => setFilterType("purchases")}
+              >
+                Purchases
+              </button>
             </div>
+          </div>
 
-            <div>
-            <label className="mr-2">Show by:</label>
-            <select
-                value={timeRange}
-                onChange={(e) => setTimeRange(e.target.value)}
-                className="border rounded-md p-2"
-            >
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-            </select>
+          <div>
+            <div className="flex gap-2">
+                <label className="mr-2">Show by:</label>
+              <button
+                className={`px-4 py-2 rounded-md ${timeRange === "weekly" ? "bg-green-500 text-white" : "bg-gray-200"}`}
+                onClick={() => setTimeRange("weekly")}
+              >
+                Weekly
+              </button>
+              <button
+                className={`px-4 py-2 rounded-md ${timeRange === "monthly" ? "bg-green-500 text-white" : "bg-gray-200"}`}
+                onClick={() => setTimeRange("monthly")}
+              >
+                Monthly
+              </button>
+              <button
+                className={`px-4 py-2 rounded-md ${timeRange === "yearly" ? "bg-green-500 text-white" : "bg-gray-200"}`}
+                onClick={() => setTimeRange("yearly")}
+              >
+                Yearly
+              </button>
             </div>
+          </div>
         </div>
 
         <div style={{ height: "400px" }}>
-            <Line data={data} options={options} />
+          <Line data={data} options={options} />
         </div>
       </div>
     </div>

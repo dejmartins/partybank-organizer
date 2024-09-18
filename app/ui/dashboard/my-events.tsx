@@ -1,6 +1,8 @@
 'use client'
 
 import { events } from "@/app/lib/placeholder-data";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 import { useState } from "react";
 
 const getCurrentDate = () => new Date();
@@ -23,24 +25,24 @@ export default function MyEvents() {
 
     return (
         <div>
-            <div className="flex justify-between">
+            <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-7">
-                    <h3>My Events</h3>
-                    <div className="flex gap-4 my-4">
+                    <h3 className="text-2xl font-bold">My Events</h3>
+                    <div className="flex items-center gap-4 my-4">
                         <button
-                            className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] 
+                            className={`px-4 rounded-md border border-[#DDE0E3] 
                                 ${statusFilter === 'active' 
-                                    ? 'bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black' 
-                                    : 'bg-white border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]'}`}
+                                    ? 'bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]' 
+                                    : ''}`}
                             onClick={() => filterEvents('active')}
                         >
                             Active
                         </button>
                         <button
-                            className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] 
+                            className={`px-4 rounded-md border border-[#DDE0E3]
                                 ${statusFilter === 'upcoming' 
-                                    ? 'bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black' 
-                                    : 'bg-white border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]'}`}
+                                    ? 'bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]' 
+                                    : ''}`}
                             onClick={() => filterEvents('upcoming')}
                         >
                             Upcoming
@@ -48,13 +50,17 @@ export default function MyEvents() {
                     </div>
                 </div>
 
-                <p>See all Events</p>
+                <Link href={'/dashboard/events'} className="flex items-center gap-2 px-5 rounded-md bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]">
+                    See all events
+                    <ChevronDoubleRightIcon className="w-4 stroke-2" />
+                </Link>
             </div>
             
             {filteredEvents.length > 0 ? (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {filteredEvents.map((event, index) => (
-                        <div key={index} className="border p-4 rounded-md shadow-md">
+                        <div key={index} className="border p-4 rounded-[10px]">
+                            <p>{event.series}</p>
                             <h4 className="font-bold mb-2">{event.name}</h4>
                             <p>{event.date}</p>
                         </div>

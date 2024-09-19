@@ -62,13 +62,7 @@ export default function Page() {
             {filteredEvents.map((event) => (
               <div key={event.id}>
                 <Card
-                  imageUrl={event.image}
-                  name={event.name}
-                  series={event.series}
-                  location={event.location}
-                  date={event.date}
-                  startTime={event.startTime}
-                  venue={event.venue}
+                  event={event}
                 />
               </div>
             ))}

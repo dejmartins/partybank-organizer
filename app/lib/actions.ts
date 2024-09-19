@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-const useDrag = (onDrag: (x: number, y: number) => void) => {
+export const useDrag = (onDrag: (x: number, y: number) => void) => {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const startY = useRef(0);
@@ -40,4 +40,12 @@ const useDrag = (onDrag: (x: number, y: number) => void) => {
   return handleDrag;
 };
 
-export default useDrag;
+export function formatNumber(value: number) {
+  if (value >= 1000000) {
+    return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  if (value >= 1000) {
+    return (value / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  }
+  return value.toString();
+}

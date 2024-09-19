@@ -188,7 +188,25 @@ export const events = [
           purchasedAt: "2024-06-05T09:30:00Z",
           ticketID: "TCK12347",
           ticketName: "Standard"
-        }
+        },
+        {
+          email: "alice.brown@example.com",
+          purchasedAt: "2024-06-05T09:30:00Z",
+          ticketID: "TCK12347",
+          ticketName: "Standard"
+        },
+        {
+          email: "alice.brown@example.com",
+          purchasedAt: "2024-06-05T09:30:00Z",
+          ticketID: "TCK12347",
+          ticketName: "Standard"
+        },
+        {
+          email: "alice.brown@example.com",
+          purchasedAt: "2024-06-05T09:30:00Z",
+          ticketID: "TCK12347",
+          ticketName: "Standard"
+        },
       ]
     }
   },

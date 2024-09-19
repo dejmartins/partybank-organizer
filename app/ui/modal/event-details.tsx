@@ -24,7 +24,8 @@ export default function EventDetailsModal({
         <div className="flex justify-between px-6 py-4 border-0 border-b">
           <div className="flex items-center gap-3">
             <button
-              onClick={viewAnalytics ? toggleAnalyticsView : onClose}
+            //   onClick={viewAnalytics ? toggleAnalyticsView : onClose}
+              onClick={onClose}
               className="border cursor-pointer bg-[#F3F5F5] px-[10px] py-[5px] rounded-[15px]"
             >
               <ArrowLongLeftIcon className="w-[20px] h-[30px] stroke stroke-[3px]" />
@@ -36,7 +37,7 @@ export default function EventDetailsModal({
         </div>
 
         {viewAnalytics ? (
-          <EventAnalytics event={event} />
+          <EventAnalytics event={event} toggleAnalyticsView={toggleAnalyticsView} />
         ) : (
           <EventDetails event={event} toggleAnalyticsView={toggleAnalyticsView} />
         )}

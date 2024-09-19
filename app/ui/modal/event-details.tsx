@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ArrowLongLeftIcon, CalendarIcon, ClockIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { ArrowLongLeftIcon, CalendarIcon, ChevronDoubleRightIcon, ClockIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import Modal from "./base-modal";
 import { Event } from "@/app/lib/definitions";
 import EventAnalytics from "./event-analytics";
+import moment from "moment";
 
 export default function EventDetailsModal({
   event,
@@ -56,7 +57,7 @@ export function EventDetails({
     <div className="p-6 flex gap-3">
       <div className="hidden md:block">
         <div
-          className="min-w-[200px] min-h-full border bg-cover bg-center rounded-[10px] overflow-hidden"
+          className="min-w-[230px] min-h-full border bg-cover bg-center rounded-[10px] overflow-hidden"
           style={{
             backgroundImage: `url("${event.image || '/defaultImage.png'}")`,
           }}
@@ -64,12 +65,13 @@ export function EventDetails({
       </div>
 
       <div>
+        <p className="inline-block rounded-[4px] font-[400] px-2 py-[2px] text-sm bg-[#F7F6F7]">{event.series}</p>
         <h3 className="text-2xl font-bold">{event.name}</h3>
-        <p>{event.description}</p>
-        <p>Created By: {event.series}</p>
+        <p className="pb-2">{event.description}</p>
+        {/* <p>Created By: {event.series}</p> */}
 
         <div>
-          <div className="mr-12 flex items-center justify-between gap-2">
+          <div className="mr-12 flex items-center justify-between gap-2 border-0 border-b border-t w-full py-2">
             <div className="flex items-center gap-2">
               <MapPinIcon className="w-6" />
               <div>
@@ -81,7 +83,7 @@ export function EventDetails({
             </div>
             <div className="flex items-center gap-2">
               <CalendarIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">{event.date}</p>
+              <p className="text-[15px] line-clamp-2">{moment(event.date).format('MMMM Do, YYYY')}</p>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-6" />
@@ -90,14 +92,18 @@ export function EventDetails({
           </div>
         </div>
 
-        <p>Privacy: Available to {event.privacy}</p>
+        <div className="py-2 border-0 border-b">
+            <p className="font-[500]">Privacy: <span className="rounded-[4px] font-[400] px-2 text-sm bg-[#F7F6F7]">Available to {event.privacy}</span></p>
+        </div>
 
-        <button
-          onClick={toggleAnalyticsView}
-          className=""
-        >
-          Preview Analytics
-        </button>
+        <div className="py-2 flex justify-between">
+            <p></p>
+            <button onClick={toggleAnalyticsView} className="flex items-center text-sm gap-2 rounded-md text-[var(--pb-c-red)] font-[600]">
+                Preview Analytics
+                <ChevronDoubleRightIcon className="w-3 stroke-2" />
+            </button>
+        </div>
+
       </div>
     </div>
   );

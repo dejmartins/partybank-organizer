@@ -1,4 +1,4 @@
-import { ArrowLongLeftIcon } from "@heroicons/react/24/outline";
+import { ArrowLongLeftIcon, CalendarIcon, ClockIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import Modal from "./base-modal";
 import { Event } from "@/app/lib/definitions";
 
@@ -20,9 +20,44 @@ export default function EventDetailsModal({
                 <h3 className="text-xl font-bold line-clamp-1">Event Details</h3>
             </div>
         </div>
-        <div className="p-6">
-            <h3 className="text-2xl font-bold mb-2">{event.name}</h3>
-            <p>{event.description}</p>
+        <div className="p-6 flex gap-3">
+            <div className="hidden md:block">
+                <div
+                    className="min-w-[200px] min-h-full border bg-cover bg-center rounded-[10px] overflow-hidden"
+                    style={{
+                    backgroundImage: `url("${event.image || '/defaultImage.png'}")`,
+                    }}
+                ></div>
+            </div>
+            <div>
+                <h3 className="text-2xl font-bold">{event.name}</h3>
+                <p>{event.description}</p>
+                <p>Created By: {event.series}</p>
+
+                <div>
+                    <div className="mr-12 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                            <MapPinIcon className="w-6" />
+                            <div>
+                                <p className="text-[17px] font-[500]">
+                                    {event.location.city}, {event.location.country}
+                                </p>
+                                <p className="text-[15px] line-clamp-1">{event.venue}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <CalendarIcon className="w-6" />
+                            <p className="text-[15px] line-clamp-2">{event.date}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <ClockIcon className="w-6" />
+                            <p className="text-[15px] line-clamp-2">{event.startTime}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p>Privace: Available to {event.privacy}</p>
+            </div>
         </div>
       </div>
     </Modal>

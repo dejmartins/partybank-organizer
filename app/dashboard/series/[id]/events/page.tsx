@@ -46,13 +46,8 @@ export default function Page() {
             {events.map((event) => (
               <div key={event.id}>
                 <Card
-                  imageUrl={event.image}
-                  name={event.name}
-                  series={selectedSeries?.name}
-                  location={event.location}
-                  date={event.date}
-                  startTime={event.startTime}
-                  venue={event.venue}
+                // @ts-ignore
+                  event={event}
                 />
               </div>
             ))}

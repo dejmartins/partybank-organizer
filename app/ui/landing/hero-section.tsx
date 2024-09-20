@@ -13,7 +13,7 @@ export default function HeroSection() {
           </h1>
   
           <p className="text-lg md:text-xl mb-8 max-w-lg mx-auto">
-            Discover unforgettable events, organize your parties, and experience the best moments with Partybank.
+            Effortlessly plan, manage, and elevate your events with Partybank, the ultimate platform for organizers to create unforgettable experiences.
           </p>
   
           <div className="flex gap-4">

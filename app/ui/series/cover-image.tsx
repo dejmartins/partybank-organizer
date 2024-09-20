@@ -1,4 +1,4 @@
-import useDrag from '@/app/lib/actions';
+import { useDrag } from '@/app/lib/actions';
 
 interface CoverImageUploadProps {
   selectedImage: string;

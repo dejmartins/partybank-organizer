@@ -44,8 +44,8 @@ export default function EventAnalytics({ event, toggleAnalyticsView }: { event: 
         <div className="max-h-[200px] overflow-y-auto border rounded-[20px] my-4">
             <ul>
             {event.analytics.attendees.map((attendee) => (
-                <div className="border-b px-3 py-2">
-                    <li key={attendee.ticketID} className="flex justify-between items-center gap-2">
+                <div key={attendee.ticketID} className="border-b px-3 py-2">
+                    <li className="flex justify-between items-center gap-2">
                         <p className="font-[300] text-[15px]">{attendee.email}</p>
                         <div>
                             <p className="font-[400] text-[12px] text-right">{new Date(attendee.purchasedAt).toLocaleString()}</p>

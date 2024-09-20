@@ -60,7 +60,7 @@ export default function EventAnalytics({ event, toggleAnalyticsView }: { event: 
         <div className="my-4">
             <button onClick={toggleAnalyticsView} className="flex items-center text-sm gap-2 rounded-md text-[var(--pb-c-red)] font-[600]">
                 <ChevronDoubleLeftIcon className="w-3 stroke-2" />
-                Preview Analytics
+                Event Details
             </button>
         </div>
     </div>

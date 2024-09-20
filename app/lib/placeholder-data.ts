@@ -53,7 +53,14 @@ export const series = [
         "date": "2024-09-05",
         "startTime": "15:00",
         "image": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        analytics: {
+          totalTicketSales: 700000,
+          totalTicketsSold: 350,
+          totalValidatedTickets: 330,
+          totalCancelledTickets: 20,
+          attendees: []
+        }
       },
       {
         "id": "event_004",
@@ -67,7 +74,14 @@ export const series = [
         "date": "2024-06-21",
         "startTime": "18:30",
         "image": null,
-        "status": "past"
+        "status": "past",
+        analytics: {
+          totalTicketSales: 700000,
+          totalTicketsSold: 350,
+          totalValidatedTickets: 330,
+          totalCancelledTickets: 20,
+          attendees: []
+        }
       }
     ]
   },
@@ -89,7 +103,14 @@ export const series = [
         "date": "2024-08-11",
         "startTime": "11:00",
         "image": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        analytics: {
+          totalTicketSales: 700000,
+          totalTicketsSold: 350,
+          totalValidatedTickets: 330,
+          totalCancelledTickets: 20,
+          attendees: []
+        }
       },
       {
         "id": "event_006",
@@ -103,7 +124,14 @@ export const series = [
         "date": "2024-05-15",
         "startTime": "13:00",
         "image": null,
-        "status": "past"
+        "status": "past",
+        analytics: {
+          totalTicketSales: 700000,
+          totalTicketsSold: 350,
+          totalValidatedTickets: 330,
+          totalCancelledTickets: 20,
+          attendees: []
+        }
       }
     ]
   },
@@ -125,7 +153,14 @@ export const series = [
         "date": "2024-11-02",
         "startTime": "10:00",
         "image": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        analytics: {
+          totalTicketSales: 700000,
+          totalTicketsSold: 350,
+          totalValidatedTickets: 330,
+          totalCancelledTickets: 20,
+          attendees: []
+        }
       },
       {
         "id": "event_008",
@@ -139,7 +174,14 @@ export const series = [
         "date": "2024-03-29",
         "startTime": "12:00",
         "image": null,
-        "status": "active"
+        "status": "active",
+        analytics: {
+          totalTicketSales: 700000,
+          totalTicketsSold: 350,
+          totalValidatedTickets: 330,
+          totalCancelledTickets: 20,
+          attendees: []
+        }
       }
     ]
   }

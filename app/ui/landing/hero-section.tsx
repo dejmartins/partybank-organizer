@@ -1,13 +1,13 @@
 export default function HeroSection() {
     return (
-      <section className="relative bg-cover bg-center h-screen flex flex-col justify-center items-center text-white"
+      <section className="relative bg-cover bg-center h-screen flex flex-col justify-center items-center text-white rounded-b-[20px]"
         style={{
-          backgroundImage: 'url("/path-to-your-background-image.jpg")'
+            backgroundImage: 'url("https://res.cloudinary.com/drddoxnsi/image/upload/v1724406331/PARTYBANK/ORGANIZER/hero-image_xqdvny.png")',
         }}
       >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="absolute inset-0 bg-black opacity-70 rounded-b-[30px]"></div>
   
-        <div className="relative z-10 text-center">
+        <div className="relative z-10 text-center flex flex-col items-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
             Welcome to Partybank
           </h1>
@@ -17,11 +17,8 @@ export default function HeroSection() {
           </p>
   
           <div className="flex gap-4">
-            <a href="/signup" className="bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-lg font-bold">
-              Get Started
-            </a>
-            <a href="#learn-more" className="bg-transparent border border-white py-3 px-6 rounded-lg font-bold hover:bg-white hover:text-black transition">
-              Learn More
+            <a href="/signup" className="bg-[var(--pb-c-red)] text-white font-[500] border-[2px] border-[#4E0916] p-3 rounded-[8px] px-10 font-[700]">
+              Create Event
             </a>
           </div>
         </div>

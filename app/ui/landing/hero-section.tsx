@@ -17,7 +17,7 @@ export default function HeroSection() {
           </p>
   
           <div className="flex gap-4">
-            <a href="/signup" className="bg-[var(--pb-c-red)] text-white font-[500] border-[2px] border-[#4E0916] p-3 rounded-[8px] px-10 font-[700]">
+            <a href="/auth/signin" className="bg-[var(--pb-c-red)] text-white font-[500] border-[2px] border-[#4E0916] p-3 rounded-[8px] px-10 font-[700]">
               Create Event
             </a>
           </div>

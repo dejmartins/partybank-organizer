@@ -1,6 +1,6 @@
 export default function WhatWeDo() {
     return (
-      <section className="py-16 bg-[#FFFFFF] mt-5 rounded-[20px]">
+      <section className="py-16 bg-[#FFFFFF] my-5 rounded-[20px]">
         <div className="container mx-auto px-3 md:px-6">
             <div className="flex justify-center">
                 <p className="border inline-block border border-[#FBD1D9] rounded-[20px] bg-[#FBD1D933] mb-10 p-2 px-3">What we do?</p>

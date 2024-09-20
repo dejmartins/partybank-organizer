@@ -1,3 +1,4 @@
+import Footer from "./ui/landing/footer";
 import Header from "./ui/landing/header";
 import HeroSection from "./ui/landing/hero-section";
 import WhatWeDo from "./ui/landing/what-we-do";
@@ -17,6 +18,8 @@ export default function Home() {
       <div className="p-4 md:p-8">
         <WhyChooseUs />
       </div>
+
+      <Footer />
     </main>
   );
 }

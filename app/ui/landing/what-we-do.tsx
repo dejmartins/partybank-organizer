@@ -7,7 +7,7 @@ export default function WhatWeDo() {
             </div>
           <h2 className="text-[50px] font-[700] text-center">What We Do?</h2>
           <p className="text-lg text-center mb-12 max-w-3xl mx-auto">
-            Partybank is designed for organizers of live entertainment events—whether it's a high-energy party, a massive music festival, or a packed concert.
+            Partybank is designed for organizers of live entertainment events—whether it&apos;s a high-energy party, a massive music festival, or a packed concert.
           </p>
   
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

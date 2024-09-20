@@ -6,7 +6,7 @@ import Preview from '@/app/ui/series/preview';
 import SeriesDetails from '@/app/ui/series/series-details';
 import CoverImageUpload from '@/app/ui/series/cover-image';
 
-export default async function Page() {
+export default function Page() {
     const [selectedImage, setSelectedImage] = useState('/defaultImage.png');
     const [backgroundPosition, setBackgroundPosition] = useState({ x: 50, y: 50 });
     const [seriesName, setSeriesName] = useState('Series Name');

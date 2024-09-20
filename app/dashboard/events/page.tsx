@@ -62,23 +62,17 @@ export default function Page() {
             {filteredEvents.map((event) => (
               <div key={event.id}>
                 <Card
-                  imageUrl={event.image}
-                  name={event.name}
-                  series={event.series}
-                  location={event.location}
-                  date={event.date}
-                  startTime={event.startTime}
-                  venue={event.venue}
+                  event={event}
                 />
               </div>
             ))}
             <div className={`${statusFilter === 'upcoming' ? 'block' : 'hidden'}`}>
-              <AddMore mainText="New Event" subText="Create events to create more memories" />
+              <AddMore href="/" mainText="New Event" subText="Create events to create more memories" />
             </div>
           </div>
         ) : (
           <div className="md:mt-20">
-            <EmptyState />
+            <EmptyState title="No records yet!" />
           </div>
         )}
       </div>

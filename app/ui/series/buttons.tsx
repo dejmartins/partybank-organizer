@@ -32,3 +32,11 @@ export function SaveSeries({className}: {className: string}) {
         </Button>
     )
 }
+
+export function CreateSeries({className}: {className: string}) {
+    return (
+        <Button className={`bg-[var(--pb-c-red)] text-white font-[500] border-[2px] border-black ${className}`}>
+            Create Series
+        </Button>
+    )
+}

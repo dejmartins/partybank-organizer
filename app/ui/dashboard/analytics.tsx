@@ -65,10 +65,6 @@ export default function Analytics() {
     ],
   };
 
-  const getChartHeight = () => {
-    return window.innerWidth < 768 ? "250px" : "400px";
-  };
-
   // Chart options with line shadow
   const options = {
     responsive: true,
@@ -169,7 +165,7 @@ export default function Analytics() {
           </div>
         </div>
 
-        <div style={{ height: getChartHeight() }} className="p-6">
+        <div style={{ height: '400px' }} className="p-6">
           <Line data={data} options={options} id="myChart" />
         </div>
       </div>

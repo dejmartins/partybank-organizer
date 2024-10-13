@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "partybank-red": "#E91B41",
+        "partybank-text-black": "#080D18",
+        "partybank-soft-grey": "#F8F9F9",
+        "partybank-mid-red": "#FEEFF2",
+        "partybank-light-red": "#FFF9FA",
+        "partybank-border": "#DDE0E3",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

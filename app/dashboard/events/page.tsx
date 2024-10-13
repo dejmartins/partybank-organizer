@@ -10,9 +10,13 @@ export default function Page() {
   const [statusFilter, setStatusFilter] = useState("active");
   const [isPublished, setisPublished] = useState(false);
 
-  const filteredEvents = events.filter(
-    (event) => event.isPublished === isPublished
-  );
+  const filteredEvents = events.filter((event) => {
+    if (!isPublished) {
+      return event.isPublished === isPublished;
+    } else {
+      return event.status === statusFilter;
+    }
+  });
 
   return (
     <div className="flex flex-col border-0 md:border-x-[20px] border-[var(--pb-c-soft-grey)]">
@@ -83,12 +87,49 @@ export default function Page() {
         </div>
       </div>
 
+      {isPublished && (
+        <div className="w-full px-4 mt-4">
+          <div className="flex gap-0 md:gap-2 p-[2px] md:p-2">
+            <button
+              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
+                statusFilter === "active"
+                  ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
+                  : "border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
+              }`}
+              onClick={() => setStatusFilter("active")}
+            >
+              Active
+            </button>
+            <button
+              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
+                statusFilter === "upcoming"
+                  ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
+                  : "border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
+              }`}
+              onClick={() => setStatusFilter("upcoming")}
+            >
+              Upcoming
+            </button>
+            <button
+              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
+                statusFilter === "past"
+                  ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
+                  : " border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
+              }`}
+              onClick={() => setStatusFilter("past")}
+            >
+              Past
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="flex-grow overflow-y-auto p-6 lg:p-8">
         {filteredEvents.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
             <div>
               <AddMore
-                href="/"
+                href="events/create"
                 mainText="New Event"
                 subText="Create events to keep your events put together"
               />

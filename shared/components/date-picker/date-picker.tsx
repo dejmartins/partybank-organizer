@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+
 import { IoIosArrowDown } from "react-icons/io";
 import { IoAlarmOutline } from "react-icons/io5";
 import DatePicker from "react-multi-date-picker";
@@ -41,7 +42,34 @@ const PBDatePicker = ({ setDateValue, value }: PropT) => {
               onChange={(value: any) => {
                 setDateValue(value);
               }}
-              arrow
+              mapDays={({
+                date,
+                today,
+                selectedDate,
+                currentMonth,
+                isSameDate,
+              }) => {
+                let props: any = {};
+
+                props.style = {
+                  borderRadius: "3px",
+                };
+
+                if (isSameDate(date, today))
+                  props.style = {
+                    color: "#fff",
+                    backgroundColor: "#ccc",
+                  };
+                if (isSameDate(date, selectedDate))
+                  props.style = {
+                    ...props.style,
+                    color: "#fff",
+                    backgroundColor: "#E91B41",
+                    fontWeight: "bold",
+                  };
+
+                return props;
+              }}
               style={{
                 border: "none",
                 fontSize: "0.8rem",

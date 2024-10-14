@@ -31,3 +31,16 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.MuiAutocomplete-input:focus-visible {
+  outline: none !important; /* Remove the blue outline */
+  box-shadow: none !important; /* Remove the focus shadow */
+}
+
+.css-1lztu7b-JoyAutocomplete-root:not([data-skip-inverted-colors]) {
+  --Input-focusedHighlight: var(--_Input-focusedHighlight, #fff);
+}
+
+.css-1nrxm3h-JoyAutocomplete-root:not([data-skip-inverted-colors]) {
+  --Input-focusedHighlight: none !important;
+}

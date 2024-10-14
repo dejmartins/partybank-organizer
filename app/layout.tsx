@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { redHatDisplay } from "./ui/fonts";
-import "@/app/ui/styles/global.css"
+import "@/app/ui/styles/global.css";
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Partybank',
-    default: 'Partybank',
+    template: "%s | Partybank",
+    default: "Partybank",
   },
-  description: 'Where Every Ticket Holds A Celebration',
-  metadataBase: new URL('https://organizer.thepartybank.com/'),
+  description: "Where Every Ticket Holds A Celebration",
+  metadataBase: new URL("https://organizer.thepartybank.com/"),
 };
 
 export default function RootLayout({
@@ -18,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${redHatDisplay.className} antialiased`}>{children}</body>
+      <body className={`${redHatDisplay.className} antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }

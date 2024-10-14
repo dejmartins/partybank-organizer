@@ -39,6 +39,7 @@ const PBTimePicker = ({ label, setTimeValue, value }: PropT) => {
               ref={timeInputRef}
               disableDayPicker
               value={value}
+              minDate={new Date()}
               format="hh:mm:ss A"
               onChange={(value: any) => {
                 setTimeValue(value);

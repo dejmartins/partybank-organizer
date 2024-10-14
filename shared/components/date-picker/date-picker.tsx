@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoAlarmOutline } from "react-icons/io5";
 import DatePicker from "react-multi-date-picker";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 type PropT = {
   setDateValue: Function;

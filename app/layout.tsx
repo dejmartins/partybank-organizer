@@ -20,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${redHatDisplay.className} antialiased`}>
         {children}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBClqTiVBDejbzvcHLcUhheuMM5U50eXTE&libraries=geometry,places"></script>
       </body>
     </html>
   );

@@ -5,13 +5,19 @@ import { IoIosArrowDown } from "react-icons/io";
 import PBTimePicker from "@/shared/components/time-picker/time-picker";
 import PBDatePicker from "@/shared/components/date-picker/date-picker";
 import { IoLocationOutline } from "react-icons/io5";
+import PlacesInput from "@/shared/components/places/PlacesInput";
+import EventPlacesInput from "@/shared/components/event-places-input/event-places-input";
 
 type PropT = {
   eventDateObj: {
     eventDate: any;
     startTime: any;
     endTime: any;
-    eventLocation: string;
+    eventLocation: {
+      address: string;
+      lat: any;
+      lng: any;
+    };
   };
   setEventDateObj: Function;
 };
@@ -31,20 +37,33 @@ export default function EventDateLocation({
               <h3 className="font-[700] text-[20px]">Date</h3>
             </div>
             <div className="mt-2 flex flex-col gap-3 md:gap-2 md:flex-row">
-              <PBDatePicker setDateValue={() => {}} value={eventDate} />
+              <PBDatePicker
+                setDateValue={(val: any) => {
+                  setEventDateObj((prev: any) => {
+                    return { ...prev, eventDate: new Date(val) };
+                  });
+                }}
+                value={eventDate}
+              />
 
               <PBTimePicker
                 label="Starts"
-                setTimeValue={() => {}}
+                setTimeValue={(val: any) => {
+                  setEventDateObj((prev: any) => {
+                    return { ...prev, startTime: new Date(val) };
+                  });
+                }}
                 value={startTime}
               />
 
               <PBTimePicker
                 label="Ends"
-                setTimeValue={(value: any) => {
-                  console.log(value);
+                setTimeValue={(val: any) => {
+                  setEventDateObj((prev: any) => {
+                    return { ...prev, endTime: new Date(val) };
+                  });
                 }}
-                value={startTime}
+                value={endTime}
               />
             </div>
           </div>
@@ -58,12 +77,36 @@ export default function EventDateLocation({
               </span>
             </div>
             <div className="mt-4">
-              <div className="w-[55%] h-20 p-4 flex items-center border border-partybank-border rounded-lg cursor-pointer">
-                <div className="flex items-center gap-x-4">
-                  <IoLocationOutline size={20} />
-                  <span>Add event location</span>
-                </div>
-              </div>
+              <EventPlacesInput
+                autoComplete="none"
+                name="dropoff.address"
+                value={eventLocation.address}
+                placeholder="Add event location"
+                handleGeoCode={(valueObj: any) => {
+                  const { lat, lng } = valueObj;
+                  setEventDateObj((prev: any) => {
+                    return {
+                      ...prev,
+                      eventLocation: {
+                        ...eventLocation,
+                        lat: lat,
+                        lng: lng,
+                      },
+                    };
+                  });
+                }}
+                handleSelect={(ev: any) => {
+                  setEventDateObj((prev: any) => {
+                    return {
+                      ...prev,
+                      eventLocation: {
+                        ...eventLocation,
+                        address: ev,
+                      },
+                    };
+                  });
+                }}
+              />
             </div>
           </div>
         </div>

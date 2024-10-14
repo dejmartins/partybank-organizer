@@ -1,0 +1,29 @@
+input[aria-expanded="true"] {
+  + .autocomplete-dropdown-container {
+    position: absolute;
+    background-color: white;
+    width: 300px;
+    margin-top: 5px;
+    z-index: 2;
+    .description-items {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 1em;
+      width: 100%;
+      .items {
+        font-size: 14px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item--active {
+  background-color: #fafafa;
+}

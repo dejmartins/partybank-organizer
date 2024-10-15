@@ -29,12 +29,12 @@ export default function EventDateLocation({
   const { startTime, eventDate, endTime, eventLocation } = eventDateObj;
   return (
     <div>
-      <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-4 xl:pb-6">
-        <div className="w-full flex flex-col md:w-11/12 m-auto py-4 gap-y-4">
+      <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-0 xl:pb-0">
+        <div className="w-full flex flex-col md:w-11/12 m-auto py-4 gap-y-4 md:gap-y-2">
           {/* --- date ---- */}
           <div className="w-full pb-6">
             <div className="w-full">
-              <h3 className="font-[700] text-[20px]">Date</h3>
+              <h3 className="font-[700] text-[24px]">Date</h3>
             </div>
             <div className="mt-2 flex flex-col gap-3 md:gap-2 md:flex-row">
               <PBDatePicker
@@ -69,14 +69,14 @@ export default function EventDateLocation({
           </div>
           <hr />
           {/* ---location----- */}
-          <div className="w-full pb-6">
+          <div className="w-full pb-2">
             <div className="flex gap-x-4 w-full items-center">
-              <h3 className="font-[700] text-[20px]">Location</h3>
+              <h3 className="font-[700] text-[24px]">Location</h3>
               <span className="bg-partybank-red h-6 flex items-center px-3 rounded border border-[#4E0916] text-white text-sm font-bold">
                 Venue
               </span>
             </div>
-            <div className="mt-4">
+            <div className="mt-2">
               <EventPlacesInput
                 autoComplete="none"
                 name="dropoff.address"

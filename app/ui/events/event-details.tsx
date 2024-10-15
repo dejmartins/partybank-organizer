@@ -38,14 +38,14 @@ export default function EventDetails({
 }: PropT) {
   return (
     <div>
-      <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-4 xl:pb-6">
+      <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-0 xl:py-2">
         <div className="w-full flex flex-col md:w-11/12 m-auto py-4 gap-y-2">
           {/* --- datails ---- */}
           <div className="w-full pb-4">
             <div className="w-full">
-              <h3 className="font-[700] text-[20px]">Event Details</h3>
+              <h3 className="font-[700] text-[24px]">Event Details</h3>
             </div>
-            <div className="w-full flex flex-col md:flex-row mt-4 py-2 gap-4">
+            <div className="w-full flex flex-col md:flex-row mt-2 py-2 gap-4">
               <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBInput
                   value={eventDetailsObj.eventName}
@@ -99,10 +99,10 @@ export default function EventDetails({
           {/* ---visibility----- */}
           <div className="w-full">
             <div className="flex gap-x-4 w-full items-center">
-              <h3 className="font-[700] text-[20px]">Event Visibility</h3>
+              <h3 className="font-[700] text-[24px]">Event Visibility</h3>
             </div>
 
-            <div className="w-full flex flex-col md:flex-row mt-4  gap-x-4">
+            <div className="w-full flex flex-col md:flex-row mt-2  gap-x-4">
               <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3">
                 <PBAutoSelect
                   value={eventDetailsObj.eventVisibility.label ?? ""}

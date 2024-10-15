@@ -8,6 +8,7 @@ import EventTicketPreview from "@/app/ui/events/event-ticket-preview";
 import EventCoverImage from "@/app/ui/events/cover-image";
 import TicketCategory from "@/app/ui/events/ticket-category";
 import TicketSales from "@/app/ui/events/ticket-sales";
+import TicketDetails from "@/app/ui/events/ticket-details";
 
 export default function TicketPage() {
   const [ticketDateObj, settickDateObj] = useState({
@@ -57,6 +58,11 @@ export default function TicketPage() {
         <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
           <TicketCategory />
           <TicketSales
+            ticketDateObj={{ ...ticketDateObj }}
+            setticketDateObj={settickDateObj}
+          />
+
+          <TicketDetails
             ticketDateObj={{ ...ticketDateObj }}
             setticketDateObj={settickDateObj}
           />

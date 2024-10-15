@@ -22,11 +22,11 @@ export default function TicketSales({
   const { startDate, endDate, startTime, endTime } = ticketDateObj;
 
   return (
-    <div className="w-full flex lex-col md:flex-row py-6 border-b border-partybank-border p-4 xl:p-6">
+    <div className="w-full flex lex-col md:flex-row py-6 border-b border-partybank-border p-4 md:p-0 xl:py-4">
       <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
         <div className="w-full">
           <div className="flex gap-x-4 w-full items-center">
-            <h3 className="font-[700] text-[20px]">Ticket Sales Time & Date</h3>
+            <h3 className="font-[700] text-[24px]">Ticket Sales Time & Date</h3>
           </div>
           <p className="text-base">
             Enter specified period for ticket avalaibility

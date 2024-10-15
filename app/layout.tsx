@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { redHatDisplay } from "./ui/fonts";
 import "@/app/ui/styles/global.css";
+import Providers from "@/store/provider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: {
@@ -19,8 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${redHatDisplay.className} antialiased`}>
-        {children}
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBClqTiVBDejbzvcHLcUhheuMM5U50eXTE&libraries=geometry,places"></script>
+        <Providers>{children}</Providers>
+        <ToastContainer
+          hideProgressBar
+          autoClose={1000}
+          position="bottom-center"
+        />
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqR9iuBHfJF1u_uZEjGV_NMMsmD0Di1l8&libraries=geometry,places"></script>
       </body>
     </html>
   );

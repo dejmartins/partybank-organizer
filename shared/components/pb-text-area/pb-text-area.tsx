@@ -17,9 +17,9 @@ export default function PBTextArea({
     <div className="w-full">
       {isActive}
       <div
-        className="flex  w-full bg-white h-[64px] rounded-md px-2"
+        className="flex  w-full bg-white h-[64px] rounded-md px-2 transition-all duration-300 ease-in-out transform"
         style={{
-          border: isActive ? "2px solid #ddd" : "",
+          border: isActive ? "2px solid #080D18" : "",
         }}
       >
         {icon && <div className="w-5">{icon}</div>}

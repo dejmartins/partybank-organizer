@@ -1,28 +1,31 @@
 "use client";
 import { useEffect, useState } from "react";
 import { BackButton } from "@/app/ui/series/buttons";
-
+import { CreateSeries } from "@/app/ui/series/buttons";
+import Preview from "@/app/ui/series/preview";
+import SeriesDetails from "@/app/ui/series/series-details";
+import CoverImageUpload from "@/app/ui/series/cover-image";
 import EventPreview from "@/app/ui/events/event-preview";
+import { CreateEvent, ProceedToTicket } from "@/app/ui/events/buttons";
+import Button from "@/app/ui/buttons/button";
 import ProceedButton from "@/shared/components/buttons/proceed-button";
 import EventCoverImage from "@/app/ui/events/cover-image";
 import EventDateLocation from "@/app/ui/events/date-location";
 import EventDetails from "@/app/ui/events/event-details";
 import { getTimeWithAmPm } from "@/shared/utils/helper";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "@/store/store";
-import { saveEvent } from "@/store/create-event/create-event-slice";
 
-export default function Page() {
-  const [isFormValid, setisFormValid] = useState(false);
+export default function TicketPage() {
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
   const [backgroundPosition, setBackgroundPosition] = useState({
     x: 50,
     y: 50,
   });
+  const [eventName, setEventName] = useState("Event Name");
+  const [eventDescription, setEventDescription] = useState("Add Description");
   const [eventDateObj, seteventDateObj] = useState({
-    eventDate: new Date().toISOString(),
-    startTime: new Date().toISOString(),
-    endTime: new Date().toISOString(),
+    eventDate: new Date(),
+    startTime: new Date(),
+    endTime: new Date(),
     eventLocation: {
       address: "",
       lat: "",
@@ -33,47 +36,14 @@ export default function Page() {
     eventName: "Event Name",
     eventDescription: "Add Description",
     eventContact: "",
-    eventVisibility: {
-      label: "",
-      id: "",
-    },
+    eventVisibility: "",
     selectedSeries: {
-      label: "",
+      name: "",
       id: "",
     },
   });
-  const dispatch = useDispatch();
-  const router = useRouter();
 
-  //@desc: dispatch event to store and navigate to ticket creation page
-  const handleProceed = () => {
-    dispatch(saveEvent({ ...eventDateObj, ...eventDetailsObj, tickets: [] }));
-    router.push("./create/tickets");
-  };
-
-  const handleValidation = () => {
-    const {
-      eventName,
-      eventContact,
-      eventDescription,
-      eventVisibility,
-      selectedSeries,
-    } = eventDetailsObj;
-    const { eventLocation } = eventDateObj;
-    const isValid =
-      eventName.length > 1 &&
-      selectedImage !== null &&
-      eventContact.length > 5 &&
-      eventDescription.length > 10 &&
-      eventLocation.address.length > 5 &&
-      selectedSeries.label.length > 0 &&
-      eventVisibility.label.length > 0;
-    setisFormValid(isValid);
-  };
-
-  useEffect(() => {
-    handleValidation();
-  }, [eventDetailsObj, eventDateObj, selectedImage]);
+  useEffect(() => {}, [eventDetailsObj]);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
@@ -84,17 +54,19 @@ export default function Page() {
 
         <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
           <div className="flex items-center gap-7">
-            <BackButton href="/dashboard/events" />
+            <BackButton href="/dashboard/events/create" />
             <p className="text-[23px] md:text-[30px] md:font-[700]">
-              Create Events
+              Create Events<span className="font-light text-lg">/Tickets</span>
             </p>
           </div>
           <div className="hidden md:block">
-            <ProceedButton
-              label="Proceed to ticket"
-              onClick={handleProceed}
-              isDisabled={!isFormValid}
-            />
+            <button
+              className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
+              onClick={() => ""}
+              disabled={true}
+            >
+              Create Event
+            </button>
           </div>
         </div>
       </div>
@@ -108,22 +80,7 @@ export default function Page() {
         />
 
         <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
-          <EventCoverImage
-            selectedImage={selectedImage}
-            backgroundPosition={backgroundPosition}
-            onImageChange={setSelectedImage}
-            onPositionChange={setBackgroundPosition}
-          />
-
-          <EventDateLocation
-            eventDateObj={eventDateObj}
-            setEventDateObj={seteventDateObj}
-          />
-
-          <EventDetails
-            eventDetailsObj={eventDetailsObj}
-            seteventDetailsObj={seteventDetailsObj}
-          />
+          {/* here */}
         </div>
       </div>
     </div>

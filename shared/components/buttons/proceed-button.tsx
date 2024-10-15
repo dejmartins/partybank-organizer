@@ -16,7 +16,7 @@ export default function ProceedButton({
 }: PropT) {
   return (
     <button
-      className={`bg-partybank-red flex items-center gap-x-2 disabled:bg-gray-400 text-white font-[500] px-4 border-[1px] border-[#4E0916] rounded-md h-[40px] ${className}`}
+      className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0] ${className}`}
       onClick={() => onClick()}
       disabled={isDisabled}
     >

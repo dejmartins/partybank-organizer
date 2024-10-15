@@ -40,7 +40,7 @@ export default function EventDateLocation({
               <PBDatePicker
                 setDateValue={(val: any) => {
                   setEventDateObj((prev: any) => {
-                    return { ...prev, eventDate: new Date(val) };
+                    return { ...prev, eventDate: new Date(val).toISOString() };
                   });
                 }}
                 value={eventDate}
@@ -50,7 +50,7 @@ export default function EventDateLocation({
                 label="Starts"
                 setTimeValue={(val: any) => {
                   setEventDateObj((prev: any) => {
-                    return { ...prev, startTime: new Date(val) };
+                    return { ...prev, startTime: new Date(val).toISOString() };
                   });
                 }}
                 value={startTime}
@@ -60,7 +60,7 @@ export default function EventDateLocation({
                 label="Ends"
                 setTimeValue={(val: any) => {
                   setEventDateObj((prev: any) => {
-                    return { ...prev, endTime: new Date(val) };
+                    return { ...prev, endTime: new Date(val).toISOString() };
                   });
                 }}
                 value={endTime}
@@ -83,7 +83,7 @@ export default function EventDateLocation({
                 value={eventLocation.address}
                 placeholder="Add event location"
                 handleGeoCode={(valueObj: any) => {
-                  const { lat, lng } = valueObj;
+                  const { lat, lng, address } = valueObj;
                   setEventDateObj((prev: any) => {
                     return {
                       ...prev,
@@ -91,6 +91,7 @@ export default function EventDateLocation({
                         ...eventLocation,
                         lat: lat,
                         lng: lng,
+                        address,
                       },
                     };
                   });

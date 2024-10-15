@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PBInput from "@/shared/components/pbInput/pb-input";
 import { MdEventNote } from "react-icons/md";
-import PBAutoSelect from "@/shared/components/pb-auto-select/pb-auth-select";
+import PBAutoSelect from "@/shared/components/pb-auto-select/pb-auto-select";
 import RandomIcon from "@/shared/components/icons/random-icon";
 import PBTextArea from "@/shared/components/pb-text-area/pb-text-area";
 import { FiEye } from "react-icons/fi";
@@ -12,19 +12,34 @@ type PropT = {
     eventName: string;
     eventDescription: string;
     eventContact: string;
-    eventVisibility: string;
-    selectedSeries: {
-      name: string;
+    eventVisibility: {
       id: string;
+      label: string;
+    };
+    selectedSeries: {
+      id: string;
+      label: string;
     };
   };
   seteventDetailsObj: Function;
 };
 
+const dummySeries = [
+  { label: "Shawshank Redemption", year: 1994 },
+  { label: "The Godfather", year: 1972 },
+  { label: "The Godfather: Part II", year: 1974 },
+];
+
+const dummyVisibilityties = [{ label: "Public" }, { label: "Private" }];
+
 export default function EventDetails({
   eventDetailsObj,
   seteventDetailsObj,
 }: PropT) {
+  useEffect(() => {
+    console.log("===>", eventDetailsObj);
+  }, []);
+
   return (
     <div>
       <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-4 xl:pb-6">
@@ -60,10 +75,15 @@ export default function EventDetails({
               </div>
               <div className="w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBAutoSelect
-                  value={eventDetailsObj.selectedSeries.name}
-                  setvalue={() => ""}
+                  value={eventDetailsObj.selectedSeries.label ?? ""}
+                  setvalue={(event: any) => {
+                    seteventDetailsObj((prev: any) => {
+                      return { ...prev, selectedSeries: event };
+                    });
+                  }}
                   placeHolder="Series"
                   icon={<RandomIcon />}
+                  options={dummySeries}
                 />
 
                 <PBInput
@@ -89,10 +109,15 @@ export default function EventDetails({
             <div className="w-full flex flex-col md:flex-row mt-4  gap-x-4">
               <div className="w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3">
                 <PBAutoSelect
-                  value={""}
-                  setvalue={() => ""}
+                  value={eventDetailsObj.eventVisibility.label}
+                  setvalue={(event: any) => {
+                    seteventDetailsObj((prev: any) => {
+                      return { ...prev, eventVisibility: event };
+                    });
+                  }}
                   placeHolder="Visibility"
                   icon={<FiEye size={20} />}
+                  options={dummyVisibilityties}
                 />
               </div>
             </div>

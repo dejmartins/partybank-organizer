@@ -20,8 +20,8 @@ const EventPlacesInput: React.FC<any> = ({
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
-        handleGeoCode({ ...latLng });
-        console.log("Success", latLng);
+        handleGeoCode({ ...latLng, address });
+        handleSelect(address);
       })
       .catch((error) => console.error("Error", error));
   };
@@ -29,7 +29,7 @@ const EventPlacesInput: React.FC<any> = ({
   return (
     <div className="relative">
       <div className="w-[55%] h-20 p-4 flex items-center border border-partybank-border rounded-lg cursor-pointer">
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2 w-full">
           <IoLocationOutline size={20} />
           <PlacesAutocomplete
             value={value}
@@ -37,7 +37,6 @@ const EventPlacesInput: React.FC<any> = ({
               handleSelect(ev);
             }}
             onSelect={(val) => {
-              handleSelect(val);
               handleGeoSelect(val);
             }}
           >
@@ -47,7 +46,7 @@ const EventPlacesInput: React.FC<any> = ({
               getSuggestionItemProps,
               loading,
             }) => (
-              <div>
+              <div className="w-full">
                 <input
                   name={name}
                   {...getInputProps({
@@ -55,7 +54,7 @@ const EventPlacesInput: React.FC<any> = ({
                     disabled: disbl,
                     autoComplete: autoComplete,
                   })}
-                  className="p-4 outline-none placeholder:text-partybank-text-black"
+                  className="p-4 outline-none placeholder:text-partybank-text-black w-full"
                 />
                 <div className="autocomplete-dropdown-container">
                   {loading && <Skeleton animation="wave" />}

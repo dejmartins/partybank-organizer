@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Where Every Ticket Holds A Celebration",
   metadataBase: new URL("https://organizer.thepartybank.com/"),
 };
-
+const mapkey = process.env.NEXT_PUBLIC_MAP_API_KEY;
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +27,10 @@ export default function RootLayout({
           autoClose={1000}
           position="bottom-center"
         />
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqR9iuBHfJF1u_uZEjGV_NMMsmD0Di1l8&libraries=geometry,places"></script>
+        <script
+          src={`https://maps.googleapis.com/maps/api/js?key=${mapkey}&libraries=geometry,places`}
+          async
+        ></script>
       </body>
     </html>
   );

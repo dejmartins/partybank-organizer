@@ -2,14 +2,16 @@ import React, { useRef, useState } from "react";
 
 import { IoIosArrowDown } from "react-icons/io";
 import { IoAlarmOutline } from "react-icons/io5";
+import { IoIosCalendar } from "react-icons/io";
 import DatePicker from "react-multi-date-picker";
 
 type PropT = {
   setDateValue: Function;
   value: any;
+  label?: string;
 };
 
-const PBDatePicker = ({ setDateValue, value }: PropT) => {
+const PBDatePicker = ({ setDateValue, value, label = "Event Time" }: PropT) => {
   const timeInputRef: any = useRef(null);
 
   const handleClick = () => {
@@ -22,9 +24,9 @@ const PBDatePicker = ({ setDateValue, value }: PropT) => {
   return (
     <div className="w-full md:w-1/3 border border-partybank-border flex items-center gap-x-2">
       <div className="flex items-center p-2 bg-[#DDE0E3] gap-x-2 w-[38%]">
-        <IoAlarmOutline />
+        <IoIosCalendar />
         <span className="text-partybank-text-black font-bold text-xs">
-          Event Time
+          {label}
         </span>
       </div>
       <div

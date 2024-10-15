@@ -493,3 +493,16 @@ export const events = [
     },
   },
 ];
+
+export const ticketCategoryData = [
+  {
+    label: "Single Ticket",
+    description: "This will only allow a single entry per person to the event",
+    id: 1,
+  },
+  {
+    label: "Group Ticket",
+    description: "This will only allow a multiple entry to the event",
+    id: 2,
+  },
+];

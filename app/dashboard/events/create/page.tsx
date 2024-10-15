@@ -11,6 +11,7 @@ import { getTimeWithAmPm } from "@/shared/utils/helper";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
+import { IEventForm } from "@/services/models/event-model";
 
 export default function Page() {
   const [isFormValid, setisFormValid] = useState(false);
@@ -34,7 +35,7 @@ export default function Page() {
     eventDescription: "Add Description",
     eventContact: "",
     eventVisibility: {
-      label: "",
+      label: "Public",
       id: "",
     },
     selectedSeries: {
@@ -47,7 +48,15 @@ export default function Page() {
 
   //@desc: dispatch event to store and navigate to ticket creation page
   const handleProceed = () => {
-    dispatch(saveEvent({ ...eventDateObj, ...eventDetailsObj, tickets: [] }));
+    localStorage.setItem("eventSelected", selectedImage!);
+    const eventObj: IEventForm = {
+      ...eventDateObj,
+      ...eventDetailsObj,
+      selectedImage: selectedImage!,
+      backgroundPosition,
+      tickets: [],
+    };
+    dispatch(saveEvent(eventObj));
     router.push("./create/tickets");
   };
 

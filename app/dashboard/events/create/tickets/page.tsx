@@ -1,49 +1,29 @@
 "use client";
 import { useEffect, useState } from "react";
 import { BackButton } from "@/app/ui/series/buttons";
-import { CreateSeries } from "@/app/ui/series/buttons";
-import Preview from "@/app/ui/series/preview";
-import SeriesDetails from "@/app/ui/series/series-details";
-import CoverImageUpload from "@/app/ui/series/cover-image";
-import EventPreview from "@/app/ui/events/event-preview";
-import { CreateEvent, ProceedToTicket } from "@/app/ui/events/buttons";
-import Button from "@/app/ui/buttons/button";
-import ProceedButton from "@/shared/components/buttons/proceed-button";
+
+import { useRouter } from "next/navigation";
+import usePBEvent from "@/shared/hooks/usePBEvent";
+import EventTicketPreview from "@/app/ui/events/event-ticket-preview";
 import EventCoverImage from "@/app/ui/events/cover-image";
-import EventDateLocation from "@/app/ui/events/date-location";
-import EventDetails from "@/app/ui/events/event-details";
-import { getTimeWithAmPm } from "@/shared/utils/helper";
+import TicketCategory from "@/app/ui/events/ticket-category";
+import TicketSales from "@/app/ui/events/ticket-sales";
 
 export default function TicketPage() {
-  const [selectedImage, setSelectedImage] = useState<null | string>(null);
-  const [backgroundPosition, setBackgroundPosition] = useState({
-    x: 50,
-    y: 50,
+  const [ticketDateObj, settickDateObj] = useState({
+    startDate: new Date().toISOString(),
+    endDate: new Date().toISOString(),
+    startTime: new Date().toISOString(),
+    endTime: new Date().toISOString(),
   });
-  const [eventName, setEventName] = useState("Event Name");
-  const [eventDescription, setEventDescription] = useState("Add Description");
-  const [eventDateObj, seteventDateObj] = useState({
-    eventDate: new Date(),
-    startTime: new Date(),
-    endTime: new Date(),
-    eventLocation: {
-      address: "",
-      lat: "",
-      lng: "",
-    },
-  });
-  const [eventDetailsObj, seteventDetailsObj] = useState({
-    eventName: "Event Name",
-    eventDescription: "Add Description",
-    eventContact: "",
-    eventVisibility: "",
-    selectedSeries: {
-      name: "",
-      id: "",
-    },
-  });
+  const { tempEvent } = usePBEvent();
+  const router = useRouter();
 
-  useEffect(() => {}, [eventDetailsObj]);
+  useEffect(() => {
+    if (tempEvent === undefined) {
+      router.back();
+    }
+  }, []);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
@@ -72,15 +52,14 @@ export default function TicketPage() {
       </div>
 
       <div className="flex flex-grow overflow-hidden">
-        <EventPreview
-          selectedImage={selectedImage ?? "/defaultImage.png"}
-          backgroundPosition={backgroundPosition}
-          eventName={eventDetailsObj.eventName}
-          eventDescription={eventDetailsObj.eventDescription}
-        />
+        <EventTicketPreview />
 
         <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
-          {/* here */}
+          <TicketCategory />
+          <TicketSales
+            ticketDateObj={{ ...ticketDateObj }}
+            setticketDateObj={settickDateObj}
+          />
         </div>
       </div>
     </div>

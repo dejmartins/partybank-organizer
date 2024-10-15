@@ -36,10 +36,6 @@ export default function EventDetails({
   eventDetailsObj,
   seteventDetailsObj,
 }: PropT) {
-  useEffect(() => {
-    console.log("===>", eventDetailsObj);
-  }, []);
-
   return (
     <div>
       <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-4 xl:pb-6">
@@ -49,8 +45,8 @@ export default function EventDetails({
             <div className="w-full">
               <h3 className="font-[700] text-[20px]">Event Details</h3>
             </div>
-            <div className="w-full flex flex-col md:flex-row mt-4 py-2 gap-x-4">
-              <div className="w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
+            <div className="w-full flex flex-col md:flex-row mt-4 py-2 gap-4">
+              <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBInput
                   value={eventDetailsObj.eventName}
                   setvalue={(val: string) => {
@@ -73,7 +69,7 @@ export default function EventDetails({
                   icon={<RandomIcon />}
                 />
               </div>
-              <div className="w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
+              <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBAutoSelect
                   value={eventDetailsObj.selectedSeries.label ?? ""}
                   setvalue={(event: any) => {
@@ -107,9 +103,9 @@ export default function EventDetails({
             </div>
 
             <div className="w-full flex flex-col md:flex-row mt-4  gap-x-4">
-              <div className="w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3">
+              <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3">
                 <PBAutoSelect
-                  value={eventDetailsObj.eventVisibility.label}
+                  value={eventDetailsObj.eventVisibility.label ?? ""}
                   setvalue={(event: any) => {
                     seteventDetailsObj((prev: any) => {
                       return { ...prev, eventVisibility: event };

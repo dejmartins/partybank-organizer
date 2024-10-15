@@ -1,16 +1,15 @@
-type propT = {
-  selectedImage: string;
-  backgroundPosition: { x: number; y: number };
-  eventName: string;
-  eventDescription: string;
-};
+"use client";
+import usePBEvent from "@/shared/hooks/usePBEvent";
+export default function EventTicketPreview() {
+  const { tempEvent } = usePBEvent();
+  const {
+    backgroundPosition,
+    eventName,
+    tickets,
+    eventDescription,
+    selectedImage,
+  } = tempEvent;
 
-export default function EventPreview({
-  selectedImage,
-  backgroundPosition,
-  eventName,
-  eventDescription,
-}: propT) {
   return (
     <div className="border p-10 flex-grow flex flex-col hidden md:block md:basis-[40%] lg:basis-[30%]">
       <h3 className="font-[700] text-[20px] mb-1">Preview</h3>
@@ -19,7 +18,7 @@ export default function EventPreview({
           className="h-[200px] border bg-cover bg-center rounded-[10px] overflow-hidden"
           style={{
             backgroundImage: `url("${selectedImage}")`,
-            backgroundPosition: `${backgroundPosition.x}% ${backgroundPosition.y}%`,
+            backgroundPosition: `${backgroundPosition?.x}% ${backgroundPosition?.y}%`,
           }}
         ></div>
         <div className="flex items-center justify-between pt-3 relative">

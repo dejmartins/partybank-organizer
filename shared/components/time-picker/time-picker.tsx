@@ -8,9 +8,15 @@ type PropT = {
   label: string;
   setTimeValue: Function;
   value: any;
+  title?: string;
 };
 
-const PBTimePicker = ({ label, setTimeValue, value }: PropT) => {
+const PBTimePicker = ({
+  label,
+  setTimeValue,
+  value,
+  title = "Event Time",
+}: PropT) => {
   const timeInputRef: any = useRef(null);
 
   const handleClick = () => {
@@ -25,7 +31,7 @@ const PBTimePicker = ({ label, setTimeValue, value }: PropT) => {
       <div className="flex items-center p-2 bg-[#DDE0E3] gap-x-2 w-[38%]">
         <IoAlarmOutline />
         <span className="text-partybank-text-black font-bold text-xs">
-          Event Time
+          {title}
         </span>
       </div>
       <div

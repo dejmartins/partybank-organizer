@@ -44,3 +44,19 @@ input[type="number"]::-webkit-outer-spin-button {
 .css-1nrxm3h-JoyAutocomplete-root:not([data-skip-inverted-colors]) {
   --Input-focusedHighlight: none !important;
 }
+
+.animate-from-bottom {
+  animation: moveUp 0.4s ease-out forwards;
+  animation-fill-mode: forwards;
+  bottom: -8rem;
+  height: 95vh;
+}
+
+@keyframes moveUp {
+  0% {
+    bottom: -42rem;
+  }
+  100% {
+    bottom: -3rem;
+  }
+}

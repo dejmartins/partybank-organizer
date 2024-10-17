@@ -28,7 +28,7 @@ export default function HeroSection() {
             layout="responsive"
             width={1200}
             height={350}
-            alt="Partybank Logo"
+            alt="Hero image"
             className="w-[80vw] md:w-full"
           />
         </div>

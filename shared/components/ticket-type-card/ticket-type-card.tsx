@@ -27,7 +27,7 @@ export default function TickettypeCard({ data, value, setValue }: propT) {
       </div>
       <div>
         <h3
-          className="text-xl"
+          className="text-[1.1remrem]"
           style={{
             color: id === value.id ? "#E91B41" : "",
             fontWeight: id === value.id ? "bold" : "normal",

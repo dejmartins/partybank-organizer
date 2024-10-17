@@ -1,9 +1,17 @@
 import { useState } from "react";
-import { ArrowLongLeftIcon, CalendarIcon, ChevronDoubleRightIcon, ClockIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowLongLeftIcon,
+  CalendarIcon,
+  ChevronDoubleRightIcon,
+  ClockIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
 import Modal from "./base-modal";
 import { Event } from "@/app/lib/definitions";
 import EventAnalytics from "./event-analytics";
 import moment from "moment";
+import AnalyticsModal from "./base-analytics-modal";
+import { HiDotsVertical } from "react-icons/hi";
 
 export default function EventDetailsModal({
   event,
@@ -13,39 +21,71 @@ export default function EventDetailsModal({
   onClose: () => void;
 }) {
   const [viewAnalytics, setViewAnalytics] = useState(false);
+  //control view based on event analytics
+  const [isAnalytics, setisAnalytics] = useState(
+    event.analytics.attendees.length ? true : false
+  );
 
   const toggleAnalyticsView = () => {
     setViewAnalytics((prev) => !prev);
   };
 
   return (
-    <Modal isOpen={true} onClose={onClose}>
-      <div>
-        <div className="flex justify-between px-6 py-4 border-0 border-b">
-          <div className="flex items-center gap-3">
-            <button
-            //   onClick={viewAnalytics ? toggleAnalyticsView : onClose}
-              onClick={onClose}
-              className="border cursor-pointer bg-[#F3F5F5] px-[10px] py-[5px] rounded-[15px]"
-            >
-              <ArrowLongLeftIcon className="w-[20px] h-[30px] stroke stroke-[3px]" />
-            </button>
-            <h3 className="text-xl font-bold line-clamp-1">
-              {viewAnalytics ? "Event Analytics" : "Event Details"}
-            </h3>
-          </div>
-        </div>
+    <>
+      {isAnalytics ? (
+        <AnalyticsModal isOpen={true} onClose={onClose}>
+          <div>
+            <div className="flex justify-between px-6 py-4 border-0 border-b items-center">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={onClose}
+                  className="border cursor-pointer bg-[#F3F5F5] px-[10px] py-[5px] rounded-[15px]"
+                >
+                  <ArrowLongLeftIcon className="w-[20px] h-[30px] stroke stroke-[3px]" />
+                </button>
+                <h3 className="text-xl font-bold line-clamp-1">
+                  Event Analytics
+                </h3>
+              </div>
+              <div className="p-1 cursor-pointer">
+                <HiDotsVertical size={20} />
+              </div>
+            </div>
 
-        {viewAnalytics ? (
-          <EventAnalytics event={event} toggleAnalyticsView={toggleAnalyticsView} />
-        ) : (
-          <EventDetails event={event} toggleAnalyticsView={toggleAnalyticsView} />
-        )}
-      </div>
-    </Modal>
+            <EventAnalytics
+              event={event}
+              toggleAnalyticsView={toggleAnalyticsView}
+            />
+          </div>
+        </AnalyticsModal>
+      ) : (
+        <Modal isOpen={true} onClose={onClose}>
+          <div>
+            <div className="flex justify-between px-6 py-4 border-0 border-b">
+              <div className="flex items-center gap-3">
+                <button
+                  //   onClick={viewAnalytics ? toggleAnalyticsView : onClose}
+                  onClick={onClose}
+                  className="border cursor-pointer bg-[#F3F5F5] px-[10px] py-[5px] rounded-[15px]"
+                >
+                  <ArrowLongLeftIcon className="w-[20px] h-[30px] stroke stroke-[3px]" />
+                </button>
+                <h3 className="text-xl font-bold line-clamp-1">
+                  {isAnalytics ? "Event Analytics" : "Event Details"}
+                </h3>
+              </div>
+            </div>
+
+            <EventDetails
+              event={event}
+              toggleAnalyticsView={toggleAnalyticsView}
+            />
+          </div>
+        </Modal>
+      )}
+    </>
   );
 }
-
 
 export function EventDetails({
   event,
@@ -60,13 +100,15 @@ export function EventDetails({
         <div
           className="min-w-[230px] min-h-full border bg-cover bg-center rounded-[10px] overflow-hidden"
           style={{
-            backgroundImage: `url("${event.image || '/defaultImage.png'}")`,
+            backgroundImage: `url("${event.image || "/defaultImage.png"}")`,
           }}
         ></div>
       </div>
 
       <div>
-        <p className="inline-block rounded-[4px] font-[400] px-2 py-[2px] text-sm bg-[#F7F6F7]">{event.series}</p>
+        <p className="inline-block rounded-[4px] font-[400] px-2 py-[2px] text-sm bg-[#F7F6F7]">
+          {event.series}
+        </p>
         <h3 className="text-2xl font-bold">{event.name}</h3>
         <p className="pb-2">{event.description}</p>
         {/* <p>Created By: {event.series}</p> */}
@@ -84,7 +126,9 @@ export function EventDetails({
             </div>
             <div className="flex items-center gap-2">
               <CalendarIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">{moment(event.date).format('MMMM Do, YYYY')}</p>
+              <p className="text-[15px] line-clamp-2">
+                {moment(event.date).format("MMMM Do, YYYY")}
+              </p>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-6" />
@@ -94,17 +138,17 @@ export function EventDetails({
         </div>
 
         <div className="py-2 border-0 border-b">
-            <p className="font-[500]">Privacy: <span className="rounded-[4px] font-[400] px-2 text-sm bg-[#F7F6F7]">Available to {event.privacy}</span></p>
+          <p className="font-[500]">
+            Privacy:{" "}
+            <span className="rounded-[4px] font-[400] px-2 text-sm bg-[#F7F6F7]">
+              Available to {event.privacy}
+            </span>
+          </p>
         </div>
 
         <div className="py-2 flex justify-between">
-            <p></p>
-            <button onClick={toggleAnalyticsView} className="flex items-center text-sm gap-2 rounded-md text-[var(--pb-c-red)] font-[600]">
-                Preview Analytics
-                <ChevronDoubleRightIcon className="w-3 stroke-2" />
-            </button>
+          <p></p>
         </div>
-
       </div>
     </div>
   );

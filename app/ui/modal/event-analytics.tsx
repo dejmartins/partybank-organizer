@@ -115,9 +115,9 @@ export default function EventAnalytics({
           {event.analytics.attendees.map((attendee) => (
             <div key={attendee.ticketID} className="border-b px-3 py-2">
               <li className="flex justify-between items-center gap-2">
-                <div className="flex items-center gap-x-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center">
-                    <BiSolidUserCircle size={50} />
+                <div className="flex items-center gap-x-3">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center">
+                    <BiSolidUserCircle size={40} />
                   </div>
                   <div>
                     <p className="font-[700] text-[15px]">Micheal Olamide</p>

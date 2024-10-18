@@ -21,6 +21,8 @@ export default function SigninForm() {
           next: (res) => {
             if (res && res.data.username === email) {
               setemail("");
+              toast.success(res.data.message);
+              localStorage.setItem("tempemail", email);
               router.push("/auth/verify");
             } else {
               toast.info(res.error);

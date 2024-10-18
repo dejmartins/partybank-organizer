@@ -24,3 +24,7 @@ export const isValidEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
+
+export function extractUsername(email: string) {
+  return email.split("@")[0];
+}

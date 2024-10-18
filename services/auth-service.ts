@@ -10,3 +10,14 @@ export const loginWithEmail = (payload: {
     catchError(handleError)
   );
 };
+
+export const validateOtp = (payload: { code: string }): Observable<any> => {
+  return from(
+    authHttp.get("/auth/otp/validate", {
+      params: { ...payload },
+    })
+  ).pipe(
+    map((response: any) => response),
+    catchError(handleError)
+  );
+};

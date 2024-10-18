@@ -58,7 +58,7 @@ export default function WhatWeDo() {
                 <img 
                   src="/flexible-payout.svg" 
                   alt="Flexible Payout Options" 
-                  className="h-auto w-[80%] object-contain" 
+                  className="h-auto lg:w-[80%] object-contain" 
                 />
               </div>
               <h3 className="text-xl font-[700]">Flexible Payout Options</h3>

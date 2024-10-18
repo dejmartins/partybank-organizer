@@ -29,11 +29,15 @@ export default function PBAutoSelect({
         {icon && <div className="w-5">{icon}</div>}
         <Autocomplete
           placeholder={placeHolder}
-          options={options}
           value={value}
+          options={options}
           clearIcon={false}
           onChange={(event, value) => {
-            setvalue(value);
+            try {
+              if (Object.keys(value).length) {
+                setvalue(value);
+              }
+            } catch (error) {}
           }}
           onFocus={() => setisActive(true)}
           onBlur={() => setisActive(false)}

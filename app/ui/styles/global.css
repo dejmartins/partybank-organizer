@@ -61,3 +61,25 @@ input[type="number"]::-webkit-outer-spin-button {
     bottom: -3rem;
   }
 }
+
+::-webkit-scrollbar {
+  width: 0.5px; /* Adjust width for vertical scrollbar */
+  height: 1.4px; /* Adjust height for horizontal scrollbar */
+  background-color: #e91b41;
+}
+
+/* The scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* You can change this to any color */
+}
+
+/* The scrollbar handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #dde0e3; /* You can change the scrollbar color */
+  border-radius: 10px; /* Optional: makes the scrollbar rounded */
+}
+
+/* On hover, make the scrollbar thumb more visible */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #dde0e3;
+}

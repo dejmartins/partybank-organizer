@@ -11,28 +11,35 @@ import PBInputPerks from "@/shared/components/pbInputPerks/pb-input-perks";
 import { FiGift } from "react-icons/fi";
 import { IoCloseSharp } from "react-icons/io5";
 
-type PropT = {
-  ticketDateObj: {
-    startDate: any;
-    endDate: any;
-    startTime: any;
-    endTime: any;
-  };
-  setticketDateObj: Function;
-};
-
 const ticketTypeData = [
   { id: 1, title: "Free" },
   { id: 2, title: "Paid" },
   { id: 3, title: "By Invite" },
 ];
-export default function TicketDetails({
-  ticketDateObj,
-  setticketDateObj,
-}: PropT) {
-  const [selectedType, setselectedType] = useState(ticketTypeData[0]);
-  const { startDate, endDate, startTime, endTime } = ticketDateObj;
 
+type PropT = {
+  ticketDetailsObj: {
+    ticketName: string;
+    ticketDescription: string;
+    ticketCapacity: string;
+    ticketStock: string;
+    ticketPurchaseLimit: string;
+  };
+  setticketDetailsObj: Function;
+  selectedType: any;
+  setselectedType: Function;
+  perks: string[];
+  setperks: Function;
+};
+
+export default function TicketDetails({
+  ticketDetailsObj,
+  setticketDetailsObj,
+  selectedType,
+  setselectedType,
+  perks,
+  setperks,
+}: PropT) {
   return (
     <div className="w-full flex lex-col md:flex-row py-6 border-b border-partybank-border p-4 md:p-0 xl:py-2">
       <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
@@ -63,33 +70,33 @@ export default function TicketDetails({
             <div className="w-full flex flex-col md:flex-row mt-2 py-2 gap-4">
               <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBInput
-                  value={""}
+                  value={ticketDetailsObj.ticketName}
                   setvalue={(val: string) => {
-                    // seteventDetailsObj((prev: any) => {
-                    //   return { ...prev, eventName: val };
-                    // });
+                    setticketDetailsObj((prev: any) => {
+                      return { ...prev, ticketName: val };
+                    });
                   }}
                   placeHolder="Ticket Name"
                   icon={<NoteIcon />}
                 />
 
                 <PBInput
-                  value={""}
+                  value={ticketDetailsObj.ticketStock}
                   setvalue={(val: string) => {
-                    // seteventDetailsObj((prev: any) => {
-                    //   return { ...prev, eventName: val };
-                    // });
+                    setticketDetailsObj((prev: any) => {
+                      return { ...prev, ticketStock: val };
+                    });
                   }}
                   placeHolder="Ticket Stock"
                   icon={<NoteIcon />}
                 />
 
                 <PBTextArea
-                  value={""}
+                  value={ticketDetailsObj.ticketDescription}
                   setvalue={(val: string) => {
-                    // seteventDetailsObj((prev: any) => {
-                    //   return { ...prev, eventDescription: val };
-                    // });
+                    setticketDetailsObj((prev: any) => {
+                      return { ...prev, ticketDescription: val };
+                    });
                   }}
                   placeHolder="Ticket Description"
                   icon={<RandomIcon />}
@@ -97,22 +104,22 @@ export default function TicketDetails({
               </div>
               <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBInput
-                  value={""}
+                  value={ticketDetailsObj.ticketCapacity}
                   setvalue={(val: string) => {
-                    // seteventDetailsObj((prev: any) => {
-                    //   return { ...prev, eventName: val };
-                    // });
+                    setticketDetailsObj((prev: any) => {
+                      return { ...prev, ticketCapacity: val };
+                    });
                   }}
                   placeHolder="Ticket Capacity"
                   icon={<NoteIcon />}
                 />
 
                 <PBInput
-                  value={""}
+                  value={ticketDetailsObj.ticketPurchaseLimit}
                   setvalue={(val: string) => {
-                    // seteventDetailsObj((prev: any) => {
-                    //   return { ...prev, eventContact: val };
-                    // });
+                    setticketDetailsObj((prev: any) => {
+                      return { ...prev, ticketPurchaseLimit: val };
+                    });
                   }}
                   placeHolder="Ticket Purchase Limit"
                   icon={<RandomIcon />}
@@ -132,11 +139,9 @@ export default function TicketDetails({
             <div className="w-full flex flex-col md:flex-row mt-2 md:py-2 gap-4">
               <div className="md:w-8/12 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBInputPerks
-                  value={""}
+                  value={perks[0]}
                   setvalue={(val: string) => {
-                    // seteventDetailsObj((prev: any) => {
-                    //   return { ...prev, eventName: val };
-                    // });
+                    setperks([val, ...perks]);
                   }}
                   placeHolder="Enter perks here"
                   icon={<FiGift />}
@@ -145,14 +150,23 @@ export default function TicketDetails({
             </div>
 
             <div className="flex flex-wrap">
-              <div className="py-2 px-4 text-partybank-red rounded-md text-sm flex justify-between relative bg-[#FEEFF2] gap-x-4">
-                Two tickets comes with extra champagne
-                <IoCloseSharp
-                  size={20}
-                  color="#E91B41"
-                  className="cursor-pointer"
-                />
-              </div>
+              {perks.map((obj, index: number) => (
+                <div
+                  className="py-2 px-4 text-partybank-red rounded-md text-sm flex justify-between relative bg-[#FEEFF2] gap-x-4"
+                  key={index}
+                >
+                  {obj}
+                  <IoCloseSharp
+                    size={20}
+                    color="#E91B41"
+                    className="cursor-pointer"
+                    onClick={() => {
+                      const arr = perks.filter((item) => item !== obj);
+                      setperks(arr);
+                    }}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>

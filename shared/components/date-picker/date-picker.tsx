@@ -31,17 +31,20 @@ const PBDatePicker = ({ setDateValue, value, label = "Event Time" }: PropT) => {
       </div>
       <div
         className="flex items-center justify-between flex-grow "
-        onClick={handleClick}
+        // onClick={handleClick}
       >
         <div className="flex items-center">
           <div>
             <DatePicker
-              ref={timeInputRef}
+              // ref={timeInputRef}
               disableDayPicker={false}
               value={value}
               minDate={new Date()}
+              maxDate={new Date().setDate(205)}
               onChange={(value: any) => {
-                setDateValue(value);
+                try {
+                  setDateValue(value);
+                } catch (error) {}
               }}
               mapDays={({
                 date,
@@ -76,7 +79,8 @@ const PBDatePicker = ({ setDateValue, value, label = "Event Time" }: PropT) => {
                 fontSize: "0.8rem",
                 fontWeight: "bold",
                 outline: "none",
-                width: "6rem",
+                width: "10rem",
+                zIndex: "10",
               }}
             />
           </div>

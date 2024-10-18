@@ -8,10 +8,10 @@ import { IoImageOutline } from "react-icons/io5";
 
 type PropT = {
   ticketDateObj: {
-    startDate: any;
-    endDate: any;
-    startTime: any;
-    endTime: any;
+    salesStartDate: any;
+    salesEndDate: any;
+    salesStartTime: any;
+    salesEndTime: any;
   };
   setticketDateObj: Function;
 };
@@ -19,7 +19,8 @@ export default function TicketSales({
   ticketDateObj,
   setticketDateObj,
 }: PropT) {
-  const { startDate, endDate, startTime, endTime } = ticketDateObj;
+  const { salesStartDate, salesEndDate, salesStartTime, salesEndTime } =
+    ticketDateObj;
 
   return (
     <div className="w-full flex lex-col md:flex-row py-6 border-b border-partybank-border p-4 md:p-0 xl:py-4">
@@ -36,10 +37,13 @@ export default function TicketSales({
               <PBDatePicker
                 setDateValue={(val: any) => {
                   setticketDateObj((prev: any) => {
-                    return { ...prev, startDate: new Date(val).toISOString() };
+                    return {
+                      ...prev,
+                      salesStartDate: new Date(val).toISOString(),
+                    };
                   });
                 }}
-                value={startDate}
+                value={salesStartDate}
                 label="Sales Start"
               />
 
@@ -47,10 +51,13 @@ export default function TicketSales({
                 label="Starts"
                 setTimeValue={(val: any) => {
                   setticketDateObj((prev: any) => {
-                    return { ...prev, startTime: new Date(val).toISOString() };
+                    return {
+                      ...prev,
+                      salesStartTime: new Date(val).toISOString(),
+                    };
                   });
                 }}
-                value={startTime}
+                value={salesStartTime}
                 title="Start Time"
               />
             </div>
@@ -59,21 +66,27 @@ export default function TicketSales({
               <PBDatePicker
                 setDateValue={(val: any) => {
                   setticketDateObj((prev: any) => {
-                    return { ...prev, startDate: new Date(val).toISOString() };
+                    return {
+                      ...prev,
+                      salesEndDate: new Date(val).toISOString(),
+                    };
                   });
                 }}
                 label="Sales End"
-                value={startDate}
+                value={salesEndDate}
               />
 
               <PBTimePicker
                 label="Starts"
                 setTimeValue={(val: any) => {
                   setticketDateObj((prev: any) => {
-                    return { ...prev, startTime: new Date(val).toISOString() };
+                    return {
+                      ...prev,
+                      salesEndTime: new Date(val).toISOString(),
+                    };
                   });
                 }}
-                value={startTime}
+                value={salesEndTime}
                 title="End Time"
               />
             </div>

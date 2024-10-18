@@ -7,24 +7,67 @@ import usePBEvent from "@/shared/hooks/usePBEvent";
 import EventTicketPreview from "@/app/ui/events/event-ticket-preview";
 import EventCoverImage from "@/app/ui/events/cover-image";
 import TicketCategory from "@/app/ui/events/ticket-category";
+import { ticketCategoryData } from "@/app/lib/placeholder-data";
 import TicketSales from "@/app/ui/events/ticket-sales";
 import TicketDetails from "@/app/ui/events/ticket-details";
+import { useDispatch } from "@/store/store";
+import { saveTicket } from "@/store/create-event/create-event-slice";
+
+const ticketTypeData = [
+  { id: 1, title: "Free" },
+  { id: 2, title: "Paid" },
+  { id: 3, title: "By Invite" },
+];
 
 export default function TicketPage() {
+  const [selectedType, setselectedType] = useState(ticketTypeData[0]);
+  const [ticketCategory, setticketCategory] = useState(ticketCategoryData[0]);
+  const [perks, setperks] = useState<string[]>([]);
+  const [ticketDetailsObj, settickDetailsObj] = useState({
+    ticketName: "",
+    ticketDescription: "",
+    ticketCapacity: "",
+    ticketStock: "",
+    ticketPurchaseLimit: "",
+  });
+
   const [ticketDateObj, settickDateObj] = useState({
-    startDate: new Date().toISOString(),
-    endDate: new Date().toISOString(),
-    startTime: new Date().toISOString(),
-    endTime: new Date().toISOString(),
+    salesStartDate: new Date().toISOString(),
+    salesEndDate: new Date().toISOString(),
+    salesStartTime: new Date().toISOString(),
+    salesEndTime: new Date().toISOString(),
   });
   const { tempEvent } = usePBEvent();
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleSaveTicket = () => {
+    const ticketData = {
+      ...ticketDateObj,
+      ...ticketDetailsObj,
+      ticketCategory,
+      ticketType: selectedType,
+      perks,
+      id: Date.now(),
+    };
+    dispatch(saveTicket(ticketData));
+  };
 
   useEffect(() => {
     if (tempEvent === undefined) {
       router.back();
     }
   }, []);
+
+  useEffect(() => {
+    // console.log("==>ticket data", ticketDateObj);
+  }, [
+    ticketDateObj,
+    ticketCategory,
+    ticketCategory,
+    ticketDetailsObj,
+    selectedType,
+  ]);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
@@ -56,16 +99,34 @@ export default function TicketPage() {
         <EventTicketPreview />
 
         <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
-          <TicketCategory />
+          <TicketCategory
+            selectedCategory={ticketCategory}
+            setselectedCategory={setticketCategory}
+          />
           <TicketSales
             ticketDateObj={{ ...ticketDateObj }}
             setticketDateObj={settickDateObj}
           />
 
           <TicketDetails
-            ticketDateObj={{ ...ticketDateObj }}
-            setticketDateObj={settickDateObj}
+            ticketDetailsObj={{ ...ticketDetailsObj }}
+            setticketDetailsObj={settickDetailsObj}
+            selectedType={selectedType}
+            setselectedType={setselectedType}
+            perks={perks}
+            setperks={setperks}
           />
+
+          <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">
+            <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
+              <button
+                className="bg-partybank-red border border-partybank-text-black rounded py-2 px-12 text-white font-bold"
+                onClick={handleSaveTicket}
+              >
+                Save Ticket
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

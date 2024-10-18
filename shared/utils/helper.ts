@@ -12,3 +12,10 @@ export function getTimeWithAmPm(dateString: any) {
 
   return `${hours}:${formattedMinutes} ${amPm}`;
 }
+
+export function createEllipsis(str: string, maxLength: number) {
+  if (str.length <= maxLength) {
+    return str;
+  }
+  return str.slice(0, maxLength) + "...";
+}

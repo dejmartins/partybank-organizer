@@ -4,10 +4,14 @@ import SelectedCard from "@/shared/components/selected-card/selected-card";
 import React, { useState } from "react";
 import { IoImageOutline } from "react-icons/io5";
 
-export default function TicketCategory() {
-  const [selectedCategory, setselectedCategory] = useState(
-    ticketCategoryData[0]
-  );
+type PropT = {
+  selectedCategory: any;
+  setselectedCategory: Function;
+};
+export default function TicketCategory({
+  selectedCategory,
+  setselectedCategory,
+}: PropT) {
   return (
     <div className="w-full flex lex-col md:flex-row py-6 border-b border-partybank-border p-4 md:p-0 xl:py-2">
       <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">

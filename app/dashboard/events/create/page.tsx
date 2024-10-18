@@ -35,7 +35,8 @@ export default function Page() {
     eventDescription: "Add Description",
     eventContact: "",
     eventVisibility: {
-      label: "Public",
+      label: "",
+      title: "",
       id: "",
     },
     selectedSeries: {

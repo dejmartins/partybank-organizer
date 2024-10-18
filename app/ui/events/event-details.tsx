@@ -15,6 +15,7 @@ type PropT = {
     eventVisibility: {
       id: string;
       label: string;
+      title: string;
     };
     selectedSeries: {
       id: string;
@@ -30,7 +31,10 @@ const dummySeries = [
   { label: "The Godfather: Part II", year: 1974 },
 ];
 
-const dummyVisibilityties = [{ label: "Public" }, { label: "Private" }];
+const dummyVisibilityties = [
+  { label: "Public", title: "Public", id: 1 },
+  { label: "Private", title: "Private", id: 2 },
+];
 
 export default function EventDetails({
   eventDetailsObj,
@@ -105,7 +109,11 @@ export default function EventDetails({
             <div className="w-full flex flex-col md:flex-row mt-2  gap-x-4">
               <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3">
                 <PBAutoSelect
-                  value={eventDetailsObj.eventVisibility.label ?? ""}
+                  value={
+                    eventDetailsObj.eventVisibility.title !== null
+                      ? eventDetailsObj.eventVisibility.title
+                      : "Public"
+                  }
                   setvalue={(event: any) => {
                     seteventDetailsObj((prev: any) => {
                       return { ...prev, eventVisibility: event };

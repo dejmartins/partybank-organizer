@@ -35,7 +35,7 @@ export default function WhyChooseUs() {
               <div>
                 <h4 className="text-xl font-[700]">Real-Time Insights</h4>
                 <p>
-                  Track ticket sales, attendee data, and key metrics live, giving you full control over your event’s success.
+                  Track ticket sales, attendee data, and key metrics live, giving you full control over your event&apos;s success.
                 </p>
               </div>
             </div>

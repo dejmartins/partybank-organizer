@@ -54,7 +54,7 @@ export default function Page() {
                         <h3 className="mt-4 font-[700]">1.2 Device and Technical Information:</h3>
                         <ul className="list-disc list-inside space-y-4 mt-4">
                             <li>
-                                We may collect information such as your device type, browser type, IP address, and operating system to optimize the platform's performance.
+                                We may collect information such as your device type, browser type, IP address, and operating system to optimize the platform&apos;s performance.
                             </li>
                         </ul>
 
@@ -168,7 +168,7 @@ export default function Page() {
                     </section>
             
                     <section className="mb-8">
-                        <h2 className="text-[30px] md:text-[40px] mb-4 font-[700]">6. Children's Privacy</h2>
+                        <h2 className="text-[30px] md:text-[40px] mb-4 font-[700]">6. Children&apos;s Privacy</h2>
                         <p>
                             Partybank is not intended for individuals under 16. If we become aware that we have collected personal information from a child, we will delete it as soon as possible.
                         </p>

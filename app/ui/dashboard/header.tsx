@@ -38,7 +38,7 @@ export default function Header() {
             </div>
 
             <p className="font-[600] text-[16px] md:text-[18px]">
-              {createEllipsis(extractUsername(USER.usernam) ?? "", 14)}
+              {createEllipsis(extractUsername(USER.username) || "", 14)}
             </p>
           </div>
           <ChevronDownIcon className="w-5 stroke-black stroke-1" />

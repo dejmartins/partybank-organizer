@@ -51,6 +51,7 @@ export default function EventTicketPreview() {
           <div className="flex flex-col mt-4">
             {tickets.map((obj: any, index: number) => (
               <div
+              key={index}
                 className="w-full flex items-center justify-between cursor-pointer p-2 rounded-lg border border-[#f1f0f0]"
                 style={{
                   backgroundColor: "#FAF9F9",

@@ -19,7 +19,7 @@ export default function PBInputPerks({
     <div className="w-full">
       {isActive}
       <div
-        className="flex items-center justify-between w-full bg-white h-[44px] rounded-md px-2 transition-all duration-300 ease-in-out transform"
+        className="flex items-center justify-between w-full bg-white h-[44px] rounded-md px-2 transition-all duration-300 ease-in-out transform border "
         style={{
           border: isActive ? "2px solid #080D18" : "",
         }}

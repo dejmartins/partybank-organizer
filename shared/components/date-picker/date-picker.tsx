@@ -79,16 +79,17 @@ const PBDatePicker = ({ setDateValue, value, label = "Event Time" }: PropT) => {
                 fontSize: "0.8rem",
                 fontWeight: "bold",
                 outline: "none",
-                width: "10rem",
+                width: "12rem",
+                height: "2rem",
                 zIndex: "10",
               }}
             />
           </div>
         </div>
 
-        <div style={{ paddingRight: "0.4rem" }}>
+        {/* <div style={{ paddingRight: "0.4rem" }}>
           <IoIosArrowDown />
-        </div>
+        </div> */}
       </div>
     </div>
   );

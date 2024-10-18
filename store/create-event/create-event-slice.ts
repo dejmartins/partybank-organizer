@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const initialState: any = {
   data: {},
@@ -15,16 +16,22 @@ const eventSlice = createSlice({
     saveTicket: (state, param) => {
       const { payload } = param;
       const { tickets } = state.data.tempEvent;
-      const newTicketsArr = [payload, ...tickets];
-      state.data.tempEvent.tickets = newTicketsArr;
+      const exstn = tickets.filter(
+        (obj: any) => obj.ticketName === payload.ticketName
+      );
+      if (exstn.length) {
+        toast.error("Ticket already exisit, please change ticket name");
+      } else {
+        const newTicketsArr = [payload, ...tickets];
+        state.data.tempEvent.tickets = newTicketsArr;
+      }
     },
 
     removeTicket: (state, param) => {
       const { payload } = param;
       const { tickets } = state.data.tempEvent;
       const newTicketsArr = tickets.filter(
-        (obj: any) =>
-          obj.id !== payload.id || obj.ticketName !== payload.ticketName
+        (obj: any) => obj.ticketName !== payload.ticketName
       );
       state.data.tempEvent.tickets = newTicketsArr;
     },

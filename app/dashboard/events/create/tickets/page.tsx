@@ -27,8 +27,8 @@ export default function TicketPage() {
     ticketName: "",
     ticketDescription: "",
     ticketCapacity: "",
-    ticketStock: "",
-    ticketPurchaseLimit: "",
+    ticketStock: "", //change to obj
+    ticketPurchaseLimit: "", //chnage to obj
   });
 
   const [ticketDateObj, settickDateObj] = useState({
@@ -51,6 +51,9 @@ export default function TicketPage() {
       id: Date.now(),
     };
     dispatch(saveTicket(ticketData));
+    settickDetailsObj((prev: any) => {
+      return { ...prev, ticketName: "" };
+    });
   };
 
   useEffect(() => {

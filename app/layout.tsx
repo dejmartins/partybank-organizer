@@ -3,6 +3,7 @@ import { redHatDisplay } from "./ui/fonts";
 import "@/app/ui/styles/global.css";
 import Providers from "@/store/provider";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: {
@@ -22,11 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${redHatDisplay.className} antialiased`}>
         <Providers>{children}</Providers>
-        <ToastContainer
-          hideProgressBar
-          autoClose={1000}
-          position="bottom-center"
-        />
+        <ToastContainer hideProgressBar autoClose={1000} position="top-right" />
         <script
           src={`https://maps.googleapis.com/maps/api/js?key=${mapkey}&libraries=geometry,places`}
           async

@@ -14,7 +14,7 @@ import { IoCloseSharp } from "react-icons/io5";
 const ticketTypeData = [
   { id: 1, title: "Free" },
   { id: 2, title: "Paid" },
-  { id: 3, title: "By Invite" },
+  // { id: 3, title: "By Invite" },
 ];
 
 type PropT = {
@@ -149,7 +149,7 @@ export default function TicketDetails({
               </div>
             </div>
 
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap gap-x-2">
               {perks.map((obj, index: number) => (
                 <div
                   className="py-2 px-4 text-partybank-red rounded-md text-sm flex justify-between relative bg-[#FEEFF2] gap-x-4"

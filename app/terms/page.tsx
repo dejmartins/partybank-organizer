@@ -69,7 +69,7 @@ export default function Page() {
                         <h3 className="mt-4 font-[700]">3.0 Event Creation:</h3>
                         <ul className="list-disc list-inside space-y-4 mt-4">
                             <li>
-                                Organizers are responsible for providing accurate event details and managing their event's compliance with laws.
+                                Organizers are responsible for providing accurate event details and managing their event&apos;s compliance with laws.
                             </li>
                         </ul>
 

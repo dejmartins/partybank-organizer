@@ -2,13 +2,11 @@
 import Image from "next/image";
 import {
   BellIcon,
-  ChevronDownIcon,
   MagnifyingGlassIcon,
-  UserCircleIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import useAuth from "@/shared/hooks/useAuth";
-import { createEllipsis, extractUsername } from "@/shared/utils/helper";
+import ProfileIcon from "../auth/profile-icon";
 
 export default function Header() {
   const { USER } = useAuth();
@@ -28,21 +26,7 @@ export default function Header() {
       <div className="flex gap-4">
         <MagnifyingGlassIcon className="w-5 stroke-black stroke-1 cursor-pointer" />
         <BellIcon className="w-5 text-white stroke-black stroke-2 cursor-pointer" />
-        <div className="flex items-center gap-3 cursor-pointer">
-          <div className="flex items-center gap-2">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden">
-              <div className="absolute inset-0  bg-gradient-to-b from-[#950ECD] to-[#5CF4D8]"></div>
-              <div className="absolute inset-[4px] bg-white rounded-full flex items-center justify-center">
-                <UserCircleIcon className="w-7 stroke-black stroke-1" />
-              </div>
-            </div>
-
-            <p className="font-[600] text-[16px] md:text-[18px]">
-              {createEllipsis(extractUsername(USER.username) || "", 14)}
-            </p>
-          </div>
-          <ChevronDownIcon className="w-5 stroke-black stroke-1" />
-        </div>
+        <ProfileIcon />
       </div>
     </div>
   );

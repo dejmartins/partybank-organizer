@@ -54,11 +54,11 @@ export default function WhatWeDo() {
             </div>
 
             <div className="flex flex-col p-4">
-              <div className="relative border bg-[#FBFBFB] p-2 mb-4 overflow-hidden h-44 lg:h-56 xl:h-80 rounded-[20px] flex items-center justify-center">
+              <div className="relative border bg-[#FBFBFB] p-10 mb-4 overflow-hidden h-44 lg:h-56 xl:h-80 rounded-[20px] flex items-center justify-center">
                 <img 
                   src="/flexible-payout.svg" 
                   alt="Flexible Payout Options" 
-                  className="h-auto w-[100%] object-contain" 
+                  className="h-auto w-[80%] object-contain" 
                 />
               </div>
               <h3 className="text-xl font-[700]">Flexible Payout Options</h3>

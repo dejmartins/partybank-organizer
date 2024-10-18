@@ -12,8 +12,12 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
 import { IEventForm } from "@/services/models/event-model";
+import useAuth from "@/shared/hooks/useAuth";
+import { toast } from "react-toastify";
+import { createEvent } from "@/services/event-services/event-service";
 
 export default function Page() {
+  const { USER } = useAuth();
   const [isFormValid, setisFormValid] = useState(false);
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
   const [backgroundPosition, setBackgroundPosition] = useState({
@@ -50,15 +54,57 @@ export default function Page() {
   //@desc: dispatch event to store and navigate to ticket creation page
   const handleProceed = () => {
     localStorage.setItem("eventSelected", selectedImage!);
-    const eventObj: IEventForm = {
-      ...eventDateObj,
-      ...eventDetailsObj,
-      selectedImage: selectedImage!,
-      backgroundPosition,
+    const {} = eventDateObj;
+    const payload = {
+      address: eventDateObj.eventLocation.address,
+      contact_information: eventDetailsObj.eventContact,
+      date: eventDateObj.eventDate,
+      description: eventDetailsObj.eventDescription,
+      end_time: eventDateObj.endTime,
+      event_theme: "afro",
+      image_url:
+        "https://res.cloudinary.com/drddoxnsi/image/upload/v1727074882/PARTYBANK/aliane-schwartzhaupt-2Y2NvdlSTls-unsplash_duizot.jpg",
+      lat: eventDateObj.eventLocation.lat,
+      lng: eventDateObj.eventLocation.lng,
+      name: eventDetailsObj.eventName,
+      organizer_id: USER.id,
+      series_id: Number(eventDetailsObj.selectedSeries.id),
+      start_time: eventDateObj.startTime,
       tickets: [],
+      venue: eventDateObj.eventLocation.address,
+      visibility: eventDetailsObj.eventVisibility.title,
     };
-    dispatch(saveEvent(eventObj));
-    router.push("./create/tickets");
+
+    const queryApi = () => {
+      createEvent(payload).subscribe({
+        next: (res) => {
+          if (res) {
+            console.log(res);
+            toast.success(res.data.message);
+            seteventDetailsObj((prev: any) => {
+              return { ...prev, id: res.data.id };
+            });
+            const eventObj = {
+              id: res.data.id,
+              ...eventDateObj,
+              ...eventDetailsObj,
+              selectedImage: selectedImage!,
+              backgroundPosition,
+              tickets: [],
+            };
+            dispatch(saveEvent(eventObj));
+            router.push("./create/tickets");
+          } else {
+            toast.info(res.error);
+          }
+        },
+        error: (msg) => {
+          toast.error(msg.message);
+        },
+        complete: () => {},
+      });
+    };
+    queryApi();
   };
 
   const handleValidation = () => {
@@ -84,6 +130,10 @@ export default function Page() {
   useEffect(() => {
     handleValidation();
   }, [eventDetailsObj, eventDateObj, selectedImage]);
+
+  // useEffect(() => {
+  //   console.log("event obj==>", eventDateObj);
+  // }, [eventDateObj]);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">

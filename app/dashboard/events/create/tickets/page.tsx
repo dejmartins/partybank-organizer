@@ -12,6 +12,7 @@ import TicketSales from "@/app/ui/events/ticket-sales";
 import TicketDetails from "@/app/ui/events/ticket-details";
 import { useDispatch } from "@/store/store";
 import { saveTicket } from "@/store/create-event/create-event-slice";
+import useAuth from "@/shared/hooks/useAuth";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -20,6 +21,7 @@ const ticketTypeData = [
 ];
 
 export default function TicketPage() {
+  const { USER } = useAuth();
   const [selectedType, setselectedType] = useState(ticketTypeData[0]);
   const [ticketCategory, setticketCategory] = useState(ticketCategoryData[0]);
   const [perks, setperks] = useState<string[]>([]);
@@ -41,6 +43,7 @@ export default function TicketPage() {
 
   const [isformValid, setisformValid] = useState(false);
   const { tempEvent } = usePBEvent();
+  const { tickets } = tempEvent;
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -95,6 +98,29 @@ export default function TicketPage() {
         ticketCapacity > 0;
       setisformValid(isValid);
     }
+  };
+
+  const handleCreateEvent = () => {
+    const ticketsPayload = tickets.map((obj) => {
+      return {
+        capacity: 0,
+        colour: "",
+        event_id: 0,
+        is_transfer_payment_fees_to_guest: false,
+        name: "",
+        price: 0,
+        price_change_date: "",
+        price_change_time: "",
+        purchase_limit: 0,
+        stock: "",
+        ticket_perks: [],
+        ticket_sale_end_date: "",
+        ticket_sale_start_date: "",
+        ticket_sale_start_time: "",
+        ticket_sales_end_time: "",
+        ticket_type: "",
+      };
+    });
   };
 
   useEffect(() => {

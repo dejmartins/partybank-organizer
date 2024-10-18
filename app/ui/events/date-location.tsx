@@ -43,6 +43,7 @@ export default function EventDateLocation({
                     return { ...prev, eventDate: new Date(val).toISOString() };
                   });
                 }}
+                label="Event Date"
                 value={eventDate}
               />
 

@@ -47,29 +47,35 @@ export default function EventTicketPreview() {
       <hr className="mt-8" />
       <div className="mt-4">
         <h3 className="font-[700] text-[20px] mb-1">My Tickets</h3>
-        <div className="flex flex-col mt-4">
-          {tickets.map((obj: any, index: number) => (
-            <div
-              className="w-full flex items-center justify-between cursor-pointer p-2 rounded-lg border border-[#f1f0f0]"
-              style={{
-                backgroundColor: "#FAF9F9",
-              }}
-            >
-              <div>
-                <span className="text-lg block">{obj.ticketName}</span>
-                <span className="text-sm">
-                  {createEllipsis(obj.ticketDescription, 30)}
-                </span>
+        {tickets.length ? (
+          <div className="flex flex-col mt-4">
+            {tickets.map((obj: any, index: number) => (
+              <div
+                className="w-full flex items-center justify-between cursor-pointer p-2 rounded-lg border border-[#f1f0f0]"
+                style={{
+                  backgroundColor: "#FAF9F9",
+                }}
+              >
+                <div>
+                  <span className="text-lg block">{obj.ticketName}</span>
+                  <span className="text-sm">
+                    {createEllipsis(obj.ticketDescription, 30)}
+                  </span>
+                </div>
+                <div>
+                  <RiDeleteBin6Line
+                    size={20}
+                    onClick={() => handleRemoveTicket(obj)}
+                  />
+                </div>
               </div>
-              <div>
-                <RiDeleteBin6Line
-                  size={20}
-                  onClick={() => handleRemoveTicket(obj)}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="w-full flex items-center justify-center p-2 rounded-lg border border-[#f1f0f0] text-sm">
+            No ticket added
+          </div>
+        )}
       </div>
     </div>
   );

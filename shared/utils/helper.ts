@@ -14,10 +14,12 @@ export function getTimeWithAmPm(dateString: any) {
 }
 
 export function createEllipsis(str: string, maxLength: number) {
-  if (str.length <= maxLength) {
-    return str;
-  }
-  return str.slice(0, maxLength) + "...";
+  try {
+    if (str.length <= maxLength) {
+      return str;
+    }
+    return str.slice(0, maxLength) + "...";
+  } catch (error) {}
 }
 
 export const isValidEmail = (email: string) => {
@@ -26,5 +28,7 @@ export const isValidEmail = (email: string) => {
 };
 
 export function extractUsername(email: string) {
-  return email.split("@")[0];
+  try {
+    return email.split("@")[0];
+  } catch (error) {}
 }

@@ -7,18 +7,20 @@ export default function Header() {
         <div className="flex justify-between items-center px-6">
             <div className="flex items-center gap-10">
                 <div>
+                  <Link href="/">
                     <Image
                         src="/logo.svg"
                         width={65.95}
                         height={32.36}
                         alt="Partybank Logo"
                     />
+                  </Link>
                 </div>
     
                 <nav className="hidden md:flex space-x-6">
-                    <Link href="/about" className="hover:text-red-500 transition">About Us</Link>
+                    <a href="https://thepartybank.com/" className="hover:text-red-500 transition">Attend Event</a>
                     <Link href="/faqs" className="hover:text-red-500 transition">FAQs</Link>
-                    <Link href="/contact" className="hover:text-red-500 transition">Contact</Link>
+                    <a href="mailto:partybankexperience@gmail.com" className="hover:text-red-500 transition">Contact</a>
                 </nav>
             </div>
   

@@ -4,11 +4,11 @@
 
 :root {
   --pb-c-white: #ffffff;
-  --pb-c-soft-grey: #F8F9F9;
-  --pb-c-text-black: #080D18;
-  --pb-c-red: #E91B41;
-  --pb-c-mid-red: #FEEFF2;
-  --pb-c-light-red: #FFF9FA;
+  --pb-c-soft-grey: #f8f9f9;
+  --pb-c-text-black: #080d18;
+  --pb-c-red: #e91b41;
+  --pb-c-mid-red: #feeff2;
+  --pb-c-light-red: #fff9fa;
   /* --pb-c-blue: #3a5cd4;
   --pb-c-light-blue: #5c78db; */
 
@@ -17,18 +17,69 @@
   --pb-c-text-grey: #C0C0C0; */
 }
 
-
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
 
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.MuiAutocomplete-input:focus-visible {
+  outline: none !important; /* Remove the blue outline */
+  box-shadow: none !important; /* Remove the focus shadow */
+}
+
+.css-1lztu7b-JoyAutocomplete-root:not([data-skip-inverted-colors]) {
+  --Input-focusedHighlight: var(--_Input-focusedHighlight, #fff);
+}
+
+.css-1nrxm3h-JoyAutocomplete-root:not([data-skip-inverted-colors]) {
+  --Input-focusedHighlight: none !important;
+}
+
+.animate-from-bottom {
+  animation: moveUp 0.4s ease-out forwards;
+  animation-fill-mode: forwards;
+  bottom: -8rem;
+  /* height: 85vh; */
+  height: 95vh;
+}
+
+@keyframes moveUp {
+  0% {
+    bottom: -42rem;
+  }
+  100% {
+    bottom: -3rem;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0.5px; /* Adjust width for vertical scrollbar */
+  height: 1.4px; /* Adjust height for horizontal scrollbar */
+  background-color: #e91b41;
+}
+
+/* The scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* You can change this to any color */
+}
+
+/* The scrollbar handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #dde0e3; /* You can change the scrollbar color */
+  border-radius: 10px; /* Optional: makes the scrollbar rounded */
+}
+
+/* On hover, make the scrollbar thumb more visible */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #dde0e3;
 }

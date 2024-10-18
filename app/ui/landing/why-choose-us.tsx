@@ -2,11 +2,11 @@ import { MicrophoneIcon, ShieldCheckIcon, SparklesIcon, UserGroupIcon } from "@h
 
 export default function WhyChooseUs() {
     return (
-      <section className="flex flex-col justify-between md:flex-row relative gap-12 border rounded-[30px] h-full overflow-hidden">
-        <div className="flex flex-col items-start z-10 p-12">
+      <section className="relative flex justify-between md:flex-row relative border rounded-[30px] h-full overflow-hidden">
+        <div className="flex flex-col items-start z-10 p-12 lg:w-3/4">
           <h2 className="text-[50px] md:text-[90px] font-[300] mb-8 leading-tight">Why Choose <br/><span className="font-[600] text-[var(--pb-c-red)] italic">Partybank?</span></h2>
           <p className="mb-8 max-w-xl">
-            Partybank empowers organizers of live entertainment events—whether it’s a vibrant party, a major music festival, or a sold-out concert—with the tools to create extraordinary experiences, from planning to execution.
+            Partybank empowers organizers of live entertainment events—whether it&apos;s a vibrant party, a major music festival, or a sold-out concert—with the tools to create extraordinary experiences, from planning to execution.
           </p>
   
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
@@ -35,7 +35,7 @@ export default function WhyChooseUs() {
               <div>
                 <h4 className="text-xl font-[700]">Real-Time Insights</h4>
                 <p>
-                  Track ticket sales, attendee data, and key metrics live, giving you full control over your event’s success.
+                  Track ticket sales, attendee data, and key metrics live, giving you full control over your event&apos;s success.
                 </p>
               </div>
             </div>
@@ -53,11 +53,12 @@ export default function WhyChooseUs() {
         </div>
   
         <div
-          className="hidden md:block md:w-1/5 bg-right bg-repeat opacity-5 h-56 md:min-h-[820px] bg-left bg-cover"
+          className="hidden lg:block md:w-1/4 absolute right-0 h-full bg-repeat bg-cover opacity-5"
           style={{
             backgroundImage: `url('/logo.svg')`
           }}
-        ></div>
+        >
+        </div>
       </section>
     );
   }

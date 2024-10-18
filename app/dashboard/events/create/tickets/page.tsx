@@ -26,9 +26,10 @@ export default function TicketPage() {
   const [ticketDetailsObj, settickDetailsObj] = useState({
     ticketName: "",
     ticketDescription: "",
-    ticketCapacity: "",
-    ticketStock: "", //change to obj
-    ticketPurchaseLimit: "", //chnage to obj
+    ticketCapacity: 0,
+    ticketStock: { id: 1, label: "Limited" },
+    ticketPrice: 0.0,
+    ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
   });
 
   const [ticketDateObj, settickDateObj] = useState({
@@ -37,14 +38,16 @@ export default function TicketPage() {
     salesStartTime: new Date().toISOString(),
     salesEndTime: new Date().toISOString(),
   });
+
+  const [isformValid, setisformValid] = useState(false);
   const { tempEvent } = usePBEvent();
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleSaveTicket = () => {
     const ticketData = {
-      ...ticketDateObj,
-      ...ticketDetailsObj,
+      ticketDateObj,
+      ticketDetailsObj,
       ticketCategory,
       ticketType: selectedType,
       perks,
@@ -55,6 +58,44 @@ export default function TicketPage() {
       return { ...prev, ticketName: "" };
     });
   };
+  const handleValidation = () => {
+    const {
+      ticketName,
+      ticketPrice,
+      ticketDescription,
+      ticketStock,
+      ticketCapacity,
+    } = ticketDetailsObj;
+    if (selectedType.title === "Free" && ticketStock.label === "Unlimited") {
+      const isValid = ticketName.length > 2 && ticketDescription.length > 6;
+      setisformValid(isValid);
+    }
+
+    if (selectedType.title === "Free" && ticketStock.label === "Limited") {
+      const isValid =
+        ticketName.length > 2 &&
+        ticketDescription.length > 6 &&
+        ticketCapacity > 0;
+      setisformValid(isValid);
+    }
+
+    if (selectedType.title === "Paid" && ticketStock.label === "Unlimited") {
+      const isValid =
+        ticketName.length > 2 &&
+        ticketDescription.length > 6 &&
+        ticketPrice > 0;
+      setisformValid(isValid);
+    }
+
+    if (selectedType.title === "Paid" && ticketStock.label === "Limited") {
+      const isValid =
+        ticketName.length > 2 &&
+        ticketDescription.length > 6 &&
+        ticketPrice > 0 &&
+        ticketCapacity > 0;
+      setisformValid(isValid);
+    }
+  };
 
   useEffect(() => {
     if (tempEvent === undefined) {
@@ -63,14 +104,8 @@ export default function TicketPage() {
   }, []);
 
   useEffect(() => {
-    // console.log("==>ticket data", ticketDateObj);
-  }, [
-    ticketDateObj,
-    ticketCategory,
-    ticketCategory,
-    ticketDetailsObj,
-    selectedType,
-  ]);
+    handleValidation();
+  }, [ticketDetailsObj, selectedType]);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
@@ -123,8 +158,9 @@ export default function TicketPage() {
           <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">
             <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
               <button
-                className="bg-partybank-red border border-partybank-text-black rounded py-2 px-12 text-white font-bold"
+                className="bg-partybank-red border border-partybank-text-black disabled:border-[#FEEFF2] rounded py-2 px-12 text-white font-bold disabled:bg-[#FEEFF2]"
                 onClick={handleSaveTicket}
+                disabled={!isformValid}
               >
                 Save Ticket
               </button>

@@ -10,6 +10,8 @@ import NoteIcon from "@/shared/components/icons/note-icon";
 import PBInputPerks from "@/shared/components/pbInputPerks/pb-input-perks";
 import { FiGift } from "react-icons/fi";
 import { IoCloseSharp } from "react-icons/io5";
+import PBAutoSelect from "@/shared/components/pb-auto-select/pb-auto-select";
+import { FaMoneyBill1 } from "react-icons/fa6";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -21,10 +23,18 @@ type PropT = {
   ticketDetailsObj: {
     ticketName: string;
     ticketDescription: string;
-    ticketCapacity: string;
-    ticketStock: string;
-    ticketPurchaseLimit: string;
+    ticketCapacity: number;
+    ticketStock: {
+      id: any;
+      label: string;
+    };
+    ticketPurchaseLimit: {
+      id: any;
+      label: string;
+    };
+    ticketPrice: number;
   };
+
   setticketDetailsObj: Function;
   selectedType: any;
   setselectedType: Function;
@@ -40,6 +50,23 @@ export default function TicketDetails({
   perks,
   setperks,
 }: PropT) {
+  const handlePrice = (value: any) => {
+    if (isNaN(value)) return;
+    else {
+      setticketDetailsObj((prev: any) => {
+        return { ...prev, ticketPrice: value };
+      });
+    }
+  };
+
+  const handleCapacity = (value: any) => {
+    if (isNaN(value)) return;
+    else {
+      setticketDetailsObj((prev: any) => {
+        return { ...prev, ticketCapacity: value };
+      });
+    }
+  };
   return (
     <div className="w-full flex lex-col md:flex-row py-6 border-b border-partybank-border p-4 md:p-0 xl:py-2">
       <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
@@ -80,15 +107,19 @@ export default function TicketDetails({
                   icon={<NoteIcon />}
                 />
 
-                <PBInput
-                  value={ticketDetailsObj.ticketStock}
-                  setvalue={(val: string) => {
+                <PBAutoSelect
+                  value={ticketDetailsObj.ticketStock.label}
+                  setvalue={(event: any) => {
                     setticketDetailsObj((prev: any) => {
-                      return { ...prev, ticketStock: val };
+                      return { ...prev, ticketStock: event };
                     });
                   }}
                   placeHolder="Ticket Stock"
-                  icon={<NoteIcon />}
+                  icon={<RandomIcon />}
+                  options={[
+                    { id: 1, label: "Limited" },
+                    { id: 2, label: "Unlimited" },
+                  ]}
                 />
 
                 <PBTextArea
@@ -103,27 +134,45 @@ export default function TicketDetails({
                 />
               </div>
               <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
-                <PBInput
-                  value={ticketDetailsObj.ticketCapacity}
-                  setvalue={(val: string) => {
+                <PBAutoSelect
+                  value={ticketDetailsObj.ticketPurchaseLimit.label}
+                  setvalue={(event: any) => {
                     setticketDetailsObj((prev: any) => {
-                      return { ...prev, ticketCapacity: val };
-                    });
-                  }}
-                  placeHolder="Ticket Capacity"
-                  icon={<NoteIcon />}
-                />
-
-                <PBInput
-                  value={ticketDetailsObj.ticketPurchaseLimit}
-                  setvalue={(val: string) => {
-                    setticketDetailsObj((prev: any) => {
-                      return { ...prev, ticketPurchaseLimit: val };
+                      return { ...prev, ticketPurchaseLimit: event };
                     });
                   }}
                   placeHolder="Ticket Purchase Limit"
                   icon={<RandomIcon />}
+                  options={[
+                    { id: 1, label: "1" },
+                    { id: 2, label: "2" },
+                    { id: 3, label: "3" },
+                    { id: 4, label: "4" },
+                    { id: 5, label: "5" },
+                  ]}
                 />
+
+                {ticketDetailsObj.ticketStock.label === "Limited" && (
+                  <PBInput
+                    value={ticketDetailsObj.ticketCapacity}
+                    setvalue={(val: string) => {
+                      handleCapacity(val);
+                    }}
+                    placeHolder="Ticket Capacity"
+                    icon={<NoteIcon />}
+                  />
+                )}
+
+                {selectedType.title === "Paid" && (
+                  <PBInput
+                    value={ticketDetailsObj.ticketPrice}
+                    setvalue={(val: string) => {
+                      handlePrice(val);
+                    }}
+                    placeHolder="Ticket Price"
+                    icon={<FaMoneyBill1 size={20} />}
+                  />
+                )}
               </div>
             </div>
           </div>

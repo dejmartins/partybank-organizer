@@ -77,7 +77,7 @@ export default function TicketSales({
               />
 
               <PBTimePicker
-                label="Starts"
+                label="Ends"
                 setTimeValue={(val: any) => {
                   setticketDateObj((prev: any) => {
                     return {

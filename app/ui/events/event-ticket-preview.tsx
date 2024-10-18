@@ -57,9 +57,11 @@ export default function EventTicketPreview() {
                 }}
               >
                 <div>
-                  <span className="text-lg block">{obj.ticketName}</span>
+                  <span className="text-lg block">
+                    {obj.ticketDetailsObj.ticketName}
+                  </span>
                   <span className="text-sm">
-                    {createEllipsis(obj.ticketDescription, 30)}
+                    {createEllipsis(obj.ticketDetailsObj.ticketDescription, 30)}
                   </span>
                 </div>
                 <div>

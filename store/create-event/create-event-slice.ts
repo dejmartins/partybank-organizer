@@ -17,7 +17,9 @@ const eventSlice = createSlice({
       const { payload } = param;
       const { tickets } = state.data.tempEvent;
       const exstn = tickets.filter(
-        (obj: any) => obj.ticketName === payload.ticketName
+        (obj: any) =>
+          obj.ticketDetailsObj.ticketName ===
+          payload.ticketDetailsObj.ticketName
       );
       if (exstn.length) {
         toast.error("Ticket already exisit, please change ticket name");

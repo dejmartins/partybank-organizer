@@ -19,3 +19,8 @@ export function createEllipsis(str: string, maxLength: number) {
   }
   return str.slice(0, maxLength) + "...";
 }
+
+export const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};

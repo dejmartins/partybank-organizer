@@ -3,11 +3,11 @@ import { toast } from "react-toastify";
 import { throwError } from "rxjs";
 import { getStoredAuthToken } from "@/shared/utils/ls";
 
-const http = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+const authHttp = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_AUTH_BASE_URL,
 });
 
-http.interceptors.request.use(
+authHttp.interceptors.request.use(
   async (request: any) => {
     request.headers = {
       "Content-Type": "application/json",
@@ -22,7 +22,7 @@ http.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-http.interceptors.response.use(
+authHttp.interceptors.response.use(
   (response) => {
     return response.data;
   },
@@ -62,4 +62,4 @@ export const handleError = (errorResponse: any) => {
 
   return throwError(() => errorResponse);
 };
-export default http;
+export default authHttp;

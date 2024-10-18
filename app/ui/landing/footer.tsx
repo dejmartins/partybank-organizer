@@ -1,5 +1,6 @@
 import { BuildingOffice2Icon, CircleStackIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
     return (
@@ -13,7 +14,7 @@ export default function Footer() {
               </div>
               <ul className="space-y-2">
                 <li><a href="#" className="hover:text-white">About Us</a></li>
-                <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+                <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
                 <li><a href="#" className="hover:text-white">Terms and Conditions</a></li>
               </ul>
             </div>

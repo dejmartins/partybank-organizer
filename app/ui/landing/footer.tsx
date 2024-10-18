@@ -15,7 +15,7 @@ export default function Footer() {
               <ul className="space-y-2">
                 <li><a href="#" className="hover:text-white">About Us</a></li>
                 <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
-                <li><a href="#" className="hover:text-white">Terms and Conditions</a></li>
+                <li><a href="/terms" className="hover:text-white">Terms and Conditions</a></li>
               </ul>
             </div>
 
@@ -25,8 +25,8 @@ export default function Footer() {
                 <h4 className="text-xl font-bold">Products</h4>
               </div>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white">Create Event</a></li>
-                <li><a href="#" className="hover:text-white">Attend Event</a></li>
+                <li><a href="/" className="hover:text-white">Create Event</a></li>
+                <li><a href="https://thepartybank.com/" className="hover:text-white">Attend Event</a></li>
               </ul>
             </div>
 
@@ -36,8 +36,7 @@ export default function Footer() {
                 <h4 className="text-xl font-bold">Support</h4>
               </div>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white">Terms and Conditions</a></li>
-                <li><a href="#" className="hover:text-white">Email Us</a></li>
+                <li><a href="mailto:partybankexperience@gmail.com" className="hover:text-white">Email Us</a></li>
               </ul>
             </div>
           </div>

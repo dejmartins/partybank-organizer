@@ -20,7 +20,7 @@ export interface IEventDTO {
 export interface ITicketDTO {
   capacity: number;
   colour: string;
-  event_id: number;
+  // event_id: number;
   is_transfer_payment_fees_to_guest: boolean;
   name: string;
   price: number;

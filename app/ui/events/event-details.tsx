@@ -42,99 +42,110 @@ export default function EventDetails({
   eventDetailsObj,
   seteventDetailsObj,
 }: PropT) {
+  const [isClient, setisClient] = useState(false);
   const { USER } = useAuth();
   const { series } = USER;
-  const seriesArr = series.map((obj: any) => {
-    return { label: obj?.name, id: obj?.series_id };
-  });
+
+  const seriesArr =
+    USER.series &&
+    USER.series.map((obj: any) => {
+      return { label: obj?.name, id: obj?.series_id };
+    });
+
+  useEffect(() => {
+    setisClient(true);
+  }, []);
+
   return (
-    <div>
-      <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-0 xl:py-2">
-        <div className="w-full flex flex-col md:w-11/12 m-auto py-4 gap-y-2">
-          {/* --- datails ---- */}
-          <div className="w-full pb-4">
+    <>
+      {isClient && (
+        <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-0 xl:py-2">
+          <div className="w-full flex flex-col md:w-11/12 m-auto py-4 gap-y-2">
+            {/* --- datails ---- */}
+            <div className="w-full pb-4">
+              <div className="w-full">
+                <h3 className="font-[700] text-[24px]">Event Details</h3>
+              </div>
+              <div className="w-full flex flex-col md:flex-row mt-2 py-2 gap-4">
+                <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
+                  <PBInput
+                    value={eventDetailsObj.eventName}
+                    setvalue={(val: string) => {
+                      seteventDetailsObj((prev: any) => {
+                        return { ...prev, eventName: val };
+                      });
+                    }}
+                    placeHolder="Event Name"
+                    icon={<MdEventNote size={20} />}
+                  />
+
+                  <PBTextArea
+                    value={eventDetailsObj.eventDescription}
+                    setvalue={(val: string) => {
+                      seteventDetailsObj((prev: any) => {
+                        return { ...prev, eventDescription: val };
+                      });
+                    }}
+                    placeHolder="Add a description"
+                    icon={<RandomIcon />}
+                  />
+                </div>
+                <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
+                  <PBAutoSelect
+                    value={eventDetailsObj.selectedSeries.label ?? ""}
+                    setvalue={(event: any) => {
+                      seteventDetailsObj((prev: any) => {
+                        return { ...prev, selectedSeries: event };
+                      });
+                    }}
+                    placeHolder="Series"
+                    icon={<RandomIcon />}
+                    options={seriesArr ?? dummySeries}
+                  />
+
+                  <PBInput
+                    value={eventDetailsObj.eventContact}
+                    setvalue={(val: string) => {
+                      seteventDetailsObj((prev: any) => {
+                        return { ...prev, eventContact: val };
+                      });
+                    }}
+                    placeHolder="Event contact"
+                    icon={<FaRegUser size={16} />}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* ---visibility----- */}
             <div className="w-full">
-              <h3 className="font-[700] text-[24px]">Event Details</h3>
-            </div>
-            <div className="w-full flex flex-col md:flex-row mt-2 py-2 gap-4">
-              <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
-                <PBInput
-                  value={eventDetailsObj.eventName}
-                  setvalue={(val: string) => {
-                    seteventDetailsObj((prev: any) => {
-                      return { ...prev, eventName: val };
-                    });
-                  }}
-                  placeHolder="Event Name"
-                  icon={<MdEventNote size={20} />}
-                />
-
-                <PBTextArea
-                  value={eventDetailsObj.eventDescription}
-                  setvalue={(val: string) => {
-                    seteventDetailsObj((prev: any) => {
-                      return { ...prev, eventDescription: val };
-                    });
-                  }}
-                  placeHolder="Add a description"
-                  icon={<RandomIcon />}
-                />
+              <div className="flex gap-x-4 w-full items-center">
+                <h3 className="font-[700] text-[24px]">Event Visibility</h3>
               </div>
-              <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
-                <PBAutoSelect
-                  value={eventDetailsObj.selectedSeries.label ?? ""}
-                  setvalue={(event: any) => {
-                    seteventDetailsObj((prev: any) => {
-                      return { ...prev, selectedSeries: event };
-                    });
-                  }}
-                  placeHolder="Series"
-                  icon={<RandomIcon />}
-                  options={seriesArr ?? dummySeries}
-                />
 
-                <PBInput
-                  value={eventDetailsObj.eventContact}
-                  setvalue={(val: string) => {
-                    seteventDetailsObj((prev: any) => {
-                      return { ...prev, eventContact: val };
-                    });
-                  }}
-                  placeHolder="Event contact"
-                  icon={<FaRegUser size={16} />}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* ---visibility----- */}
-          <div className="w-full">
-            <div className="flex gap-x-4 w-full items-center">
-              <h3 className="font-[700] text-[24px]">Event Visibility</h3>
-            </div>
-
-            <div className="w-full flex flex-col md:flex-row mt-2  gap-x-4">
-              <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3">
-                <PBAutoSelect
-                  value={
-                    eventDetailsObj.eventVisibility.title !== null
-                      ? eventDetailsObj.eventVisibility.title
-                      : "Public"
-                  }
-                  setvalue={(event: any) => {
-                    seteventDetailsObj((prev: any) => {
-                      return { ...prev, eventVisibility: event };
-                    });
-                  }}
-                  placeHolder="Visibility"
-                  icon={<FiEye size={20} />}
-                  options={dummyVisibilityties}
-                />
+              <div className="w-full flex flex-col md:flex-row mt-2  gap-x-4">
+                <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3">
+                  <PBAutoSelect
+                    value={
+                      eventDetailsObj.eventVisibility.title !== null
+                        ? eventDetailsObj.eventVisibility.title
+                        : "Public"
+                    }
+                    setvalue={(event: any) => {
+                      seteventDetailsObj((prev: any) => {
+                        return { ...prev, eventVisibility: event };
+                      });
+                    }}
+                    placeHolder="Visibility"
+                    icon={<FiEye size={20} />}
+                    options={dummyVisibilityties}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

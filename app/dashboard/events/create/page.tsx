@@ -54,57 +54,57 @@ export default function Page() {
   //@desc: dispatch event to store and navigate to ticket creation page
   const handleProceed = () => {
     localStorage.setItem("eventSelected", selectedImage!);
-    const {} = eventDateObj;
-    const payload = {
-      address: eventDateObj.eventLocation.address,
-      contact_information: eventDetailsObj.eventContact,
-      date: eventDateObj.eventDate,
-      description: eventDetailsObj.eventDescription,
-      end_time: eventDateObj.endTime,
-      event_theme: "afro",
-      image_url:
-        "https://res.cloudinary.com/drddoxnsi/image/upload/v1727074882/PARTYBANK/aliane-schwartzhaupt-2Y2NvdlSTls-unsplash_duizot.jpg",
-      lat: eventDateObj.eventLocation.lat,
-      lng: eventDateObj.eventLocation.lng,
-      name: eventDetailsObj.eventName,
-      organizer_id: USER.id,
-      series_id: Number(eventDetailsObj.selectedSeries.id),
-      start_time: eventDateObj.startTime,
-      tickets: [],
-      venue: eventDateObj.eventLocation.address,
-      visibility: eventDetailsObj.eventVisibility.title,
-    };
+    // const payload = {
+    //   address: eventDateObj.eventLocation.address,
+    //   contact_information: eventDetailsObj.eventContact,
+    //   date: eventDateObj.eventDate,
+    //   description: eventDetailsObj.eventDescription,
+    //   end_time: eventDateObj.endTime,
+    //   event_theme: "afro",
+    //   image_url:
+    //     "https://res.cloudinary.com/drddoxnsi/image/upload/v1727074882/PARTYBANK/aliane-schwartzhaupt-2Y2NvdlSTls-unsplash_duizot.jpg",
+    //   lat: eventDateObj.eventLocation.lat,
+    //   lng: eventDateObj.eventLocation.lng,
+    //   name: eventDetailsObj.eventName,
+    //   organizer_id: USER.id,
+    //   series_id: Number(eventDetailsObj.selectedSeries.id),
+    //   start_time: eventDateObj.startTime,
+    //   tickets: [],
+    //   venue: eventDateObj.eventLocation.address,
+    //   visibility: eventDetailsObj.eventVisibility.title,
+    // };
 
-    const queryApi = () => {
-      createEvent(payload).subscribe({
-        next: (res) => {
-          if (res) {
-            console.log(res);
-            toast.success(res.data.message);
-            seteventDetailsObj((prev: any) => {
-              return { ...prev, id: res.data.id };
-            });
-            const eventObj = {
-              id: res.data.id,
-              ...eventDateObj,
-              ...eventDetailsObj,
-              selectedImage: selectedImage!,
-              backgroundPosition,
-              tickets: [],
-            };
-            dispatch(saveEvent(eventObj));
-            router.push("./create/tickets");
-          } else {
-            toast.info(res.error);
-          }
-        },
-        error: (msg) => {
-          toast.error(msg.message);
-        },
-        complete: () => {},
-      });
+    // const queryApi = () => {
+    //   createEvent(payload).subscribe({
+    //     next: (res) => {
+    //       if (res) {
+    //         console.log(res);
+    //         toast.success(res.data.message);
+    //         seteventDetailsObj((prev: any) => {
+    //           return { ...prev, id: res.data.id };
+    //         });
+    //       } else {
+    //         toast.info(res.error);
+    //       }
+    //     },
+    //     error: (msg) => {
+    //       toast.error(msg.message);
+    //     },
+    //     complete: () => {},
+    //   });
+    // };
+    // queryApi();
+
+    const eventObj = {
+      ...eventDateObj,
+      ...eventDetailsObj,
+      selectedImage:
+        "https://res.cloudinary.com/drddoxnsi/image/upload/v1727074882/PARTYBANK/aliane-schwartzhaupt-2Y2NvdlSTls-unsplash_duizot.jpg",
+      backgroundPosition,
+      tickets: [],
     };
-    queryApi();
+    dispatch(saveEvent(eventObj));
+    router.push("./create/tickets");
   };
 
   const handleValidation = () => {

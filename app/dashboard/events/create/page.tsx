@@ -131,9 +131,9 @@ export default function Page() {
     handleValidation();
   }, [eventDetailsObj, eventDateObj, selectedImage]);
 
-  // useEffect(() => {
-  //   console.log("event obj==>", eventDateObj);
-  // }, [eventDateObj]);
+  useEffect(() => {
+    console.log("event obj==>", eventDateObj);
+  }, [eventDateObj]);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">

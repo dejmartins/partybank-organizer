@@ -8,3 +8,14 @@ export const createEvent = (payload: IEventDTO): Observable<any> => {
     catchError(handleError)
   );
 };
+
+export const getOrgEvents = (payload: any): Observable<any> => {
+  return from(
+    http.get("/event/organizer", {
+      params: { ...payload },
+    })
+  ).pipe(
+    map((response: any) => response),
+    catchError(handleError)
+  );
+};

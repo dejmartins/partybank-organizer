@@ -25,7 +25,7 @@ export default function useAuth() {
   };
 
   useEffect(() => {
-    console.log("===>", user);
+    // console.log("===>", user);
     // setisAuth(user.data.auth);
     // setUSER(user.data);
     // setusersub(user.sub);

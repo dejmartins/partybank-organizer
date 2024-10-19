@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { events } from "@/app/lib/placeholder-data";
 import AddMore from "@/app/ui/dashboard/add-more";
 import EmptyState from "@/app/ui/dashboard/empty-state";
 import Card from "@/app/ui/events/card";
+import { getOrgEvents } from "@/services/event-services/event-service";
+import { toast } from "react-toastify";
+import useAuth from "@/shared/hooks/useAuth";
+import { Subscription } from "rxjs";
 
 export default function Page() {
+  const { USER } = useAuth();
   const [statusFilter, setStatusFilter] = useState("active");
   const [isPublished, setisPublished] = useState(false);
+  const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
+  const [currentPage, setcurrentPage] = useState(1);
 
   const filteredEvents = events.filter((event) => {
     if (!isPublished) {
@@ -17,6 +24,38 @@ export default function Page() {
       return event.status === statusFilter;
     }
   });
+
+  const fetchEvents = () => {
+    return getOrgEvents({
+      organizerId: USER.id,
+      page: currentPage,
+      size: 10,
+    }).subscribe({
+      next: (res) => {
+        if (res) {
+          console.log("events==>", res);
+        } else {
+          toast.info(res.error);
+          setIsLoaderModalOpen(false);
+        }
+      },
+      error: (msg) => {
+        toast.error(msg.message);
+
+        setIsLoaderModalOpen(false);
+      },
+      complete: () => {
+        setIsLoaderModalOpen(false);
+      },
+    });
+  };
+
+  useEffect(() => {
+    const subscription: Subscription = fetchEvents();
+    return () => {
+      subscription.unsubscribe(); // Cleanup the subscription
+    };
+  }, []);
 
   return (
     <div className="flex flex-col border-0 md:border-x-[20px] border-[var(--pb-c-soft-grey)]">

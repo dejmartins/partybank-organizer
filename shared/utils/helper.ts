@@ -32,3 +32,28 @@ export function extractUsername(email: string) {
     return email.split("@")[0];
   } catch (error) {}
 }
+
+export const uploadToCloudinary = async (file: any, upload_preset: string) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", upload_preset);
+
+  try {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      return data.secure_url;
+    } else {
+      throw new Error("Failed to upload image to Cloudinary");
+    }
+  } catch (err) {
+    console.error("Error uploading image:", err);
+    // throw err;
+  }
+};
+

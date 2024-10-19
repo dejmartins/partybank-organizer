@@ -17,6 +17,8 @@ export default function VerifyEmailForm() {
   const [otpCode, setotpCode] = useState("");
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
 
+  const intendedRoute = localStorage.getItem('intendedRoute')
+
   const openLoaderModal = (e: any) => {
     e.preventDefault();
     setIsLoaderModalOpen(true);
@@ -61,7 +63,13 @@ export default function VerifyEmailForm() {
                 })
               );
               localStorage.removeItem("tempemail");
-              router.push("/dashboard");
+              
+              if(intendedRoute) {
+                router.push(intendedRoute);
+              } else {
+                router.push("/dashboard");
+              }
+              
             } else {
               toast.info(res.error);
               setIsLoaderModalOpen(false);

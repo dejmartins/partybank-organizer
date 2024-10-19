@@ -1,6 +1,17 @@
+"use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function HeroSection() {
+
+  const router = useRouter();
+
+  const createEvent = () => {
+    localStorage.setItem('intendedRoute', 'create-event')
+    // router.push('/auth/signin')
+    router.push('/auth/signin')
+  };
+
   return (
     <section
       className="relative bg-cover bg-center min-h-screen xl:min-h-[130vh] flex flex-col md:pt-36 items-center justify-center md:justify-start text-white rounded-b-[20px]"
@@ -24,13 +35,13 @@ export default function HeroSection() {
           ultimate platform for organizers to create unforgettable experiences.
         </p>
 
-        <div className="flex gap-4 my-5 md:my-6">
-          <a
-            href="/auth/signin"
+        <div className="flex gap-4 my-5 md:my-6 cursor-pointer">
+          <p
             className="bg-[var(--pb-c-red)] text-white font-[500] border-[2px] border-[#4E0916] p-3 rounded-[8px] px-10 font-[700]"
+            onClick={createEvent}
           >
             Create Event
-          </a>
+          </p>
         </div>
 
         <div className="flex gap-4 w-full max-w-[1000px] mx-auto mt-10">

@@ -6,7 +6,7 @@ export default function Footer() {
     return (
       <>
         <footer className="bg-[#1D0509] text-[#FBD1D9]">
-          <div className="p-12 md:px-72 container mx-auto flex flex-col md:flex-row justify-between gap-12 text-center md:text-left">
+          <div className="p-12 md:max-w-[800px] container mx-auto flex flex-col md:flex-row justify-between gap-12 text-center md:text-left">
             <div className="flex flex-col items-center md:items-start">
               <div className="flex flex-col items-center md:items-start mb-2">
                 <BuildingOffice2Icon className="text-[var(--pb-c-red)] w-7 mb-2" />

@@ -38,7 +38,7 @@ export const handleAxiosError = (error: AxiosError) => {
 };
 //Observable Error handler
 export const handleError = (errorResponse: any) => {
-  if (errorResponse?.response?.status === 401) {
+  if (errorResponse?.response?.status === 403) {
     toast.error(
       errorResponse?.response?.data?.message
         ? errorResponse?.response?.data?.message
@@ -48,12 +48,10 @@ export const handleError = (errorResponse: any) => {
     window.location.href = "/";
   }
 
-  const subscriptionRelatedErr = errorResponse?.response?.status === 412;
-  if (subscriptionRelatedErr) {
-    // toast.error(errorResponse?.response?.message);
-    setTimeout(() => {
-      window.location.href = "/subscription";
-    }, 1500);
+  const annonErr = errorResponse?.response?.status === 412;
+  if (annonErr) {
+    localStorage.clear();
+    window.location.href = "/";
   }
   const unExpectedError = errorResponse?.response?.status >= 500;
   if (unExpectedError) {

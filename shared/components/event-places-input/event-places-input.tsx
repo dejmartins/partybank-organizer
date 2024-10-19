@@ -21,7 +21,7 @@ const EventPlacesInput: React.FC<any> = ({
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
         handleGeoCode({ ...latLng, address });
-        handleSelect(address);
+        // handleSelect(address);
       })
       .catch((error) => console.error("Error", error));
   };

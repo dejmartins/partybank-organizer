@@ -63,7 +63,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 ::-webkit-scrollbar {
-  width: 0.5px; /* Adjust width for vertical scrollbar */
+  width: 1.5px; /* Adjust width for vertical scrollbar */
   height: 1.4px; /* Adjust height for horizontal scrollbar */
   background-color: #e91b41;
 }

@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import PBInput from "@/shared/components/pbInput/pb-input";
 import { MdEventNote } from "react-icons/md";
@@ -6,6 +7,7 @@ import RandomIcon from "@/shared/components/icons/random-icon";
 import PBTextArea from "@/shared/components/pb-text-area/pb-text-area";
 import { FiEye } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
+import useAuth from "@/shared/hooks/useAuth";
 
 type PropT = {
   eventDetailsObj: {
@@ -40,6 +42,11 @@ export default function EventDetails({
   eventDetailsObj,
   seteventDetailsObj,
 }: PropT) {
+  const { USER } = useAuth();
+  const { series } = USER;
+  const seriesArr = series.map((obj: any) => {
+    return { label: obj?.name, id: obj?.series_id };
+  });
   return (
     <div>
       <div className="w-full flex lex-col md:flex-row pb-6 border-b border-partybank-border p-0 xl:py-2">
@@ -83,7 +90,7 @@ export default function EventDetails({
                   }}
                   placeHolder="Series"
                   icon={<RandomIcon />}
-                  options={dummySeries}
+                  options={seriesArr ?? dummySeries}
                 />
 
                 <PBInput

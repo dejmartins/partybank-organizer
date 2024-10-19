@@ -1,15 +1,21 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import useAuth from "@/shared/hooks/useAuth";
 
 export default function HeroSection() {
+
+  const { USER } = useAuth();
 
   const router = useRouter();
 
   const createEvent = () => {
-    localStorage.setItem('intendedRoute', 'create-event')
-    // router.push('/auth/signin')
-    router.push('/auth/signin')
+    if(USER.isAuth) {
+      router.push('/dashboard/events/create')
+    } else {
+      localStorage.setItem('intendedRoute', '/dashboard/events/create')
+      router.push('/auth/signin')
+    }
   };
 
   return (

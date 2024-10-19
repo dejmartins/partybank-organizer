@@ -5,11 +5,9 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import useAuth from "@/shared/hooks/useAuth";
 import ProfileIcon from "../auth/profile-icon";
 
 export default function Header() {
-  const { USER } = useAuth();
   return (
     <div className="flex items-center justify-between fixed top-0 left-0 right-0 bg-[var(--pb-c-white)] h-[64px] w-full px-[24px] py-[16px] z-50 border-0 border-b-4 border-[var(--pb-c-soft-grey)]">
       <div>

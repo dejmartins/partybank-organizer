@@ -5,7 +5,7 @@ import { ArrowRightOnRectangleIcon, UserIcon } from '@heroicons/react/24/outline
 import { useRouter } from 'next/navigation'
 import { createEllipsis, extractUsername } from "@/shared/utils/helper";
 import useAuth from '@/shared/hooks/useAuth'
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function ProfileIcon() {
     const [isClient, setisClient] = useState(false);
@@ -14,7 +14,7 @@ export default function ProfileIcon() {
       setisClient(true);
     }, []);
 
-    const { USER } = useAuth();
+    const { USER, logoutUser } = useAuth();
 
     const router = useRouter()
 
@@ -27,7 +27,7 @@ export default function ProfileIcon() {
     }
 
     const handleSignOut = () => {
-        router.push('/auth/signin')
+        logoutUser();
     }
 
     return (

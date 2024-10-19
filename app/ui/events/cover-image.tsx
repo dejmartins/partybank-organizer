@@ -1,6 +1,7 @@
 import { useDrag } from "@/app/lib/actions";
 import React from "react";
 import { IoImageOutline } from "react-icons/io5";
+import { uploadToCloudinary } from "@/shared/utils/helper";
 
 interface CoverImageUploadProps {
   selectedImage: string | null;
@@ -20,6 +21,10 @@ export default function EventCoverImage({
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       onImageChange(imageUrl);
+
+      const url = uploadToCloudinary(file, 'event_image');
+
+      url.then((res)=> {console.log('cloud_url', res)})
     }
   };
 

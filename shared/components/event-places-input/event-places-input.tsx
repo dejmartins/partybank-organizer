@@ -78,7 +78,7 @@ const EventPlacesInput: React.FC<EventPlacesInputProps> = ({
                   {...getInputProps({
                     placeholder: placeholder,
                     disabled: disbl,
-                    autoComplete: autoComplete,
+                    autoComplete: "off",
                   })}
                   className="p-4 outline-none placeholder:text-partybank-text-black w-full"
                 />

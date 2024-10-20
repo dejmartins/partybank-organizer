@@ -17,7 +17,11 @@ import { IEventForm } from "@/services/models/event-model";
 import Loader from "@/app/ui/loaders/loader";
 import { createEvent } from "@/services/event-services/event-service";
 import { toast } from "react-toastify";
-import { uploadToCloudinary } from "@/shared/utils/helper";
+import {
+  convertIsoToDate,
+  getTimeWithAmPm,
+  uploadToCloudinary,
+} from "@/shared/utils/helper";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -124,10 +128,14 @@ export default function TicketPage() {
         ),
         stock: obj.ticketDetailsObj.ticketStock.label,
         ticket_perks: obj.perks,
-        ticket_sale_end_date: obj.ticketDateObj.salesEndDate,
-        ticket_sale_start_date: obj.ticketDateObj.salesStartDate,
-        ticket_sale_start_time: obj.ticketDateObj.salesStartTime,
-        ticket_sales_end_time: obj.ticketDateObj.salesEndTime,
+        ticket_sale_end_date: convertIsoToDate(obj.ticketDateObj.salesEndDate),
+        ticket_sale_start_date: convertIsoToDate(
+          obj.ticketDateObj.salesStartDate
+        ),
+        ticket_sale_start_time: getTimeWithAmPm(
+          obj.ticketDateObj.salesStartTime
+        ),
+        ticket_sales_end_time: getTimeWithAmPm(obj.ticketDateObj.salesEndTime),
         ticket_type: obj.ticketType.title,
       };
     });
@@ -140,9 +148,9 @@ export default function TicketPage() {
       const payload = {
         address: tempEventObj.eventLocation.address,
         contact_information: tempEventObj.eventContact,
-        date: tempEventObj.eventDate,
+        date: convertIsoToDate(tempEventObj.eventDate),
         description: tempEventObj.eventDescription,
-        end_time: tempEventObj.endTime,
+        end_time: getTimeWithAmPm(tempEventObj.endTime),
         event_theme: "----",
         image_url: url,
         lat: tempEventObj.eventLocation.lat.toString(),
@@ -150,7 +158,7 @@ export default function TicketPage() {
         name: tempEventObj.eventName,
         organizer_id: USER.id,
         series_id: Number(tempEventObj.selectedSeries.id),
-        start_time: tempEventObj.startTime,
+        start_time: getTimeWithAmPm(tempEventObj.startTime),
         tickets: ticketsPayload,
         venue: tempEventObj.eventLocation.venue,
         visibility: tempEventObj.eventVisibility.label,

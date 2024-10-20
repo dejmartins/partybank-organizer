@@ -14,6 +14,7 @@ import {
   IEventTicketRes,
 } from "@/services/models/event-response";
 import Loader from "@/app/ui/loaders/loader";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { USER } = useAuth();
@@ -23,6 +24,7 @@ export default function Page() {
   const [currentPage, setcurrentPage] = useState(1);
   const [eventList, seteventList] = useState<IEventResponseArr>([]);
 
+  const router = useRouter();
   const filteredEvents = eventList.filter((event) => {
     if (!isPublished) {
       return event.isPublished === isPublished;
@@ -33,8 +35,18 @@ export default function Page() {
 
   const EmptyEventState = () => {
     return (
-      <div className="md:mt-20">
+      <div className="md:mt-20 flex flex-col justify-center">
         <EmptyState title="No records yet!" />
+        <div className="mt-2 flex justify-center">
+          <button
+            className="bg-partybank-red py-2 px-4 rounded-lg text-white"
+            onClick={() => {
+              router.push("/dashboard/events/create");
+            }}
+          >
+            Create Event
+          </button>
+        </div>
       </div>
     );
   };

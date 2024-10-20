@@ -131,14 +131,12 @@ export function EventDetails({
               <CalendarIcon className="w-6" />
               <p className="text-[15px] line-clamp-2">
                 {/* {moment(event.date).format("MMMM Do, YYYY")} */}
-                {convertIsoToDate(event.date)}
+                {event.date}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">
-                {getTimeWithAmPm(event.time)}
-              </p>
+              <p className="text-[15px] line-clamp-2">{event.time}</p>
             </div>
           </div>
         </div>

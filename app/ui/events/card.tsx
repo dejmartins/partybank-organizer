@@ -54,15 +54,11 @@ export default function Card({ event }: { event: IEventResponse }) {
             </div>
             <div className="flex items-center gap-2">
               <CalendarIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">
-                {convertIsoToDate(event.date)}
-              </p>
+              <p className="text-[15px] line-clamp-2">{event.date}</p>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">
-                {getTimeWithAmPm(event.time)}
-              </p>
+              <p className="text-[15px] line-clamp-2">{event.time}</p>
             </div>
           </div>
         </div>

@@ -18,12 +18,17 @@ export interface IEventResponse {
   created_by: string;
   tickets: IEventTicketRes[];
   publication_state: string;
+  isPublished: boolean;
+  series_name: string;
 }
 
 export interface Location {
   lng: string;
   lat: string;
   address: string;
+  city: string;
+  state: string;
+  country: string;
 }
 
 export interface IEventTicketRes {

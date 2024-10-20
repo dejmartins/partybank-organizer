@@ -20,6 +20,9 @@ export interface IEventLocation {
   lng: string;
   geo: string;
   venue: string;
+  city: string;
+  state: string;
+  country: string;
 }
 
 export interface IEventVisibility {

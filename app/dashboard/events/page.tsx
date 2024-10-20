@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { events } from "@/app/lib/placeholder-data";
 import AddMore from "@/app/ui/dashboard/add-more";
 import EmptyState from "@/app/ui/dashboard/empty-state";
 import Card from "@/app/ui/events/card";
@@ -22,15 +21,23 @@ export default function Page() {
   const [isPublished, setisPublished] = useState(false);
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(true);
   const [currentPage, setcurrentPage] = useState(1);
-  const [eventList, seteventList] = useState<IEventResponseArr>();
+  const [eventList, seteventList] = useState<IEventResponseArr>([]);
 
-  const filteredEvents = events.filter((event) => {
+  const filteredEvents = eventList.filter((event) => {
     if (!isPublished) {
       return event.isPublished === isPublished;
     } else {
       return event.status === statusFilter;
     }
   });
+
+  const EmptyEventState = () => {
+    return (
+      <div className="md:mt-20">
+        <EmptyState title="No records yet!" />
+      </div>
+    );
+  };
 
   const fetchEvents = () => {
     setIsLoaderModalOpen(true);
@@ -46,12 +53,16 @@ export default function Page() {
               return {
                 id: obj.id,
                 series_id: obj.series_id,
+                series_name: obj.series_name ?? "---",
                 message: obj.message,
                 event_name: obj.event_name ?? "---",
                 location: {
                   lng: obj.location.lng,
                   lat: obj.location.lat,
                   address: obj.location.address,
+                  city: obj.location.city,
+                  state: obj.location.state,
+                  country: obj.location.country,
                 },
                 date: obj.date,
                 time: obj.time,
@@ -81,11 +92,13 @@ export default function Page() {
                   };
                 }),
                 publication_state: obj.publication_state,
+                isPublished:
+                  obj.publication_state === "PUBLISHED" ? true : false,
               };
             }
           );
           seteventList(transformed);
-          console.log("events==>", res);
+          // console.log("events==>", res);
         } else {
           toast.info(res.error);
           setIsLoaderModalOpen(false);
@@ -126,7 +139,7 @@ export default function Page() {
                 className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
                   !isPublished
                     ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
-                    : "bg-white border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
+                    : " border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
                 }`}
                 onClick={() => setisPublished(false)}
               >
@@ -143,37 +156,6 @@ export default function Page() {
               >
                 Published
               </button>
-
-              {/* <button
-              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
-                statusFilter === "active"
-                  ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
-                  : "bg-white border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
-              }`}
-              onClick={() => setStatusFilter("active")}
-            >
-              Active
-            </button>
-            <button
-              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
-                statusFilter === "upcoming"
-                  ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
-                  : "bg-white border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
-              }`}
-              onClick={() => setStatusFilter("upcoming")}
-            >
-              Upcoming
-            </button>
-            <button
-              className={`px-4 h-6 md:h-8 rounded-md text-[13px] md:text-[16px] ${
-                statusFilter === "past"
-                  ? "bg-[var(--pb-c-red)] text-white font-[700] border-2 border-black"
-                  : " border border-[var(--pb-c-soft-grey)] bg-[#DDE0E3]"
-              }`}
-              onClick={() => setStatusFilter("past")}
-            >
-              Past
-            </button> */}
             </div>
           </div>
         </div>
@@ -216,7 +198,7 @@ export default function Page() {
         )}
 
         <div className="flex-grow overflow-y-auto p-6 lg:p-8">
-          {filteredEvents.length > 0 ? (
+          {eventList.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
               <div>
                 <AddMore
@@ -225,17 +207,17 @@ export default function Page() {
                   subText="Create events to keep your events put together"
                 />
               </div>
-              {filteredEvents.map((event) => (
+              {eventList.map((event) => (
                 <div key={event.id}>
                   <Card event={event} />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="md:mt-20">
-              <EmptyState title="No records yet!" />
-            </div>
+            <></>
           )}
+
+          {!eventList.length ? <EmptyEventState /> : <></>}
         </div>
       </div>
 

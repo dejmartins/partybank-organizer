@@ -32,6 +32,9 @@ export default function Page() {
     eventLocation: {
       address: "",
       lat: "",
+      city: "",
+      state: "",
+      country: "",
       lng: "",
       geo: "",
       venue: "",
@@ -95,7 +98,7 @@ export default function Page() {
   }, [eventDetailsObj, eventDateObj, selectedImage]);
 
   useEffect(() => {
-    console.log("event obj==>", eventDateObj);
+    // console.log("event obj==>", eventDateObj);
   }, [eventDateObj, selectedFile]);
 
   return (

@@ -1,18 +1,24 @@
-'use client'
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { ClockIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { CalendarIcon } from "@heroicons/react/24/solid";
 import EventDetailsModal from "../modal/event-details";
 import { Event } from "@/app/lib/definitions";
+import { IEventResponse } from "@/services/models/event-response";
+import { convertIsoToDate, getTimeWithAmPm } from "@/shared/utils/helper";
 
-export default function Card({ event }: { event: Event }) {
+export default function Card({ event }: { event: IEventResponse }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const backgroundImageUrl = event.image || '/defaultImage.png';
+  const backgroundImageUrl = event.image_url || "/defaultImage.png";
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    console.log(event.time);
+  }, []);
 
   return (
     <div>
@@ -28,8 +34,10 @@ export default function Card({ event }: { event: Event }) {
             }}
           ></div>
           <div>
-            <p className="text-[15px] line-clamp-1">{event.series}</p>
-            <h4 className="text-xl font-bold line-clamp-1">{event.name}</h4>
+            <p className="text-[15px] line-clamp-1">{event.series_name}</p>
+            <h4 className="text-xl font-bold line-clamp-1">
+              {event.event_name}
+            </h4>
           </div>
         </div>
 
@@ -39,26 +47,28 @@ export default function Card({ event }: { event: Event }) {
               <MapPinIcon className="w-6" />
               <div>
                 <p className="text-[17px] line-clamp-1 font-[500]">
-                  {event.location.city}, {event.location.country}
+                  {/* {event.location.city}, {event.location.country} */}
                 </p>
                 <p className="text-[15px] line-clamp-1">{event.venue}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <CalendarIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">{event.date}</p>
+              <p className="text-[15px] line-clamp-2">
+                {convertIsoToDate(event.date)}
+              </p>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">{event.startTime}</p>
+              <p className="text-[15px] line-clamp-2">
+                {getTimeWithAmPm(event.time)}
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {isModalOpen && (
-        <EventDetailsModal event={event} onClose={toggleModal} />
-      )}
+      {isModalOpen && <EventDetailsModal event={event} onClose={toggleModal} />}
     </div>
   );
 }

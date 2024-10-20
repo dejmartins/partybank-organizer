@@ -12,19 +12,22 @@ import EventAnalytics from "./event-analytics";
 import moment from "moment";
 import AnalyticsModal from "./base-analytics-modal";
 import { HiDotsVertical } from "react-icons/hi";
+import { IEventResponse } from "@/services/models/event-response";
+import { convertIsoToDate, getTimeWithAmPm } from "@/shared/utils/helper";
 
 export default function EventDetailsModal({
   event,
   onClose,
 }: {
-  event: Event;
+  event: IEventResponse;
   onClose: () => void;
 }) {
   const [viewAnalytics, setViewAnalytics] = useState(false);
   //control view based on event analytics
-  const [isAnalytics, setisAnalytics] = useState(
-    event.analytics.attendees.length ? true : false
-  );
+  // const [isAnalytics, setisAnalytics] = useState(
+  //   event.analytics.attendees.length ? true : false
+  // );
+  const [isAnalytics, setisAnalytics] = useState(false);
 
   const toggleAnalyticsView = () => {
     setViewAnalytics((prev) => !prev);
@@ -52,10 +55,10 @@ export default function EventDetailsModal({
               </div>
             </div>
 
-            <EventAnalytics
+            {/* <EventAnalytics
               event={event}
               toggleAnalyticsView={toggleAnalyticsView}
-            />
+            /> */}
           </div>
         </AnalyticsModal>
       ) : (
@@ -91,7 +94,7 @@ export function EventDetails({
   event,
   toggleAnalyticsView,
 }: {
-  event: Event;
+  event: IEventResponse;
   toggleAnalyticsView: () => void;
 }) {
   return (
@@ -100,26 +103,26 @@ export function EventDetails({
         <div
           className="min-w-[230px] min-h-full border bg-cover bg-center rounded-[10px] overflow-hidden"
           style={{
-            backgroundImage: `url("${event.image || "/defaultImage.png"}")`,
+            backgroundImage: `url("${event.image_url || "/defaultImage.png"}")`,
           }}
         ></div>
       </div>
 
       <div>
         <p className="inline-block rounded-[4px] font-[400] px-2 py-[2px] text-sm bg-[#F7F6F7]">
-          {event.series}
+          {event.series_name}
         </p>
-        <h3 className="text-2xl font-bold">{event.name}</h3>
+        <h3 className="text-2xl font-bold">{event.event_name}</h3>
         <p className="pb-2">{event.description}</p>
         {/* <p>Created By: {event.series}</p> */}
 
         <div>
           <div className="mr-12 flex items-center justify-between gap-2 border-0 border-b border-t w-full py-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 w-1/3">
               <MapPinIcon className="w-6" />
               <div>
                 <p className="text-[17px] font-[500]">
-                  {event.location.city}, {event.location.country}
+                  {event.location.city}, {event.location.state}
                 </p>
                 <p className="text-[15px] line-clamp-1">{event.venue}</p>
               </div>
@@ -127,21 +130,24 @@ export function EventDetails({
             <div className="flex items-center gap-2">
               <CalendarIcon className="w-6" />
               <p className="text-[15px] line-clamp-2">
-                {moment(event.date).format("MMMM Do, YYYY")}
+                {/* {moment(event.date).format("MMMM Do, YYYY")} */}
+                {convertIsoToDate(event.date)}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">{event.startTime}</p>
+              <p className="text-[15px] line-clamp-2">
+                {getTimeWithAmPm(event.time)}
+              </p>
             </div>
           </div>
         </div>
 
         <div className="py-2 border-0 border-b">
           <p className="font-[500]">
-            Privacy:{" "}
+            Visibility:{" "}
             <span className="rounded-[4px] font-[400] px-2 text-sm bg-[#F7F6F7]">
-              Available to {event.privacy}
+              Available to public
             </span>
           </p>
         </div>

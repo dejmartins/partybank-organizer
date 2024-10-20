@@ -111,9 +111,17 @@ export default function EventDateLocation({
                       });
                     }}
                     handleSelect={(value: any) => {
-                      console.log("value==>", value);
                       if (typeof value === "object") {
-                        const { lat, lng, address } = value;
+                        const { lat, lng, address, city, state, country } =
+                          value;
+                        console.log("value==>", {
+                          lat,
+                          lng,
+                          address,
+                          city,
+                          state,
+                          country,
+                        });
                         setEventDateObj((prev: any) => {
                           return {
                             ...prev,
@@ -121,6 +129,9 @@ export default function EventDateLocation({
                               ...eventLocation,
                               lat,
                               lng,
+                              city,
+                              state,
+                              country,
                               address,
                               geo: JSON.stringify({ value }),
                               venue: getVenueName(address),

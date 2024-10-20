@@ -61,3 +61,13 @@ export const uploadToCloudinary = async (file: any, upload_preset: string) => {
 export function getVenueName(str: string) {
   return str.split(",")[0];
 }
+
+export function convertIsoToDate(isoString: any) {
+  const date = new Date(isoString);
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}

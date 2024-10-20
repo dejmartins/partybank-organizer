@@ -46,7 +46,7 @@ export default function SigninForm() {
       <label className="text-[18px] font-[500]">Email</label>
       <input
         className="w-full rounded-[10px] p-[10px] mt-[8px] mb-[30px] focus:outline-none focus:ring-2 focus:ring-[var(--pb-c-red)] focus:border-[var(--pb-c-red)]"
-        placeholder="dej@email.com"
+        placeholder="johndoe@thepartybank.com"
         value={email}
         onChange={(event) => setemail(event.target.value)}
       />

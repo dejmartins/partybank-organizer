@@ -138,12 +138,12 @@ export default function TicketPage() {
     );
     if (url) {
       const payload = {
-        address: tempEventObj.eventLocation.geo,
+        address: tempEventObj.eventLocation.address,
         contact_information: tempEventObj.eventContact,
         date: tempEventObj.eventDate,
         description: tempEventObj.eventDescription,
         end_time: tempEventObj.endTime,
-        event_theme: "afro",
+        event_theme: "----",
         image_url: url,
         lat: tempEventObj.eventLocation.lat.toString(),
         lng: tempEventObj.eventLocation.lng.toString(),
@@ -154,8 +154,11 @@ export default function TicketPage() {
         tickets: ticketsPayload,
         venue: tempEventObj.eventLocation.venue,
         visibility: tempEventObj.eventVisibility.label,
+        city: tempEventObj.eventLocation.city,
+        state: tempEventObj.eventLocation.state,
+        country: tempEventObj.eventLocation.country,
       };
-      console.log("full payload==>", payload);
+      // console.log("full payload==>", payload);
       const queryApi = () => {
         createEvent(payload).subscribe({
           next: (res) => {
@@ -193,7 +196,7 @@ export default function TicketPage() {
   }, [ticketDetailsObj, selectedType]);
 
   useEffect(() => {
-    console.log("tempevent", tempEvent);
+    // console.log("tempevent", tempEvent);
   }, [tempEvent]);
 
   return (

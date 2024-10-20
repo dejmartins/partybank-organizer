@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${redHatDisplay.className} antialiased`}>
         <Providers>{children}</Providers>
-        <ToastContainer hideProgressBar autoClose={1000} position="top-right" />
+        <ToastContainer hideProgressBar autoClose={5000} position="top-right" />
         <script
           src={`https://maps.googleapis.com/maps/api/js?key=${mapkey}&libraries=geometry,places`}
           async

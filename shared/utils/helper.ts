@@ -39,13 +39,14 @@ export const uploadToCloudinary = async (file: any, upload_preset: string) => {
   formData.append("upload_preset", upload_preset);
 
   try {
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
-      method: "POST",
-      body: formData,
-    });
-
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
     const data = await res.json();
-
     if (res.ok) {
       return data.secure_url;
     } else {
@@ -57,3 +58,6 @@ export const uploadToCloudinary = async (file: any, upload_preset: string) => {
   }
 };
 
+export function getVenueName(str: string) {
+  return str.split(",")[0];
+}

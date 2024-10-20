@@ -17,6 +17,7 @@ import { IEventForm } from "@/services/models/event-model";
 import Loader from "@/app/ui/loaders/loader";
 import { createEvent } from "@/services/event-services/event-service";
 import { toast } from "react-toastify";
+import { uploadToCloudinary } from "@/shared/utils/helper";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -107,7 +108,8 @@ export default function TicketPage() {
     }
   };
 
-  const handleCreateEvent = () => {
+  const handleCreateEvent = async () => {
+    setIsLoaderModalOpen(true);
     const ticketsPayload = tickets.map((obj: any) => {
       return {
         capacity: Number(obj.ticketDetailsObj.ticketCapacity),
@@ -129,53 +131,55 @@ export default function TicketPage() {
         ticket_type: obj.ticketType.title,
       };
     });
-    const payload = {
-      address: tempEventObj.eventLocation.address,
-      contact_information: tempEventObj.eventContact,
-      date: tempEventObj.eventDate,
-      description: tempEventObj.eventDescription,
-      end_time: tempEventObj.endTime,
-      event_theme: "afro",
-      image_url:
-        "https://res.cloudinary.com/drddoxnsi/image/upload/v1727074882/PARTYBANK/aliane-schwartzhaupt-2Y2NvdlSTls-unsplash_duizot.jpg",
-      lat: tempEventObj.eventLocation.lat.toString(),
-      lng: tempEventObj.eventLocation.lng.toString(),
-      name: tempEventObj.eventName,
-      organizer_id: USER.id,
-      series_id: Number(tempEventObj.selectedSeries.id),
-      start_time: tempEventObj.startTime,
-      tickets: ticketsPayload,
-      venue: tempEventObj.eventLocation.address,
-      visibility: tempEventObj.eventVisibility.label,
-    };
 
-    const queryApi = () => {
-      setIsLoaderModalOpen(true);
-      createEvent(payload).subscribe({
-        next: (res) => {
-          if (res) {
-            console.log(res);
-            toast.success(res.data.message);
-            router.push("/dashboard/events");
-          } else {
-            toast.info(res.error);
-          }
-        },
-        error: (msg) => {
-          toast.error(msg.message);
-          setIsLoaderModalOpen(false);
-        },
-        complete: () => {
-          setIsLoaderModalOpen(false);
-        },
-      });
-    };
-    queryApi();
-
-    setTimeout(() => {
+    const url = await uploadToCloudinary(
+      tempEventObj.selectedFile,
+      "event_image"
+    );
+    if (url) {
+      const payload = {
+        address: tempEventObj.eventLocation.geo,
+        contact_information: tempEventObj.eventContact,
+        date: tempEventObj.eventDate,
+        description: tempEventObj.eventDescription,
+        end_time: tempEventObj.endTime,
+        event_theme: "afro",
+        image_url: url,
+        lat: tempEventObj.eventLocation.lat.toString(),
+        lng: tempEventObj.eventLocation.lng.toString(),
+        name: tempEventObj.eventName,
+        organizer_id: USER.id,
+        series_id: Number(tempEventObj.selectedSeries.id),
+        start_time: tempEventObj.startTime,
+        tickets: ticketsPayload,
+        venue: tempEventObj.eventLocation.venue,
+        visibility: tempEventObj.eventVisibility.label,
+      };
+      console.log("full payload==>", payload);
+      const queryApi = () => {
+        createEvent(payload).subscribe({
+          next: (res) => {
+            if (res) {
+              console.log(res);
+              toast.success(res.data.message);
+              router.push("/dashboard/events");
+            } else {
+              toast.info(res.error);
+            }
+          },
+          error: (msg) => {
+            toast.error(msg.message);
+            setIsLoaderModalOpen(false);
+          },
+          complete: () => {
+            setIsLoaderModalOpen(false);
+          },
+        });
+      };
+      queryApi();
+    } else {
       setIsLoaderModalOpen(false);
-    }, 4000);
-    console.log("event full payload ===>", payload);
+    }
   };
 
   useEffect(() => {

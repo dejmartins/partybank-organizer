@@ -5,6 +5,7 @@ import { uploadToCloudinary } from "@/shared/utils/helper";
 
 interface CoverImageUploadProps {
   selectedImage: string | null;
+  setselectedFile: Function;
   backgroundPosition: { x: number; y: number };
   onImageChange: (image: string) => void;
   onPositionChange: (position: { x: number; y: number }) => void;
@@ -15,16 +16,16 @@ export default function EventCoverImage({
   backgroundPosition,
   onImageChange,
   onPositionChange,
+  setselectedFile,
 }: CoverImageUploadProps) {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
       const imageUrl = URL.createObjectURL(file);
+      setselectedFile(file);
       onImageChange(imageUrl);
-
-      const url = uploadToCloudinary(file, 'event_image');
-
-      url.then((res)=> {console.log('cloud_url', res)})
+      // const url = uploadToCloudinary(file, 'event_image');
+      // url.then((res)=> {console.log('cloud_url', res)})
     }
   };
 

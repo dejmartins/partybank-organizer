@@ -53,6 +53,21 @@ export default function Page() {
   };
 
   const PublishedEvents = () => {
+    const eventStatusBased = eventList.filter(
+      (obj) => obj.status === statusFilter.toUpperCase()
+    );
+    return (
+      <>
+        {eventStatusBased.map((event) => (
+          <div key={event.id}>
+            <Card event={event} apiCall={fetchEvents} />
+          </div>
+        ))}
+      </>
+    );
+  };
+
+  const UnPublishedEvents = () => {
     return (
       <>
         {eventList.map((event) => (
@@ -243,12 +258,11 @@ export default function Page() {
                   subText="Create events to keep your events put together"
                 />
               </div>
-              <PublishedEvents />
+              {isPublished ? <PublishedEvents /> : <UnPublishedEvents />}
             </div>
           ) : (
             <></>
           )}
-
           {!eventList.length ? <EmptyEventState /> : <></>}
         </div>
       </div>

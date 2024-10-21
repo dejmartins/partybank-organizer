@@ -49,7 +49,9 @@ input[type="number"]::-webkit-outer-spin-button {
   animation: moveUp 0.4s ease-out forwards;
   animation-fill-mode: forwards;
   bottom: -8rem;
+  /* bottom: -8rem; */
   /* height: 85vh; */
+  /* min-height: 15vh !important; */
   height: 95vh;
 }
 

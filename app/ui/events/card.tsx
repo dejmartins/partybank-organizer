@@ -22,10 +22,6 @@ export default function Card({
     setIsModalOpen((prev) => !prev);
   };
 
-  useEffect(() => {
-    console.log(event.time);
-  }, []);
-
   return (
     <div>
       <div

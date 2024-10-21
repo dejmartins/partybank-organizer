@@ -26,6 +26,7 @@ import { toast } from "react-toastify";
 import { publishEvents } from "@/services/event-services/event-service";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useRouter } from "next/navigation";
 
 export default function EventDetailsModal({
   event,
@@ -39,7 +40,6 @@ export default function EventDetailsModal({
   const [viewAnalytics, setViewAnalytics] = useState(false);
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
   const [actionText, setactionText] = useState("");
-
   const [isAnalytics, setisAnalytics] = useState(false);
 
   const toggleAnalyticsView = () => {
@@ -312,6 +312,7 @@ const TicketersButton = ({ eventObj, copyToClipboard }: PropT) => {
 
 const ModalAction = () => {
   const [openActionPane, setopenActionPane] = useState(false);
+  const router = useRouter();
   return (
     <div className="p-1 cursor-pointer relative">
       <div
@@ -323,7 +324,10 @@ const ModalAction = () => {
 
       {openActionPane && (
         <div className="min-w-40 absolute min-h-10 rounded-lg px-4 -left-28 mt-2 bg-white p-2 border border-[#F6F5F5] shadow-sm">
-          <div className="flex items-center gap-x-2 py-2">
+          <div
+            className="flex items-center gap-x-2 py-2"
+            onClick={() => router.push("/dashboard/events/edit")}
+          >
             <div className="w-6 h-6 rounded-full flex justify-center items-center">
               <FaRegEdit />
             </div>

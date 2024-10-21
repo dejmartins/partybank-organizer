@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { USER } = useAuth();
-  const [statusFilter, setStatusFilter] = useState("active");
+  const [statusFilter, setStatusFilter] = useState("upcoming");
   const [isPublished, setisPublished] = useState(false);
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(true);
   const [currentPage, setcurrentPage] = useState(1);

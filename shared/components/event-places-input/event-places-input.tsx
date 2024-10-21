@@ -27,6 +27,10 @@ const EventPlacesInput: React.FC<EventPlacesInputProps> = ({
     geocodeByAddress(address)
       .then((results) => {
         const place = results[0];
+        const formatted_address = place.formatted_address;
+
+        console.log('form-ad', place)
+        console.log('address', formatted_address);
         return getLatLng(place).then((latLng) => ({
           latLng,
           address_components: place.address_components, 

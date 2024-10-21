@@ -30,9 +30,10 @@ export default function Header() {
                   </div>
       
                   <nav className="hidden md:flex space-x-6">
+                      <Link href="/about" className="hover:text-red-500 transition">About Us</Link>
                       <a href="https://thepartybank.com/" className="hover:text-red-500 transition">Attend Event</a>
                       <Link href="/faqs" className="hover:text-red-500 transition">FAQs</Link>
-                      <a href="mailto:partybankexperience@gmail.com" className="hover:text-red-500 transition">Contact</a>
+                      <a href="mailto:partybankexperience@gmail.com" className="hover:text-red-500 transition">Contact Us</a>
                   </nav>
               </div>
 

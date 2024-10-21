@@ -23,6 +23,7 @@ export default function Page() {
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(true);
   const [currentPage, setcurrentPage] = useState(1);
   const [eventList, seteventList] = useState<IEventResponseArr>([]);
+  const [eventListCopy, seteventListCopy] = useState<IEventResponseArr>([]);
 
   const router = useRouter();
   const filteredEvents = eventList.filter((event) => {
@@ -48,6 +49,18 @@ export default function Page() {
           </button>
         </div>
       </div>
+    );
+  };
+
+  const PublishedEvents = () => {
+    return (
+      <>
+        {eventList.map((event) => (
+          <div key={event.id}>
+            <Card event={event} apiCall={fetchEvents} />
+          </div>
+        ))}
+      </>
     );
   };
 
@@ -109,7 +122,11 @@ export default function Page() {
               };
             }
           );
-          seteventList(transformed);
+          const notPublishedArr = transformed.filter(
+            (evnt) => evnt.isPublished === false
+          );
+          seteventList(notPublishedArr);
+          seteventListCopy(transformed);
           // console.log("events==>", res);
         } else {
           toast.info(res.error);
@@ -132,6 +149,13 @@ export default function Page() {
       subscription.unsubscribe(); // Cleanup the subscription
     };
   }, []);
+
+  useEffect(() => {
+    const resultArr = eventListCopy.filter(
+      (event) => event.isPublished === isPublished
+    );
+    seteventList(resultArr);
+  }, [isPublished]);
 
   return (
     <div>
@@ -219,11 +243,7 @@ export default function Page() {
                   subText="Create events to keep your events put together"
                 />
               </div>
-              {eventList.map((event) => (
-                <div key={event.id}>
-                  <Card event={event} apiCall={fetchEvents} />
-                </div>
-              ))}
+              <PublishedEvents />
             </div>
           ) : (
             <></>

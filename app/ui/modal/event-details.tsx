@@ -22,13 +22,19 @@ import { LuMail } from "react-icons/lu";
 import { BsWhatsapp } from "react-icons/bs";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Loader from "../loaders/loader";
+import { toast } from "react-toastify";
+import { publishEvents } from "@/services/event-services/event-service";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function EventDetailsModal({
   event,
   onClose,
+  apiCall,
 }: {
   event: IEventResponse;
   onClose: () => void;
+  apiCall: () => void;
 }) {
   const [viewAnalytics, setViewAnalytics] = useState(false);
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
@@ -43,15 +49,42 @@ export default function EventDetailsModal({
   const handlePublish = () => {
     setIsLoaderModalOpen(true);
     setactionText("Publishing your event");
-
-    setTimeout(() => {
-      setIsLoaderModalOpen(false);
-      setactionText("");
-    }, 4000);
+    return publishEvents({ id: event.id }).subscribe({
+      next: (res) => {
+        if (res) {
+          setIsLoaderModalOpen(false);
+          setactionText("");
+          apiCall();
+          // onClose();
+        } else {
+          toast.info(res.error);
+          setIsLoaderModalOpen(false);
+        }
+      },
+      error: (msg) => {
+        toast.error(msg.message);
+        setIsLoaderModalOpen(false);
+      },
+      complete: () => {
+        setIsLoaderModalOpen(false);
+        setactionText("");
+      },
+    });
   };
-  useEffect(() => {
-    console.log("event==>", event);
-  }, []);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        toast.info("Link copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  };
+  // useEffect(() => {
+  //   console.log("event==>", event);
+  // }, []);
 
   return (
     <>
@@ -71,15 +104,20 @@ export default function EventDetailsModal({
                 </h3>
               </div>
               <div className="flex items-center gap-x-4">
-                {event.publication_state !== "DRAFT" && <TicketersButton />}
+                {event.publication_state !== "DRAFT" && (
+                  <TicketersButton
+                    eventObj={event}
+                    copyToClipboard={copyToClipboard}
+                  />
+                )}
                 <ModalAction />
               </div>
             </div>
 
-            {/* <EventAnalytics
+            <EventAnalytics
               event={event}
               toggleAnalyticsView={toggleAnalyticsView}
-            /> */}
+            />
           </div>
         </AnalyticsModal>
       ) : (
@@ -102,7 +140,12 @@ export default function EventDetailsModal({
                 {event.publication_state === "DRAFT" && (
                   <PublishButton onClick={handlePublish} />
                 )}
-                {event.publication_state !== "DRAFT" && <TicketersButton />}
+                {event.publication_state !== "DRAFT" && (
+                  <TicketersButton
+                    eventObj={event}
+                    copyToClipboard={copyToClipboard}
+                  />
+                )}
                 <ModalAction />
               </div>
             </div>
@@ -233,15 +276,34 @@ const PublishButton = ({ onClick }: any) => {
   );
 };
 
-const TicketersButton = () => {
+type PropT = {
+  eventObj: IEventResponse;
+  copyToClipboard: (x: string) => void;
+};
+const TicketersButton = ({ eventObj, copyToClipboard }: PropT) => {
   return (
     <div className="py-2 px-4 border border-[#FEE0E6] bg-[#FEEFF2] rounded-md flex items-center min-w-20 gap-x-3">
-      <div className="flex items-center gap-x-2 cursor-pointer">
+      <div
+        className="flex items-center gap-x-2 cursor-pointer"
+        onClick={() => {
+          window.open(
+            `https://thepartybank.com/${eventObj.event_reference}/admin`,
+            "_blank"
+          );
+        }}
+      >
         <FaShareAlt />
         <span className="text-sm font-bold">Ticketers Link</span>
       </div>
       <div className="w-[1px] h-5 bg-[#FAABC4]"></div>
-      <div className=" cursor-pointer">
+      <div
+        className=" cursor-pointer"
+        onClick={() => {
+          copyToClipboard(
+            `https://thepartybank.com/${eventObj.event_reference}/admin`
+          );
+        }}
+      >
         <RiLinkM size={20} />
       </div>
     </div>
@@ -249,11 +311,36 @@ const TicketersButton = () => {
 };
 
 const ModalAction = () => {
+  const [openActionPane, setopenActionPane] = useState(false);
   return (
     <div className="p-1 cursor-pointer relative">
-      <div className="bg-[##F7F6F7] w-8 h-8 flex justify-center items-center rounded-full">
+      <div
+        className="bg-[##F7F6F7] w-8 h-8 flex justify-center items-center rounded-full"
+        onClick={() => setopenActionPane(!openActionPane)}
+      >
         <HiDotsVertical size={22} />
       </div>
+
+      {openActionPane && (
+        <div className="min-w-40 absolute min-h-10 rounded-lg px-4 -left-28 mt-2 bg-white p-2 border border-[#F6F5F5] shadow-sm">
+          <div className="flex items-center gap-x-2 py-2">
+            <div className="w-6 h-6 rounded-full flex justify-center items-center">
+              <FaRegEdit />
+            </div>
+
+            <span className="font-bold text-xs">Edit Event</span>
+          </div>
+
+          <div className="flex items-center gap-x-2 py-2">
+            <div className="w-6 h-6 bg-partybank-red rounded-full flex justify-center items-center">
+              <RiDeleteBin6Line color="#fff" size={10} />
+            </div>
+            <span className="font-bold text-xs text-partybank-red">
+              Delete Event
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

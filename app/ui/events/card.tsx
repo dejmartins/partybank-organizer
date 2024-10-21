@@ -7,7 +7,13 @@ import { Event } from "@/app/lib/definitions";
 import { IEventResponse } from "@/services/models/event-response";
 import { convertIsoToDate, getTimeWithAmPm } from "@/shared/utils/helper";
 
-export default function Card({ event }: { event: IEventResponse }) {
+export default function Card({
+  event,
+  apiCall,
+}: {
+  event: IEventResponse;
+  apiCall: Function;
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const backgroundImageUrl = event.image_url || "/defaultImage.png";
@@ -64,7 +70,13 @@ export default function Card({ event }: { event: IEventResponse }) {
         </div>
       </div>
 
-      {isModalOpen && <EventDetailsModal event={event} onClose={toggleModal} />}
+      {isModalOpen && (
+        <EventDetailsModal
+          event={event}
+          onClose={toggleModal}
+          apiCall={() => apiCall()}
+        />
+      )}
     </div>
   );
 }

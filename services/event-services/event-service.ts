@@ -19,3 +19,10 @@ export const getOrgEvents = (payload: any): Observable<any> => {
     catchError(handleError)
   );
 };
+
+export const publishEvents = ({ id }: any): Observable<any> => {
+  return from(http.get(`/event/publish/${id}`)).pipe(
+    map((response: any) => response),
+    catchError(handleError)
+  );
+};

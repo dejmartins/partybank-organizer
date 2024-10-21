@@ -221,7 +221,7 @@ export default function Page() {
               </div>
               {eventList.map((event) => (
                 <div key={event.id}>
-                  <Card event={event} />
+                  <Card event={event} apiCall={fetchEvents} />
                 </div>
               ))}
             </div>

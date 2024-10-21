@@ -183,36 +183,38 @@ export function EventDetails({
           </p>
         </div>
 
-        <div className="py-2 flex justify-between mt-2">
-          {/* if already published show this */}
-          <div className="flex items-center gap-x-2">
-            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
-              <RiTwitterXFill />
-            </div>
-            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
-              <SiInstagram />
-            </div>
+        {event.publication_state !== "DRAFT" && (
+          <div className="py-2 flex justify-between mt-2">
+            {/* if already published show this */}
+            <div className="flex items-center gap-x-2">
+              <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+                <RiTwitterXFill />
+              </div>
+              <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+                <SiInstagram />
+              </div>
 
-            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
-              <IoLogoFacebook size={20} />
+              <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+                <IoLogoFacebook size={20} />
+              </div>
+              <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+                <LuMail />
+              </div>
+              <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+                <BsWhatsapp />
+              </div>
             </div>
-            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
-              <LuMail />
-            </div>
-            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
-              <BsWhatsapp />
+            <div
+              className="flex items-center gap-x-1 cursor-pointer"
+              onClick={() => setisAnalytics(true)}
+            >
+              <span className="text-partybank-red text-sm font-bold">
+                Preview Analytics
+              </span>
+              <MdKeyboardDoubleArrowRight color="#E91B41" />
             </div>
           </div>
-          <div
-            className="flex items-center gap-x-1 cursor-pointer"
-            onClick={() => setisAnalytics(true)}
-          >
-            <span className="text-partybank-red text-sm font-bold">
-              Preview Analytics
-            </span>
-            <MdKeyboardDoubleArrowRight color="#E91B41" />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

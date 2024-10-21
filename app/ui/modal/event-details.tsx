@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowLongLeftIcon,
   CalendarIcon,
@@ -13,7 +13,15 @@ import moment from "moment";
 import AnalyticsModal from "./base-analytics-modal";
 import { HiDotsVertical } from "react-icons/hi";
 import { IEventResponse } from "@/services/models/event-response";
-import { convertIsoToDate, getTimeWithAmPm } from "@/shared/utils/helper";
+import { FaShareAlt } from "react-icons/fa";
+import { RiLinkM } from "react-icons/ri";
+import { RiTwitterXFill } from "react-icons/ri";
+import { SiInstagram } from "react-icons/si";
+import { IoLogoFacebook } from "react-icons/io5";
+import { LuMail } from "react-icons/lu";
+import { BsWhatsapp } from "react-icons/bs";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import Loader from "../loaders/loader";
 
 export default function EventDetailsModal({
   event,
@@ -23,22 +31,34 @@ export default function EventDetailsModal({
   onClose: () => void;
 }) {
   const [viewAnalytics, setViewAnalytics] = useState(false);
-  //control view based on event analytics
-  // const [isAnalytics, setisAnalytics] = useState(
-  //   event.analytics.attendees.length ? true : false
-  // );
+  const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
+  const [actionText, setactionText] = useState("");
+
   const [isAnalytics, setisAnalytics] = useState(false);
 
   const toggleAnalyticsView = () => {
     setViewAnalytics((prev) => !prev);
   };
 
+  const handlePublish = () => {
+    setIsLoaderModalOpen(true);
+    setactionText("Publishing your event");
+
+    setTimeout(() => {
+      setIsLoaderModalOpen(false);
+      setactionText("");
+    }, 4000);
+  };
+  useEffect(() => {
+    console.log("event==>", event);
+  }, []);
+
   return (
     <>
       {isAnalytics ? (
         <AnalyticsModal isOpen={true} onClose={onClose}>
           <div>
-            <div className="flex justify-between px-6 py-4 border-0 border-b items-center">
+            <div className="flex justify-between px-6 py-4 border-b items-center">
               <div className="flex items-center gap-3">
                 <button
                   onClick={onClose}
@@ -50,8 +70,9 @@ export default function EventDetailsModal({
                   Event Analytics
                 </h3>
               </div>
-              <div className="p-1 cursor-pointer">
-                <HiDotsVertical size={20} />
+              <div className="flex items-center gap-x-4">
+                {event.publication_state !== "DRAFT" && <TicketersButton />}
+                <ModalAction />
               </div>
             </div>
 
@@ -74,18 +95,28 @@ export default function EventDetailsModal({
                   <ArrowLongLeftIcon className="w-[20px] h-[30px] stroke stroke-[3px]" />
                 </button>
                 <h3 className="text-xl font-bold line-clamp-1">
-                  {isAnalytics ? "Event Analytics" : "Event Details"}
+                  Event Details
                 </h3>
+              </div>
+              <div className="flex items-center gap-x-4">
+                {event.publication_state === "DRAFT" && (
+                  <PublishButton onClick={handlePublish} />
+                )}
+                {event.publication_state !== "DRAFT" && <TicketersButton />}
+                <ModalAction />
               </div>
             </div>
 
             <EventDetails
               event={event}
               toggleAnalyticsView={toggleAnalyticsView}
+              setisAnalytics={setisAnalytics}
             />
           </div>
         </Modal>
       )}
+
+      <Loader isOpen={isLoaderModalOpen} message={actionText} />
     </>
   );
 }
@@ -93,9 +124,11 @@ export default function EventDetailsModal({
 export function EventDetails({
   event,
   toggleAnalyticsView,
+  setisAnalytics,
 }: {
   event: IEventResponse;
   toggleAnalyticsView: () => void;
+  setisAnalytics: Function;
 }) {
   return (
     <div className="p-6 flex gap-3">
@@ -150,10 +183,75 @@ export function EventDetails({
           </p>
         </div>
 
-        <div className="py-2 flex justify-between">
-          <p></p>
+        <div className="py-2 flex justify-between mt-2">
+          {/* if already published show this */}
+          <div className="flex items-center gap-x-2">
+            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+              <RiTwitterXFill />
+            </div>
+            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+              <SiInstagram />
+            </div>
+
+            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+              <IoLogoFacebook size={20} />
+            </div>
+            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+              <LuMail />
+            </div>
+            <div className="w-8 h-8 bg-[#F7F6F7] flex justify-center items-center rounded-full">
+              <BsWhatsapp />
+            </div>
+          </div>
+          <div
+            className="flex items-center gap-x-1 cursor-pointer"
+            onClick={() => setisAnalytics(true)}
+          >
+            <span className="text-partybank-red text-sm font-bold">
+              Preview Analytics
+            </span>
+            <MdKeyboardDoubleArrowRight color="#E91B41" />
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
+const PublishButton = ({ onClick }: any) => {
+  return (
+    <div>
+      <button
+        className="py-2 font-bold text-[0.7rem] px-2 bg-partybank-red text-white rounded-md border border-partybank-text-black"
+        onClick={onClick}
+      >
+        Publish Event
+      </button>
+    </div>
+  );
+};
+
+const TicketersButton = () => {
+  return (
+    <div className="py-2 px-4 border border-[#FEE0E6] bg-[#FEEFF2] rounded-md flex items-center min-w-20 gap-x-3">
+      <div className="flex items-center gap-x-2 cursor-pointer">
+        <FaShareAlt />
+        <span className="text-sm font-bold">Ticketers Link</span>
+      </div>
+      <div className="w-[1px] h-5 bg-[#FAABC4]"></div>
+      <div className=" cursor-pointer">
+        <RiLinkM size={20} />
+      </div>
+    </div>
+  );
+};
+
+const ModalAction = () => {
+  return (
+    <div className="p-1 cursor-pointer relative">
+      <div className="bg-[##F7F6F7] w-8 h-8 flex justify-center items-center rounded-full">
+        <HiDotsVertical size={22} />
+      </div>
+    </div>
+  );
+};

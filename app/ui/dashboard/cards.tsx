@@ -1,4 +1,6 @@
 "use client";
+import { formatNumber } from "@/app/lib/actions";
+import { IDashboardStat } from "@/services/models/stats-model";
 import {
   ArrowTrendingUpIcon,
   BanknotesIcon,
@@ -14,30 +16,30 @@ const iconMap = {
   sales: BanknotesIcon,
 };
 
-export default function CardWrapper() {
+export default function CardWrapper({ ...statsObj }: IDashboardStat) {
   return (
     <>
       <Card
         title="Total Attendees"
-        value={"100,102"}
+        value={statsObj.totalAttendees}
         type="attendees"
         percentageIncrease={23.2}
       />
       <Card
         title="Total Ticket Purchase"
-        value={300}
+        value={statsObj.totalTicketsPurchase}
         type="purchase"
         percentageIncrease={23.2}
       />
       <Card
         title="Total Events"
-        value={56}
+        value={statsObj.totalEvents}
         type="events"
         percentageIncrease={23.2}
       />
       <Card
         title="Total Sales"
-        value={"1M+"}
+        value={formatNumber(statsObj.totalSales)}
         type="sales"
         percentageIncrease={23.2}
       />

@@ -37,7 +37,7 @@ export default function Page() {
   const EmptyEventState = () => {
     return (
       <div className="md:mt-20 flex flex-col justify-center">
-        <EmptyState title="No records yet!" />
+        <EmptyState title="No pending event!" />
         <div className="mt-2 flex justify-center">
           <button
             className="bg-partybank-red py-2 px-4 rounded-lg text-white"

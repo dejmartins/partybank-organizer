@@ -253,7 +253,7 @@ export default function EventAnalytics({
                   disabled={paginationObj?.hasMore ? false : true}
                   className="font-bold cursor-pointer text-sm"
                   style={{
-                    color: paginationObj?.hasMore ? "#1a1a1a" : "#333",
+                    color: paginationObj?.hasMore ? "#1a1a1a" : "#ddd",
                   }}
                   onClick={() => {
                     if (paginationObj?.hasMore) {

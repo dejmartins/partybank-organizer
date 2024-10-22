@@ -137,7 +137,7 @@ export default function Analytics() {
       <h3 className="text-2xl font-bold mb-4">Dashboard Analytics</h3>
 
       <div className="relative flex justify-center items-center">
-        <div className="border rounded-[20px] z-20">
+        <div className="border rounded-[20px] z-20 w-full">
           <div className="flex gap-6 mb-6 border-0 border-b p-6">
             <div>
               <div className="flex gap-2 items-center">

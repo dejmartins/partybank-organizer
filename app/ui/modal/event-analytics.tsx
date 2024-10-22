@@ -29,9 +29,7 @@ export default function EventAnalytics({
   event: IEventResponse;
   toggleAnalyticsView: () => void;
 }) {
-  const [mergedParams, setmergedParams] = useState({
-    q: "",
-  });
+  const [mergedParams, setmergedParams] = useState("");
   const debouncedParams = useDebounce(mergedParams, 900);
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
   const [analyticsData, setanalyticsData] = useState<IEventAnalytics>();
@@ -43,9 +41,9 @@ export default function EventAnalytics({
     setactionText("Fetching event data");
     return getEventAnalytics({
       id: event.event_reference,
+      ticketNumber: mergedParams,
       page: page ?? 0,
       size: 10,
-      q: "ticketNumber~" + mergedParams.q,
     }).subscribe({
       next: (res) => {
         if (res) {
@@ -185,10 +183,10 @@ export default function EventAnalytics({
             <input
               placeholder="Enter search words here"
               className="w-full h-[40px] outline-none px-2 placeholder:text-partybank-text-black"
-              value={mergedParams.q}
+              value={mergedParams}
               onChange={(event) =>
                 setmergedParams((prev: any) => {
-                  return { ...prev, q: event.target.value };
+                  return event.target.value;
                 })
               }
             />

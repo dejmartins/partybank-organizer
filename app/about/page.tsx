@@ -159,7 +159,7 @@ export default function Page() {
                         <div className="relative w-72 mx-auto">
                             <p className="font-[700] mb-2">Stay Updated</p>
                             <p>
-                            Get real-time updates and notifications for events you're attending.
+                            Get real-time updates and notifications for events you&apos;re attending.
                             </p>
                         </div>
                     </div>
@@ -171,7 +171,7 @@ export default function Page() {
                    Why Choose Us
                 </p>
                 <p className="mx-2">
-                    We're all about enhancing the way events like parties, festivals, concerts, and large gatherings are organized and experienced.
+                    We&apos;re all about enhancing the way events like parties, festivals, concerts, and large gatherings are organized and experienced.
                 </p>
             </div>
 

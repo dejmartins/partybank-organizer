@@ -9,6 +9,7 @@ export interface IEventForm {
   eventVisibility: IEventVisibility;
   selectedSeries: ISelectedSeries;
   selectedImage: string;
+  selectedFile: any;
   backgroundPosition: IBackgroundPosition;
   tickets: any[];
 }
@@ -17,6 +18,11 @@ export interface IEventLocation {
   address: string;
   lat: string;
   lng: string;
+  geo: string;
+  venue: string;
+  city: string;
+  state: string;
+  country: string;
 }
 
 export interface IEventVisibility {

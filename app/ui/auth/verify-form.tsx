@@ -16,8 +16,7 @@ export default function VerifyEmailForm() {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [otpCode, setotpCode] = useState("");
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
-
-  const intendedRoute = localStorage.getItem('intendedRoute')
+  const [intendedRoute, setintendedRoute] = useState("");
 
   const openLoaderModal = (e: any) => {
     e.preventDefault();
@@ -63,13 +62,11 @@ export default function VerifyEmailForm() {
                 })
               );
               localStorage.removeItem("tempemail");
-              
-              if(intendedRoute) {
+              if (intendedRoute) {
                 router.push(intendedRoute);
               } else {
                 router.push("/dashboard");
               }
-              
             } else {
               toast.info(res.error);
               setIsLoaderModalOpen(false);
@@ -93,6 +90,13 @@ export default function VerifyEmailForm() {
   useEffect(() => {
     setotpCode(code.join(""));
   }, [code]);
+
+  useEffect(() => {
+    const intendedRouteTemp = localStorage.getItem("intendedRoute");
+    if (intendedRouteTemp) {
+      setintendedRoute(intendedRouteTemp);
+    }
+  }, []);
 
   return (
     <div className="text-left w-full">

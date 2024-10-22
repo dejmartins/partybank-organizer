@@ -183,7 +183,7 @@ export default function TicketDetails({
               <h3 className="font-[700] text-[24px]">Ticket Perks</h3>
             </div>
             <p className="text-base">
-              What extra benefits comes with purchasing ticket(s)
+              What extra benefits comes with ticket(s)
             </p>
             <div className="w-full flex flex-col md:flex-row mt-2 md:py-2 gap-4">
               <div className="md:w-8/12 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">

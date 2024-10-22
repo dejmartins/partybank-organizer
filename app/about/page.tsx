@@ -175,7 +175,7 @@ export default function Page() {
                 </p>
             </div>
 
-            <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-10 px-6 bg-[#FFF9FA] py-20 z-50 px-16 justify-center">
+            <div className="md:px-32 relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-10 px-6 bg-[#FFF9FA] py-20 z-50 px-16 justify-center">
                 <div className="relative">
                     <p className="font-semibold">Built for Live Entertainment</p>
                     <p>Partybank is specially designed for events like parties, festivals, and concerts, providing organizers with the tools they need to manage large-scale events effectively.</p>

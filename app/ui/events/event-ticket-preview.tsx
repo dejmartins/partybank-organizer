@@ -21,9 +21,9 @@ export default function EventTicketPreview() {
     dispatch(removeTicket(payload));
   };
 
-  useEffect(() => {
-    console.log("temp event", tempEvent);
-  }, [tempEvent]);
+  // useEffect(() => {
+  //   console.log("temp event", tempEvent);
+  // }, [tempEvent]);
 
   return (
     <div className="border p-10 flex-grow flex flex-col hidden md:block md:basis-[40%] lg:basis-[30%] overflow-y-auto  max-h-[calc(100vh-170px)]">
@@ -51,7 +51,7 @@ export default function EventTicketPreview() {
           <div className="flex flex-col mt-4">
             {tickets.map((obj: any, index: number) => (
               <div
-              key={index}
+                key={index}
                 className="w-full flex items-center justify-between cursor-pointer p-2 rounded-lg border border-[#f1f0f0]"
                 style={{
                   backgroundColor: "#FAF9F9",

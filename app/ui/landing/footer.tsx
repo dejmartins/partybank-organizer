@@ -6,14 +6,14 @@ export default function Footer() {
     return (
       <>
         <footer className="bg-[#1D0509] text-[#FBD1D9]">
-          <div className="p-12 container mx-auto flex flex-col md:flex-row justify-between gap-12 text-center md:text-left">
+          <div className="p-12 md:max-w-[800px] container mx-auto flex flex-col md:flex-row justify-between gap-12 text-center md:text-left">
             <div className="flex flex-col items-center md:items-start">
               <div className="flex flex-col items-center md:items-start mb-2">
                 <BuildingOffice2Icon className="text-[var(--pb-c-red)] w-7 mb-2" />
                 <h4 className="text-xl font-bold">Company</h4>
               </div>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white">About Us</a></li>
+                <li><a href="/about" className="hover:text-white">About Us</a></li>
                 <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
                 <li><a href="/terms" className="hover:text-white">Terms and Conditions</a></li>
               </ul>

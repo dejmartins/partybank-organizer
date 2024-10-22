@@ -8,18 +8,19 @@ const init = () => {
 };
 if (global?.localStorage) init();
 
-export const getStoredAuthToken = () => ls.get("movamSmeToken");
-export const storeAuthToken = (token: string) => ls.set("movamSmeToken", token);
+export const getStoredAuthToken = () => ls.get("partybankToken");
+export const storeAuthToken = (token: string) =>
+  ls.set("partybankToken", token);
 
 export const getStoredClientUser = () => {
   if (typeof window !== "undefined") {
-    return ls.get("movamSMEClientUser");
+    return ls.get("partbankClientUser");
   }
 };
 export const storeClientUser = (user: string) =>
-  ls.set("movamSMEClientUser", user);
+  ls.set("partbankClientUser", user);
 
 export const removeStoredAuthToken = () => {
   ls.remove("movamSmeToken");
-  ls.remove("movamSMEClientUser");
+  ls.remove("partbankClientUser");
 };

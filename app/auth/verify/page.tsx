@@ -43,7 +43,7 @@ export default function Page() {
           Verify Email Address
         </h3>
         <p className="text-[15px] leading-[20.81px] md:text-[18px] font-[400] md:leading-[23.81px]">
-          A four digit code has been sent to your email address
+          A six digit code has been sent to your email address
         </p>
       </div>
 
@@ -64,7 +64,7 @@ export default function Page() {
       </div>
 
       <p className="text-[15px] leading-[20.81px] md:text-[18px] font-[400] md:leading-[23.81px] mt-6">
-        Didn’t get code?{" "}
+        Didn&apos;t get code?{" "}
         <span
           className="text-[var(--pb-c-red)] font-[500] underline underline-offset-4 cursor-pointer"
           onClick={handleResend}

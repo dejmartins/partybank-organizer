@@ -112,7 +112,7 @@ export default function Page() {
           <div className="flex items-center gap-7">
             <BackButton href="/dashboard/events" />
             <p className="text-[23px] md:text-[30px] md:font-[700]">
-              Create Events
+              Edit Event
             </p>
           </div>
           <div className="hidden md:block">

@@ -136,73 +136,83 @@ export default function Analytics() {
     <div className="">
       <h3 className="text-2xl font-bold mb-4">Dashboard Analytics</h3>
 
-      <div className="border rounded-[20px]">
-        <div className="flex gap-6 mb-6 border-0 border-b p-6">
-          <div>
-            <div className="flex gap-2 items-center">
-              <label className="mr-2 font-[600] text-[16px]">Filter by:</label>
-              <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${
-                  filterType === "sales"
-                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
-                    : ""
-                }`}
-                onClick={() => setFilterType("sales")}
-              >
-                Sales
-              </button>
-              <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${
-                  filterType === "purchases"
-                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
-                    : ""
-                }`}
-                onClick={() => setFilterType("purchases")}
-              >
-                Ticket Purchase
-              </button>
+      <div className="relative flex justify-center items-center">
+        <div className="border rounded-[20px] z-20">
+          <div className="flex gap-6 mb-6 border-0 border-b p-6">
+            <div>
+              <div className="flex gap-2 items-center">
+                <label className="mr-2 font-[600] text-[16px]">
+                  Filter by:
+                </label>
+                <button
+                  className={`px-4 rounded-md border border-[#DDE0E3] ${
+                    filterType === "sales"
+                      ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                      : ""
+                  }`}
+                  onClick={() => setFilterType("sales")}
+                >
+                  Sales
+                </button>
+                <button
+                  className={`px-4 rounded-md border border-[#DDE0E3] ${
+                    filterType === "purchases"
+                      ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                      : ""
+                  }`}
+                  onClick={() => setFilterType("purchases")}
+                >
+                  Ticket Purchase
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex gap-2 items-center">
+                <label className="mr-2 font-[600] text-[16px]">Show by:</label>
+                <button
+                  className={`px-4 rounded-md border border-[#DDE0E3] ${
+                    timeRange === "weekly"
+                      ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                      : ""
+                  }`}
+                  onClick={() => setTimeRange("weekly")}
+                >
+                  Weekly
+                </button>
+                <button
+                  className={`px-4 rounded-md border border-[#DDE0E3] ${
+                    timeRange === "monthly"
+                      ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                      : ""
+                  }`}
+                  onClick={() => setTimeRange("monthly")}
+                >
+                  Monthly
+                </button>
+                <button
+                  className={`px-4 rounded-md border border-[#DDE0E3] ${
+                    timeRange === "yearly"
+                      ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                      : ""
+                  }`}
+                  onClick={() => setTimeRange("yearly")}
+                >
+                  Yearly
+                </button>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div className="flex gap-2 items-center">
-              <label className="mr-2 font-[600] text-[16px]">Show by:</label>
-              <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${
-                  timeRange === "weekly"
-                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
-                    : ""
-                }`}
-                onClick={() => setTimeRange("weekly")}
-              >
-                Weekly
-              </button>
-              <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${
-                  timeRange === "monthly"
-                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
-                    : ""
-                }`}
-                onClick={() => setTimeRange("monthly")}
-              >
-                Monthly
-              </button>
-              <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${
-                  timeRange === "yearly"
-                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
-                    : ""
-                }`}
-                onClick={() => setTimeRange("yearly")}
-              >
-                Yearly
-              </button>
-            </div>
+          <div style={{ height: "400px" }} className="p-6">
+            <Line data={data} options={options} id="myChart" />
           </div>
         </div>
-
-        <div style={{ height: "400px" }} className="p-6">
-          <Line data={data} options={options} id="myChart" />
+        <div className="border rounded-[20px] h-full w-full absolute inset-0 top-0 z-20 bg-partybank-text-black opacity-60 flex justify-center items-center"></div>
+        <div className=" border border-[#FBD1D9] rounded-[20px] bg-[#FBD1D933] p-4 z-50 absolute">
+          <h2 className=" font-bold text-white">
+            Feature currently in development
+          </h2>
         </div>
       </div>
     </div>

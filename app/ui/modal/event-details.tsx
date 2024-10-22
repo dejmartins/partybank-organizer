@@ -27,6 +27,7 @@ import { publishEvents } from "@/services/event-services/event-service";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function EventDetailsModal({
   event,
@@ -176,12 +177,16 @@ export function EventDetails({
   return (
     <div className="p-6 flex gap-3">
       <div className="hidden md:block">
-        <div
-          className="min-w-[230px] min-h-full border bg-cover bg-center rounded-[10px] overflow-hidden"
-          style={{
-            backgroundImage: `url("${event.image_url || "/defaultImage.png"}")`,
-          }}
-        ></div>
+        <div className="w-40 h-40">
+          <Image
+            src={event.image_url || "/defaultImage.png"}
+            width={400}
+            height={400}
+            alt=""
+            className=" aspect-square rounded-md"
+            // className="min-w-[230px] min-h-auto border bg-cover bg-center rounded-[10px] overflow-hidden"
+          />
+        </div>
       </div>
 
       <div>

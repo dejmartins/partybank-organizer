@@ -45,7 +45,7 @@ export default function EventAnalytics({
       id: event.event_reference,
       page: page ?? 0,
       size: 10,
-      ...mergedParams,
+      q: "ticketNumber~" + mergedParams.q,
     }).subscribe({
       next: (res) => {
         if (res) {
@@ -59,7 +59,6 @@ export default function EventAnalytics({
             totalItems,
           };
           setpaginationObj(pagination);
-          console.log("===>", response);
           setanalyticsData(response);
           setIsLoaderModalOpen(false);
           setactionText("");
@@ -196,6 +195,7 @@ export default function EventAnalytics({
             <FiSearch size={20} />
           </div>
         </div>
+
         {analyticsData?.pageDto.data.length ? (
           <>
             <div className=" overflow-y-auto border rounded-[20px] my-4 max-h-[24rem] py-4">
@@ -237,7 +237,7 @@ export default function EventAnalytics({
               <div className="flex items-center gap-x-4 pr-4 mt-2">
                 <button
                   disabled={paginationObj!?.currentPage > 0 ? false : true}
-                  className="font-bold cursor-pointer text-sm"
+                  className="font-bold cursor-pointer text-sm disabled:cursor-none"
                   style={{
                     color: paginationObj!?.currentPage > 0 ? "#1a1a1a" : "#ddd",
                   }}

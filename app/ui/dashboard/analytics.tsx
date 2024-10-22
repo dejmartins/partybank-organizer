@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
@@ -33,10 +33,12 @@ const dummyData = {
     sales: [500, 450, 800, 750],
     purchases: [600, 650, 500, 400],
   },
-  
+
   yearly: {
-    sales: [7000, 5500, 6000, 8500, 7500, 9500, 8000, 2000, 6000, 3000, 1500, 9000],
-    purchases: [5000, 7000, 6500, 9000, 8000, 6000, 7500, 1200, 3400, 8000, 3400, 8200],
+    sales: [0, 0, 0, 0, 7500, 9500, 8000, 2000, 6000, 3000, 1500, 9000],
+    purchases: [
+      5000, 7000, 6500, 9000, 8000, 6000, 7500, 1200, 3400, 8000, 3400, 8200,
+    ],
   },
 };
 
@@ -47,7 +49,20 @@ export default function Analytics() {
   const labels = {
     weekly: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     monthly: ["Week 1", "Week 2", "Week 3", "Week 4"],
-    yearly: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    yearly: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
   };
 
   const data = {
@@ -76,21 +91,20 @@ export default function Analytics() {
         display: false,
         tooltip: {
           enabled: true,
-          callbacks: {
-          },
+          callbacks: {},
         },
       },
     },
     scales: {
       x: {
         grid: {
-          color: 'rgba(200, 200, 200, 0.1)',
+          color: "rgba(200, 200, 200, 0.1)",
           borderDash: [5, 5],
         },
       },
       y: {
         grid: {
-          color: 'rgba(200, 200, 200, 0.1)',
+          color: "rgba(200, 200, 200, 0.1)",
           borderDash: [5, 5],
         },
       },
@@ -99,11 +113,11 @@ export default function Analytics() {
       line: {
         borderWidth: 2,
       },
-    }
+    },
   };
 
   useEffect(() => {
-    const chart = ChartJS.getChart('myChart');
+    const chart = ChartJS.getChart("myChart");
 
     // if (chart) {
     //   chart.options.plugins.beforeDraw = function (chart: any) {
@@ -128,13 +142,21 @@ export default function Analytics() {
             <div className="flex gap-2 items-center">
               <label className="mr-2 font-[600] text-[16px]">Filter by:</label>
               <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${filterType === "sales" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${
+                  filterType === "sales"
+                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                    : ""
+                }`}
                 onClick={() => setFilterType("sales")}
               >
                 Sales
               </button>
               <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${filterType === "purchases" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${
+                  filterType === "purchases"
+                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                    : ""
+                }`}
                 onClick={() => setFilterType("purchases")}
               >
                 Ticket Purchase
@@ -146,19 +168,31 @@ export default function Analytics() {
             <div className="flex gap-2 items-center">
               <label className="mr-2 font-[600] text-[16px]">Show by:</label>
               <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${timeRange === "weekly" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${
+                  timeRange === "weekly"
+                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                    : ""
+                }`}
                 onClick={() => setTimeRange("weekly")}
               >
                 Weekly
               </button>
               <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${timeRange === "monthly" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${
+                  timeRange === "monthly"
+                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                    : ""
+                }`}
                 onClick={() => setTimeRange("monthly")}
               >
                 Monthly
               </button>
               <button
-                className={`px-4 rounded-md border border-[#DDE0E3] ${timeRange === "yearly" ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]" : ""}`}
+                className={`px-4 rounded-md border border-[#DDE0E3] ${
+                  timeRange === "yearly"
+                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                    : ""
+                }`}
                 onClick={() => setTimeRange("yearly")}
               >
                 Yearly
@@ -167,10 +201,10 @@ export default function Analytics() {
           </div>
         </div>
 
-        <div style={{ height: '400px' }} className="p-6">
+        <div style={{ height: "400px" }} className="p-6">
           <Line data={data} options={options} id="myChart" />
         </div>
       </div>
     </div>
   );
-};
+}

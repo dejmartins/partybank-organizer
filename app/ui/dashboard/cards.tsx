@@ -2,7 +2,6 @@
 import { formatNumber } from "@/app/lib/actions";
 import { IDashboardStat } from "@/services/models/stats-model";
 import {
-  ArrowTrendingUpIcon,
   BanknotesIcon,
   CalendarIcon,
   TicketIcon,
@@ -23,25 +22,21 @@ export default function CardWrapper({ ...statsObj }: IDashboardStat) {
         title="Total Attendees"
         value={statsObj.totalAttendees}
         type="attendees"
-        percentageIncrease={23.2}
       />
       <Card
         title="Total Ticket Purchase"
         value={statsObj.totalTicketsPurchase}
         type="purchase"
-        percentageIncrease={23.2}
       />
       <Card
         title="Total Events"
         value={statsObj.totalEvents}
         type="events"
-        percentageIncrease={23.2}
       />
       <Card
         title="Total Sales"
         value={formatNumber(statsObj.totalSales)}
         type="sales"
-        percentageIncrease={23.2}
       />
     </>
   );
@@ -51,12 +46,10 @@ export function Card({
   title,
   value,
   type,
-  percentageIncrease,
 }: {
   title: string;
   value: number | string;
   type: "attendees" | "purchase" | "events" | "sales";
-  percentageIncrease: number | string;
 }) {
   const Icon = iconMap[type];
 
@@ -75,10 +68,6 @@ export function Card({
           >
             {value}
           </p>
-          <div className="flex items-center gap-2 px-3 rounded-md bg-[#F3FFF8] text-[#13C65C]">
-            <ArrowTrendingUpIcon className="w-6" />
-            <p>{percentageIncrease}%</p>
-          </div>
         </div>
       </div>
     </div>

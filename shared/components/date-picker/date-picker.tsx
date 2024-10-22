@@ -39,7 +39,7 @@ const PBDatePicker = ({ setDateValue, value, label = "Event Time" }: PropT) => {
               // ref={timeInputRef}
               disableDayPicker={false}
               value={value}
-              minDate={new Date()}
+              minDate={new Date(new Date().getDate() - 1)}
               maxDate={new Date().setDate(205)}
               onChange={(value: any) => {
                 try {

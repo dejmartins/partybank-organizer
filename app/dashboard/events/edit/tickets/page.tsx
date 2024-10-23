@@ -43,6 +43,7 @@ export default function TicketPage() {
     ticketPrice: 0.0,
     ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
   });
+  const [isClient, setisClient] = useState(false);
   const event = useSelector((state) => state.event);
   const tempEventObj: IEventForm = event.data.tempEvent;
 
@@ -54,8 +55,6 @@ export default function TicketPage() {
   });
 
   const [isformValid, setisformValid] = useState(false);
-  const { tempEvent } = usePBEvent();
-  const { tickets } = tempEvent;
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -114,7 +113,7 @@ export default function TicketPage() {
 
   const handleCreateEvent = async () => {
     setIsLoaderModalOpen(true);
-    const ticketsPayload = tickets.map((obj: any) => {
+    const ticketsPayload = tempEventObj.tickets.map((obj: any) => {
       return {
         capacity: Number(obj.ticketDetailsObj.ticketCapacity),
         colour: "red",
@@ -193,8 +192,13 @@ export default function TicketPage() {
     }
   };
 
+  // useEffect(() => {
+  //   console.log("temp event==>", tempEventObj);
+  // }, []);
+
   useEffect(() => {
-    if (tempEvent === undefined) {
+    setisClient(true);
+    if (tempEventObj === undefined) {
       router.back();
     }
   }, []);
@@ -203,75 +207,76 @@ export default function TicketPage() {
     handleValidation();
   }, [ticketDetailsObj, selectedType]);
 
-  useEffect(() => {
-    // console.log("tempevent", tempEvent);
-  }, [tempEvent]);
-
   return (
     <>
-      <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
-        <div className="sticky top-0 z-10 w-full">
-          <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
-            <h3 className="font-[700] text-[25px]">Events</h3>
-          </div>
+      {isClient && (
+        <>
+          <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
+            <div className="sticky top-0 z-10 w-full">
+              <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
+                <h3 className="font-[700] text-[25px]">Events</h3>
+              </div>
 
-          <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
-            <div className="flex items-center gap-7">
-              <BackButton href="/dashboard/events/create" />
-              <p className="text-[23px] md:text-[30px] md:font-[700]">
-                Create Events
-                <span className="font-light text-lg">/Tickets</span>
-              </p>
+              <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
+                <div className="flex items-center gap-7">
+                  <BackButton href="/dashboard/events/edit" />
+                  <p className="text-[23px] md:text-[30px] md:font-[700]">
+                    Edit Events
+                    <span className="font-light text-lg">/Tickets</span>
+                  </p>
+                </div>
+                <div className="hidden md:block">
+                  <button
+                    className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
+                    onClick={handleCreateEvent}
+                    disabled={tempEventObj.tickets.length ? false : true}
+                  >
+                    Edit Event
+                  </button>
+                </div>
+              </div>
             </div>
-            <div className="hidden md:block">
-              <button
-                className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
-                onClick={handleCreateEvent}
-                disabled={tickets.length ? false : true}
-              >
-                Create Event
-              </button>
-            </div>
-          </div>
-        </div>
 
-        <div className="flex flex-grow overflow-hidden">
-          <EventTicketPreview />
+            <div className="flex flex-grow overflow-hidden">
+              {tempEventObj.tickets.length && (
+                <EventTicketPreview tempEvent={tempEventObj} />
+              )}
+              <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
+                <TicketCategory
+                  selectedCategory={ticketCategory}
+                  setselectedCategory={setticketCategory}
+                />
+                <TicketSales
+                  ticketDateObj={{ ...ticketDateObj }}
+                  setticketDateObj={settickDateObj}
+                />
 
-          <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
-            <TicketCategory
-              selectedCategory={ticketCategory}
-              setselectedCategory={setticketCategory}
-            />
-            <TicketSales
-              ticketDateObj={{ ...ticketDateObj }}
-              setticketDateObj={settickDateObj}
-            />
+                <TicketDetails
+                  ticketDetailsObj={{ ...ticketDetailsObj }}
+                  setticketDetailsObj={settickDetailsObj}
+                  selectedType={selectedType}
+                  setselectedType={setselectedType}
+                  perks={perks}
+                  setperks={setperks}
+                />
 
-            <TicketDetails
-              ticketDetailsObj={{ ...ticketDetailsObj }}
-              setticketDetailsObj={settickDetailsObj}
-              selectedType={selectedType}
-              setselectedType={setselectedType}
-              perks={perks}
-              setperks={setperks}
-            />
-
-            <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">
-              <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
-                <button
-                  className="bg-partybank-red border border-partybank-text-black disabled:border-[#FEEFF2] rounded py-2 px-12 text-white font-bold disabled:bg-[#FEEFF2]"
-                  onClick={handleSaveTicket}
-                  disabled={!isformValid}
-                >
-                  Save Ticket
-                </button>
+                <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">
+                  <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
+                    <button
+                      className="bg-partybank-red border border-partybank-text-black disabled:border-[#FEEFF2] rounded py-2 px-12 text-white font-bold disabled:bg-[#FEEFF2]"
+                      onClick={handleSaveTicket}
+                      disabled={!isformValid}
+                    >
+                      Save Ticket
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <Loader isOpen={isLoaderModalOpen} message="Creating your event" />
+          <Loader isOpen={isLoaderModalOpen} message="Creating your event" />
+        </>
+      )}
     </>
   );
 }

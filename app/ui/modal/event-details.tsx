@@ -29,7 +29,11 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { IEventForm } from "@/services/models/event-model";
-import { convertTimeToISO, dateToISOFormat } from "@/shared/utils/helper";
+import {
+  convertIsoToDate,
+  convertTimeToISO,
+  dateToISOFormat,
+} from "@/shared/utils/helper";
 import { useDispatch } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
 
@@ -327,14 +331,54 @@ const ModalAction = ({ event }: ModalActionPropT) => {
   const [objj, setobjj] = useState<IEventForm>();
   const router = useRouter();
   const dispatch = useDispatch();
+
   const handleEdit = () => {
     const { lat, lng, city, address, state, country } = event.location;
     const eventObj = {
+      eventName: event.event_name,
+      eventDescription: event.description,
+      eventContact: event.contact_information,
+      eventVisibility: {
+        label: "Public",
+        title: "Public",
+        id: 1,
+      },
+      selectedSeries: {
+        label: event.series_name,
+        id: event.series_id,
+      },
       eventDate: dateToISOFormat(event.date),
       startTime: convertTimeToISO(event.time),
       endTime: convertTimeToISO(event.time),
+      tickets: event.tickets.map((ticket, index: number) => {
+        return {
+          ticketDateObj: {
+            salesStartDate: convertIsoToDate(ticket.ticket_sale_start_date),
+            salesEndDate: convertIsoToDate(ticket.ticket_sale_end_date),
+            salesStartTime: convertTimeToISO(ticket.ticket_sale_start_time),
+            salesEndTime: convertTimeToISO(ticket.ticket_sales_end_time),
+          },
+          ticketDetailsObj: {
+            ticketName: ticket.name,
+            ticketDescription: "",
+            ticketCapacity: ticket.capacity,
+            ticketStock: { id: index, label: ticket.stock },
+            ticketPrice: 0.0,
+            ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
+          },
+          ticketCategory: {
+            label: "Single Ticket",
+            description:
+              "This will only allow a single entry per person to the event",
+            id: 1,
+          },
+          ticketType: { id: 1, title: ticket.ticket_type },
+          perks: ticket.ticket_perks,
+          id: Date.now(),
+        };
+      }),
       eventLocation: {
-        address: event.location.address,
+        address: event.location.address ?? event.venue,
         lat: event.location.lat,
         city: event.location.city,
         state: event.location.state,
@@ -345,17 +389,15 @@ const ModalAction = ({ event }: ModalActionPropT) => {
         }),
         venue: event.venue,
         venueGeo: "",
-        tickets: event.tickets,
-        selectedImage: event.image_url,
-        selectedFile: {},
-        backgroundPosition: {
-          x: 50,
-          y: 50,
-        },
       },
+      backgroundPosition: {
+        x: 50,
+        y: 50,
+      },
+      selectedImage: event.image_url,
+      selectedFile: {},
     };
-
-    console.log("===>", eventObj);
+    // console.log("===>", event);
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
   };

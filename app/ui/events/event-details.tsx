@@ -20,7 +20,7 @@ type PropT = {
       title: string;
     };
     selectedSeries: {
-      id: string;
+      id: any;
       label: string;
     };
   };

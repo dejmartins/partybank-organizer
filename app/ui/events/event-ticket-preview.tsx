@@ -1,4 +1,5 @@
 "use client";
+import { IEventForm } from "@/services/models/event-model";
 import usePBEvent from "@/shared/hooks/usePBEvent";
 import { createEllipsis } from "@/shared/utils/helper";
 import { removeTicket } from "@/store/create-event/create-event-slice";
@@ -6,8 +7,10 @@ import { useDispatch } from "@/store/store";
 import { useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-export default function EventTicketPreview() {
-  const { tempEvent } = usePBEvent();
+type PropT = {
+  tempEvent: IEventForm;
+};
+export default function EventTicketPreview({ tempEvent }: any) {
   const dispatch = useDispatch();
   const {
     backgroundPosition,
@@ -21,9 +24,9 @@ export default function EventTicketPreview() {
     dispatch(removeTicket(payload));
   };
 
-  // useEffect(() => {
-  //   console.log("temp event", tempEvent);
-  // }, [tempEvent]);
+  useEffect(() => {
+    console.log("temp event", tempEvent);
+  }, [tempEvent]);
 
   return (
     <div className="border p-10 flex-grow flex flex-col hidden md:block md:basis-[40%] lg:basis-[30%] overflow-y-auto  max-h-[calc(100vh-170px)]">

@@ -9,7 +9,7 @@ import EventDateLocation from "@/app/ui/events/date-location";
 import EventDetails from "@/app/ui/events/event-details";
 import { getTimeWithAmPm } from "@/shared/utils/helper";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "@/store/store";
+import { useDispatch, useSelector } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
 import { IEventForm } from "@/services/models/event-model";
 import useAuth from "@/shared/hooks/useAuth";
@@ -18,41 +18,46 @@ import { createEvent } from "@/services/event-services/event-service";
 
 export default function Page() {
   const { USER } = useAuth();
+  const event = useSelector((state) => state.event);
+  const tempEventObj: IEventForm = event.data.tempEvent;
+
   const [isFormValid, setisFormValid] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<null | string>(null);
+  const [selectedImage, setSelectedImage] = useState(
+    tempEventObj.selectedImage ?? ""
+  );
   const [selectedFile, setselectedFile] = useState<any>(null);
   const [backgroundPosition, setBackgroundPosition] = useState({
     x: 50,
     y: 50,
   });
   const [eventDateObj, seteventDateObj] = useState({
-    eventDate: new Date().toISOString(),
-    startTime: new Date().toISOString(),
-    endTime: new Date().toISOString(),
+    eventDate: tempEventObj.eventDate,
+    startTime: tempEventObj.startTime,
+    endTime: tempEventObj.endTime,
     eventLocation: {
-      address: "",
-      lat: "",
-      city: "",
-      state: "",
-      country: "",
-      lng: "",
-      geo: "",
-      venue: "",
-      venueGeo: "",
+      address: tempEventObj.eventLocation.address ?? "",
+      lat: tempEventObj.eventLocation.lat,
+      city: tempEventObj.eventLocation.city,
+      state: tempEventObj.eventLocation.state,
+      country: tempEventObj.eventLocation.country,
+      lng: tempEventObj.eventLocation.lng,
+      geo: tempEventObj.eventLocation.geo,
+      venue: tempEventObj.eventLocation.venue,
+      venueGeo: tempEventObj.eventLocation.geo,
     },
   });
   const [eventDetailsObj, seteventDetailsObj] = useState({
-    eventName: "Event Name",
-    eventDescription: "Add Description",
-    eventContact: "",
+    eventName: tempEventObj.eventName ?? "",
+    eventDescription: tempEventObj.eventDescription,
+    eventContact: tempEventObj.eventContact,
     eventVisibility: {
-      label: "",
-      title: "",
-      id: "",
+      label: tempEventObj.eventVisibility.label,
+      title: tempEventObj.eventVisibility.label,
+      id: tempEventObj.eventVisibility.id,
     },
     selectedSeries: {
-      label: "",
-      id: "",
+      label: tempEventObj.selectedSeries.label,
+      id: tempEventObj.selectedSeries.id,
     },
   });
   const dispatch = useDispatch();
@@ -67,10 +72,10 @@ export default function Page() {
       selectedImage,
       selectedFile,
       backgroundPosition,
-      tickets: [],
+      tickets: tempEventObj.tickets,
     };
     dispatch(saveEvent(eventObj));
-    router.push("./create/tickets");
+    router.push("./edit/tickets");
   };
 
   const handleValidation = () => {
@@ -97,9 +102,13 @@ export default function Page() {
     handleValidation();
   }, [eventDetailsObj, eventDateObj, selectedImage]);
 
-  useEffect(() => {
-    // console.log("event obj==>", eventDateObj);
-  }, [eventDateObj, selectedFile]);
+  // useEffect(() => {
+  //   console.log("event obj==>", eventDateObj);
+  // }, [eventDateObj, selectedFile]);
+
+  // useEffect(() => {
+  //   console.log("temp event==>", tempEventObj);
+  // }, []);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
@@ -127,7 +136,7 @@ export default function Page() {
 
       <div className="flex flex-grow overflow-hidden">
         <EventPreview
-          selectedImage={selectedImage ?? "/defaultImage.png"}
+          selectedImage={selectedImage ?? tempEventObj.selectedImage}
           backgroundPosition={backgroundPosition}
           eventName={eventDetailsObj.eventName}
           eventDescription={eventDetailsObj.eventDescription}

@@ -11,7 +11,10 @@ import { ticketCategoryData } from "@/app/lib/placeholder-data";
 import TicketSales from "@/app/ui/events/ticket-sales";
 import TicketDetails from "@/app/ui/events/ticket-details";
 import { useDispatch, useSelector } from "@/store/store";
-import { saveTicket } from "@/store/create-event/create-event-slice";
+import {
+  clearEventState,
+  saveTicket,
+} from "@/store/create-event/create-event-slice";
 import useAuth from "@/shared/hooks/useAuth";
 import { IEventForm } from "@/services/models/event-model";
 import Loader from "@/app/ui/loaders/loader";
@@ -173,6 +176,7 @@ export default function TicketPage() {
             if (res) {
               console.log(res);
               toast.success(res.data.message);
+              dispatch(clearEventState());
               router.push("/dashboard/events");
             } else {
               toast.info(res.error);

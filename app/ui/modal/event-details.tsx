@@ -28,6 +28,10 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { IEventForm } from "@/services/models/event-model";
+import { convertTimeToISO, dateToISOFormat } from "@/shared/utils/helper";
+import { useDispatch } from "@/store/store";
+import { saveEvent } from "@/store/create-event/create-event-slice";
 
 export default function EventDetailsModal({
   event,
@@ -111,7 +115,7 @@ export default function EventDetailsModal({
                     copyToClipboard={copyToClipboard}
                   />
                 )}
-                <ModalAction />
+                <ModalAction event={event} />
               </div>
             </div>
 
@@ -147,7 +151,7 @@ export default function EventDetailsModal({
                     copyToClipboard={copyToClipboard}
                   />
                 )}
-                <ModalAction />
+                <ModalAction event={event} />
               </div>
             </div>
 
@@ -315,9 +319,46 @@ const TicketersButton = ({ eventObj, copyToClipboard }: PropT) => {
   );
 };
 
-const ModalAction = () => {
+type ModalActionPropT = {
+  event: IEventResponse;
+};
+const ModalAction = ({ event }: ModalActionPropT) => {
   const [openActionPane, setopenActionPane] = useState(false);
+  const [objj, setobjj] = useState<IEventForm>();
   const router = useRouter();
+  const dispatch = useDispatch();
+  const handleEdit = () => {
+    const { lat, lng, city, address, state, country } = event.location;
+    const eventObj = {
+      eventDate: dateToISOFormat(event.date),
+      startTime: convertTimeToISO(event.time),
+      endTime: convertTimeToISO(event.time),
+      eventLocation: {
+        address: event.location.address,
+        lat: event.location.lat,
+        city: event.location.city,
+        state: event.location.state,
+        country: event.location.country,
+        lng: event.location.lng,
+        geo: JSON.stringify({
+          value: { lat, lng, address, city, state, country },
+        }),
+        venue: event.venue,
+        venueGeo: "",
+        tickets: event.tickets,
+        selectedImage: event.image_url,
+        selectedFile: {},
+        backgroundPosition: {
+          x: 50,
+          y: 50,
+        },
+      },
+    };
+
+    console.log("===>", eventObj);
+    dispatch(saveEvent(eventObj));
+    router.push("/dashboard/events/edit");
+  };
   return (
     <div className="p-1 cursor-pointer relative">
       <div
@@ -329,10 +370,7 @@ const ModalAction = () => {
 
       {openActionPane && (
         <div className="min-w-40 absolute min-h-10 rounded-lg px-4 -left-28 mt-2 bg-white p-2 border border-[#F6F5F5] shadow-sm">
-          <div
-            className="flex items-center gap-x-2 py-2"
-            onClick={() => router.push("/dashboard/events/edit")}
-          >
+          <div className="flex items-center gap-x-2 py-2" onClick={handleEdit}>
             <div className="w-6 h-6 rounded-full flex justify-center items-center">
               <FaRegEdit />
             </div>

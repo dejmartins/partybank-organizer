@@ -69,6 +69,7 @@ export default function Page() {
       backgroundPosition,
       tickets: [],
     };
+    // console.log({ ...eventDateObj });
     dispatch(saveEvent(eventObj));
     router.push("./create/tickets");
   };

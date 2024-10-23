@@ -55,9 +55,9 @@ export default function MyEvents({ eventList }: any) {
     );
   };
 
-  useEffect(() => {
-    console.log("events==>", eventList);
-  }, []);
+  // useEffect(() => {
+  //   console.log("events==>", eventList);
+  // }, []);
 
   return (
     <div>

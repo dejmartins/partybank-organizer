@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 const initialState: any = {
@@ -31,11 +31,20 @@ const eventSlice = createSlice({
 
     removeTicket: (state, param) => {
       const { payload } = param;
-      const { tickets } = state.data.tempEvent;
-      const newTicketsArr = tickets.filter(
-        (obj: any) => obj.ticketName !== payload.ticketName
-      );
+      const { tickets } = current(state.data.tempEvent);
+      const newTicketsArr = tickets.filter((obj: any) => obj.id !== payload.id);
+      // console.log("to remover this tickets", payload);
+      // console.log("new tickets", newTicketsArr);
+      // console.log("tickets", current(state.data.tempEvent));
       state.data.tempEvent.tickets = newTicketsArr;
+    },
+
+    updateTicket: (state, param) => {
+      const { payload } = param;
+      const { tickets } = current(state.data.tempEvent);
+      const newTicketsArr = tickets.filter((obj: any) => obj.id !== payload.id);
+      const newArr = [payload, ...newTicketsArr];
+      state.data.tempEvent.tickets = newArr;
     },
 
     loadedTicket: (state, param) => {
@@ -50,5 +59,11 @@ const eventSlice = createSlice({
 });
 
 const { actions } = eventSlice;
-export const { saveEvent, clearEventState, saveTicket, removeTicket } = actions;
+export const {
+  saveEvent,
+  clearEventState,
+  saveTicket,
+  removeTicket,
+  updateTicket,
+} = actions;
 export default eventSlice.reducer;

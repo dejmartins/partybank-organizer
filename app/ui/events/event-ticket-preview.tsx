@@ -3,14 +3,17 @@ import { IEventForm } from "@/services/models/event-model";
 import usePBEvent from "@/shared/hooks/usePBEvent";
 import { createEllipsis } from "@/shared/utils/helper";
 import { removeTicket } from "@/store/create-event/create-event-slice";
-import { useDispatch } from "@/store/store";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "@/store/store";
+import { loadTicket } from "@/store/ticket-slice/ticket-slice";
+import { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 type PropT = {
-  tempEvent: IEventForm;
+  loadedTicket: any;
 };
-export default function EventTicketPreview({ tempEvent }: any) {
+export default function EventTicketPreview({ loadedTicket }: PropT) {
+  const event = useSelector((state) => state.event);
+  const tempEvent: IEventForm = event.data.tempEvent;
   const dispatch = useDispatch();
   const {
     backgroundPosition,
@@ -20,13 +23,14 @@ export default function EventTicketPreview({ tempEvent }: any) {
     selectedImage,
   } = tempEvent;
 
-  const handleRemoveTicket = (payload: any) => {
-    dispatch(removeTicket(payload));
-  };
+  // const handleRemoveTicket = (payload: any) => {
+  //   dispatch(removeTicket(payload));
+  // };
 
   useEffect(() => {
-    console.log("temp event", tempEvent);
-  }, [tempEvent]);
+    console.log("currently loaded==>", loadedTicket);
+    // setloadedTicket(loadedTicketObj);
+  }, [loadedTicket]);
 
   return (
     <div className="border p-10 flex-grow flex flex-col hidden md:block md:basis-[40%] lg:basis-[30%] overflow-y-auto  max-h-[calc(100vh-170px)]">
@@ -57,21 +61,44 @@ export default function EventTicketPreview({ tempEvent }: any) {
                 key={index}
                 className="w-full flex items-center justify-between cursor-pointer p-2 rounded-lg border border-[#f1f0f0]"
                 style={{
-                  backgroundColor: "#FAF9F9",
+                  backgroundColor:
+                    Object.keys(loadedTicket).length &&
+                    loadedTicket.id === obj.id
+                      ? "#E91B41"
+                      : "#FAF9F9",
+                  color:
+                    Object.keys(loadedTicket).length &&
+                    loadedTicket.id === obj.id
+                      ? "#fff"
+                      : "#000",
+                  border:
+                    Object.keys(loadedTicket).length &&
+                    loadedTicket.id === obj.id
+                      ? "1px solid red"
+                      : "none",
+                }}
+                onClick={(ev) => {
+                  ev.stopPropagation();
+                  if (loadedTicket.id !== obj.id) {
+                    dispatch(loadTicket(obj));
+                  }
                 }}
               >
                 <div>
                   <span className="text-lg block">
                     {obj.ticketDetailsObj.ticketName}
                   </span>
-                  <span className="text-sm">
+                  {/* <span className="text-sm">
                     {createEllipsis(obj.ticketDetailsObj.ticketDescription, 30)}
-                  </span>
+                  </span> */}
                 </div>
                 <div>
                   <RiDeleteBin6Line
                     size={20}
-                    onClick={() => handleRemoveTicket(obj)}
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      dispatch(removeTicket(obj));
+                    }}
                   />
                 </div>
               </div>

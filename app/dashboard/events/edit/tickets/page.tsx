@@ -11,7 +11,10 @@ import { ticketCategoryData } from "@/app/lib/placeholder-data";
 import TicketSales from "@/app/ui/events/ticket-sales";
 import TicketDetails from "@/app/ui/events/ticket-details";
 import { useDispatch, useSelector } from "@/store/store";
-import { saveTicket } from "@/store/create-event/create-event-slice";
+import {
+  saveTicket,
+  updateTicket,
+} from "@/store/create-event/create-event-slice";
 import useAuth from "@/shared/hooks/useAuth";
 import { IEventForm } from "@/services/models/event-model";
 import Loader from "@/app/ui/loaders/loader";
@@ -22,6 +25,7 @@ import {
   getTimeWithAmPm,
   uploadToCloudinary,
 } from "@/shared/utils/helper";
+import { clearTicketState } from "@/store/ticket-slice/ticket-slice";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -30,10 +34,16 @@ const ticketTypeData = [
 ];
 
 export default function TicketPage() {
+  // Todo:load ticket object from global state for edit
+  const loadedTicket = useSelector((state) => state.ticket).data;
+
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
   const { USER } = useAuth();
+
   const [selectedType, setselectedType] = useState(ticketTypeData[0]);
-  const [ticketCategory, setticketCategory] = useState(ticketCategoryData[0]);
+  const [ticketCategory, setticketCategory] = useState(
+    loadedTicket ? loadedTicket.ticketCategory : ticketCategoryData[0]
+  );
   const [perks, setperks] = useState<string[]>([]);
   const [ticketDetailsObj, settickDetailsObj] = useState({
     ticketName: "",
@@ -65,48 +75,44 @@ export default function TicketPage() {
       ticketCategory,
       ticketType: selectedType,
       perks,
-      id: Date.now(),
     };
-    dispatch(saveTicket(ticketData));
-    settickDetailsObj((prev: any) => {
-      return { ...prev, ticketName: "" };
-    });
+    if (Object.keys(loadedTicket).length > 0) {
+      console.log("===> update");
+      //dispatch ticket update
+      dispatch(updateTicket({ ...ticketData, id: loadedTicket.id }));
+      dispatch(clearTicketState());
+      settickDetailsObj((prev: any) => {
+        return { ...prev, ticketName: "" };
+      });
+    } else {
+      dispatch(saveTicket({ ...ticketData, id: Date.now() }));
+      settickDetailsObj((prev: any) => {
+        return { ...prev, ticketName: "" };
+      });
+    }
   };
+
   const handleValidation = () => {
-    const {
-      ticketName,
-      ticketPrice,
-      ticketDescription,
-      ticketStock,
-      ticketCapacity,
-    } = ticketDetailsObj;
+    const { ticketName, ticketPrice, ticketStock, ticketCapacity } =
+      ticketDetailsObj;
     if (selectedType.title === "Free" && ticketStock.label === "Unlimited") {
-      const isValid = ticketName.length > 2 && ticketDescription.length > 6;
+      const isValid = ticketName.length > 2;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Free" && ticketStock.label === "Limited") {
-      const isValid =
-        ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketCapacity > 0;
+      const isValid = ticketName.length > 2 && ticketCapacity > 0;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Paid" && ticketStock.label === "Unlimited") {
-      const isValid =
-        ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketPrice > 0;
+      const isValid = ticketName.length > 2 && ticketPrice > 0;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Paid" && ticketStock.label === "Limited") {
       const isValid =
-        ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketPrice > 0 &&
-        ticketCapacity > 0;
+        ticketName.length > 2 && ticketPrice > 0 && ticketCapacity > 0;
       setisformValid(isValid);
     }
   };
@@ -192,10 +198,6 @@ export default function TicketPage() {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("temp event==>", tempEventObj);
-  // }, []);
-
   useEffect(() => {
     setisClient(true);
     if (tempEventObj === undefined) {
@@ -206,6 +208,17 @@ export default function TicketPage() {
   useEffect(() => {
     handleValidation();
   }, [ticketDetailsObj, selectedType]);
+
+  useEffect(() => {
+    if (Object.keys(loadedTicket).length) {
+      console.log("loaded ticketxxxx==>", loadedTicket);
+      settickDateObj(loadedTicket.ticketDateObj);
+      settickDetailsObj(loadedTicket.ticketDetailsObj);
+      setticketCategory(loadedTicket.ticketCategory);
+      setselectedType(loadedTicket.ticketType);
+      setperks(loadedTicket.perks);
+    }
+  }, [loadedTicket]);
 
   return (
     <>
@@ -231,16 +244,14 @@ export default function TicketPage() {
                     onClick={handleCreateEvent}
                     disabled={tempEventObj.tickets.length ? false : true}
                   >
-                    Edit Event
+                    Save Event
                   </button>
                 </div>
               </div>
             </div>
 
             <div className="flex flex-grow overflow-hidden">
-              {tempEventObj.tickets.length && (
-                <EventTicketPreview tempEvent={tempEventObj} />
-              )}
+              <EventTicketPreview loadedTicket={loadedTicket} />
               <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
                 <TicketCategory
                   selectedCategory={ticketCategory}

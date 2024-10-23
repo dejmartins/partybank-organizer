@@ -19,15 +19,17 @@ export default function SelectedCard({ data, setvalue, value }: PropT) {
       className="w-full md:w-[48%] p-3 rounded-xl cursor-pointer flex items-center gap-4"
       style={{
         border:
-          value.id === data.id ? "1px solid #E91B41" : "1px solid #F4F5F6",
-        background: value.id === data.id ? "#FFF2F4" : "#F4F5F6",
+          value && value.id === data.id
+            ? "1px solid #E91B41"
+            : "1px solid #F4F5F6",
+        background: value && value.id === data.id ? "#FFF2F4" : "#F4F5F6",
       }}
       onClick={() => {
         setvalue(data);
       }}
     >
       <div>
-        {value.id === data.id ? (
+        {value && value.id === data.id ? (
           <FaCheckCircle size={20} color="#E91B41" />
         ) : (
           <FaRegCircle size={20} />
@@ -37,7 +39,7 @@ export default function SelectedCard({ data, setvalue, value }: PropT) {
         <h4
           className="font-semibold text-lg"
           style={{
-            color: value.id === data.id ? "#E91B41" : "",
+            color: value && value.id === data.id ? "#E91B41" : "",
           }}
         >
           {data.label}

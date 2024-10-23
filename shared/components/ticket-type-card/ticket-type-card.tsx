@@ -17,20 +17,21 @@ export default function TickettypeCard({ data, value, setValue }: propT) {
     <div
       className="min-w-52 p-3 flex items-center gap-3 border border-red-400 cursor-pointer"
       style={{
-        backgroundColor: id === value.id ? "#FEEFF2" : "#fff",
-        border: id === value.id ? "1px solid #FEEFF2 " : "1px solid #DDE0E3",
+        backgroundColor: title === value.title ? "#FEEFF2" : "#fff",
+        border:
+          title === value.title ? "1px solid #FEEFF2 " : "1px solid #DDE0E3",
       }}
       onClick={() => setValue(data)}
     >
       <div>
-        {id === value.id && <FaCheckCircle size={20} color="#E91B41" />}
+        {title === value.title && <FaCheckCircle size={20} color="#E91B41" />}
       </div>
       <div>
         <h3
           className="text-[1.1remrem]"
           style={{
-            color: id === value.id ? "#E91B41" : "",
-            fontWeight: id === value.id ? "bold" : "normal",
+            color: title === value.title ? "#E91B41" : "",
+            fontWeight: title === value.title ? "bold" : "normal",
           }}
         >
           {data.title}

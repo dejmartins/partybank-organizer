@@ -353,8 +353,8 @@ const ModalAction = ({ event }: ModalActionPropT) => {
       tickets: event.tickets.map((ticket, index: number) => {
         return {
           ticketDateObj: {
-            salesStartDate: convertIsoToDate(ticket.ticket_sale_start_date),
-            salesEndDate: convertIsoToDate(ticket.ticket_sale_end_date),
+            salesStartDate: dateToISOFormat(ticket.ticket_sale_start_date),
+            salesEndDate: dateToISOFormat(ticket.ticket_sale_end_date),
             salesStartTime: convertTimeToISO(ticket.ticket_sale_start_time),
             salesEndTime: convertTimeToISO(ticket.ticket_sales_end_time),
           },
@@ -397,7 +397,7 @@ const ModalAction = ({ event }: ModalActionPropT) => {
       selectedImage: event.image_url,
       selectedFile: {},
     };
-    // console.log("===>", event);
+
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
   };

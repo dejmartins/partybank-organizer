@@ -62,16 +62,19 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
                 className="w-full flex items-center justify-between cursor-pointer p-2 rounded-lg border border-[#f1f0f0]"
                 style={{
                   backgroundColor:
+                    loadedTicket &&
                     Object.keys(loadedTicket).length &&
                     loadedTicket.id === obj.id
                       ? "#E91B41"
                       : "#FAF9F9",
                   color:
+                    loadedTicket &&
                     Object.keys(loadedTicket).length &&
                     loadedTicket.id === obj.id
                       ? "#fff"
                       : "#000",
                   border:
+                    loadedTicket &&
                     Object.keys(loadedTicket).length &&
                     loadedTicket.id === obj.id
                       ? "1px solid red"

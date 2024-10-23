@@ -33,6 +33,7 @@ const ticketTypeData = [
 ];
 
 export default function TicketPage() {
+  const loadedTicket = useSelector((state) => state.ticket).data;
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
   const { USER } = useAuth();
   const [selectedType, setselectedType] = useState(ticketTypeData[0]);
@@ -177,7 +178,8 @@ export default function TicketPage() {
               console.log(res);
               toast.success(res.data.message);
               dispatch(clearEventState());
-              router.push("/dashboard/events");
+              // router.push("/dashboard/events");
+              window.location.href = "/dashboard/events";
             } else {
               toast.info(res.error);
             }
@@ -211,6 +213,17 @@ export default function TicketPage() {
     // console.log("tempevent", tempEvent);
   }, [tempEvent]);
 
+  useEffect(() => {
+    if (Object.keys(loadedTicket).length) {
+      console.log("loaded ticketxxxx==>", loadedTicket);
+      settickDateObj(loadedTicket.ticketDateObj);
+      settickDetailsObj(loadedTicket.ticketDetailsObj);
+      setticketCategory(loadedTicket.ticketCategory);
+      setselectedType(loadedTicket.ticketType);
+      setperks(loadedTicket.perks);
+    }
+  }, [loadedTicket]);
+
   return (
     <>
       <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
@@ -240,7 +253,7 @@ export default function TicketPage() {
         </div>
 
         <div className="flex flex-grow overflow-hidden">
-          <EventTicketPreview />
+          <EventTicketPreview loadedTicket={loadedTicket} />
 
           <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
             <TicketCategory

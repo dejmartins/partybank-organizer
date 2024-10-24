@@ -168,7 +168,7 @@ export default function Page() {
                     </div>
                   </div>
 
-                  <div className="border-0 border-t-2 border-b-2 border-[var(--pb-c-soft-grey)] p-6">
+                  <div className="border-0 border-t-2 border-b-2 border-[var(--pb-c-soft-grey)]">
                     <MyEvents eventList={eventList} />
                   </div>
 

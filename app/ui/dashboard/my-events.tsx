@@ -60,46 +60,55 @@ export default function MyEvents({ eventList }: any) {
   // }, []);
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-7">
-          <h3 className="text-2xl font-bold">My Events</h3>
-          <div className="flex items-center gap-4 my-4">
-            <button
-              className={`px-4 rounded-md border border-[#DDE0E3] 
-                                ${
-                                  statusFilter === "active"
-                                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
-                                    : ""
-                                }`}
-              onClick={() => filterEvents("active")}
-            >
-              Active
-            </button>
-            <button
-              className={`px-4 rounded-md border border-[#DDE0E3]
-                                ${
-                                  statusFilter === "upcoming"
-                                    ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
-                                    : ""
-                                }`}
-              onClick={() => filterEvents("upcoming")}
-            >
-              Upcoming
-            </button>
+    <>
+      <div className="px-6">
+        <div className="flex items-start md:items-center justify-between">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4">
+            <h3 className="text-2xl font-bold">My Events</h3>
+
+            <div className="flex items-center gap-4">
+              <button
+                className={`px-4 rounded-md border border-[#DDE0E3] 
+                              ${
+                                statusFilter === "active"
+                                  ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                                  : ""
+                              }`}
+                onClick={() => filterEvents("active")}
+              >
+                Active
+              </button>
+              <button
+                className={`px-4 rounded-md border border-[#DDE0E3]
+                                  ${
+                                    statusFilter === "upcoming"
+                                      ? "bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
+                                      : ""
+                                  }`}
+                onClick={() => filterEvents("upcoming")}
+              >
+                Upcoming
+              </button>
+            </div>
+          </div>
+
+          <Link
+            href={"/dashboard/events"}
+            className="flex items-center gap-2 py-1 px-5 rounded-md bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600] mt-1 md:mt-0"
+          >
+            <span className="hidden md:block">See all events</span>
+            <ChevronDoubleRightIcon className="w-4 stroke-2" />
+          </Link>
+        </div>
+
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col md:flex-row items-center">
+            
           </div>
         </div>
 
-        <Link
-          href={"/dashboard/events"}
-          className="flex items-center gap-2 px-5 rounded-md bg-[var(--pb-c-light-red)] text-[var(--pb-c-red)] font-[600]"
-        >
-          See all events
-          <ChevronDoubleRightIcon className="w-4 stroke-2" />
-        </Link>
+        {eventList.length && <PublishedEvents />}
       </div>
-
-      {eventList.length && <PublishedEvents />}
-    </div>
+    </>
   );
 }

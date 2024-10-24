@@ -4,6 +4,7 @@ import Header from "../ui/dashboard/header";
 import { useEffect } from "react";
 import useAuth from "@/shared/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import Footer from "../ui/landing/footer";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { USER } = useAuth();
@@ -20,9 +21,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <TopNav />
 
-      <div className="flex-grow flex flex-col mt-[64px] md:mt-[170px] bg-[var(--pb-c-white)] overflow-y-auto">
+      <div className="flex-grow flex flex-col mt-[64px] md:mt-[170px] bg-[var(--pb-c-white)] overflow-y-auto mb-16">
         {children}
       </div>
+
+      <Footer />
     </div>
   );
 }

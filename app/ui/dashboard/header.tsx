@@ -22,8 +22,8 @@ export default function Header() {
       </div>
 
       <div className="flex gap-4">
-        <MagnifyingGlassIcon className="w-5 stroke-black stroke-1 cursor-pointer" />
-        <BellIcon className="w-5 text-white stroke-black stroke-2 cursor-pointer" />
+        {/* <MagnifyingGlassIcon className="w-5 stroke-black stroke-1 cursor-pointer" /> */}
+        {/* <BellIcon className="w-5 text-white stroke-black stroke-2 cursor-pointer" /> */}
         <ProfileIcon />
       </div>
     </div>

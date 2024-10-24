@@ -38,3 +38,10 @@ export const getEventAnalytics = ({ id, ...payload }: any): Observable<any> => {
     catchError(handleError)
   );
 };
+
+export const deleteEvent = ({ id }: any): Observable<any> => {
+  return from(http.delete(`/event/delete/${id}`)).pipe(
+    map((response: any) => response),
+    catchError(handleError)
+  );
+};

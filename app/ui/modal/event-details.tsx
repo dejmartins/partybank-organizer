@@ -23,7 +23,7 @@ import { BsWhatsapp } from "react-icons/bs";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Loader from "../loaders/loader";
 import { toast } from "react-toastify";
-import { publishEvents } from "@/services/event-services/event-service";
+import { deleteEvent, publishEvents } from "@/services/event-services/event-service";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
@@ -119,7 +119,7 @@ export default function EventDetailsModal({
                     copyToClipboard={copyToClipboard}
                   />
                 )}
-                <ModalAction event={event} />
+                <ModalAction event={event} apiCall={apiCall} onClose={onClose} setIsLoaderModalOpen={setIsLoaderModalOpen} setactionText={setactionText} />
               </div>
             </div>
 
@@ -155,7 +155,7 @@ export default function EventDetailsModal({
                     copyToClipboard={copyToClipboard}
                   />
                 )}
-                <ModalAction event={event} />
+                <ModalAction event={event} apiCall={apiCall} onClose={onClose} setIsLoaderModalOpen={setIsLoaderModalOpen} setactionText={setactionText} />
               </div>
             </div>
 
@@ -325,8 +325,12 @@ const TicketersButton = ({ eventObj, copyToClipboard }: PropT) => {
 
 type ModalActionPropT = {
   event: IEventResponse;
+  apiCall: () => void;
+  onClose: () => void;
+  setIsLoaderModalOpen: (e: boolean) => void
+  setactionText: (e: string) => void
 };
-const ModalAction = ({ event }: ModalActionPropT) => {
+const ModalAction = ({ event, apiCall, onClose, setIsLoaderModalOpen, setactionText }: ModalActionPropT) => {
   const [openActionPane, setopenActionPane] = useState(false);
   const [objj, setobjj] = useState<IEventForm>();
   const router = useRouter();
@@ -401,6 +405,34 @@ const ModalAction = ({ event }: ModalActionPropT) => {
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
   };
+
+  const handleDelete = () => {
+    setIsLoaderModalOpen(true);
+    setactionText("Deleting your event");
+    deleteEvent({ id: event.id }).subscribe({
+      next: (res) => {
+        if (res) {
+          setIsLoaderModalOpen(false);
+          setactionText("");
+          apiCall();
+          onClose();
+        } else {
+          toast.info(res.error);
+          setIsLoaderModalOpen(false);
+        }
+      },
+      error: (msg) => {
+        toast.error(msg.message);
+        setIsLoaderModalOpen(false);
+      },
+      complete: () => {
+        setIsLoaderModalOpen(false);
+        setactionText("");
+      },
+    });
+  }
+
+
   return (
     <div className="p-1 cursor-pointer relative">
       <div
@@ -424,7 +456,7 @@ const ModalAction = ({ event }: ModalActionPropT) => {
             <div className="w-6 h-6 bg-partybank-red rounded-full flex justify-center items-center">
               <RiDeleteBin6Line color="#fff" size={10} />
             </div>
-            <span className="font-bold text-xs text-partybank-red">
+            <span className="font-bold text-xs text-partybank-red" onClick={handleDelete}>
               Delete Event
             </span>
           </div>

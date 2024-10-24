@@ -41,10 +41,10 @@ export default function TicketPage() {
   const [perks, setperks] = useState<string[]>([]);
   const [ticketDetailsObj, settickDetailsObj] = useState({
     ticketName: "",
-    ticketDescription: "",
-    ticketCapacity: 0,
+    ticketDescription: "Ticket Description",
+    ticketCapacity: "",
     ticketStock: { id: 1, label: "Limited" },
-    ticketPrice: 0.0,
+    ticketPrice: "",
     ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
   });
   const event = useSelector((state) => state.event);
@@ -86,32 +86,33 @@ export default function TicketPage() {
       ticketCapacity,
     } = ticketDetailsObj;
     if (selectedType.title === "Free" && ticketStock.label === "Unlimited") {
-      const isValid = ticketName.length > 2 && ticketDescription.length > 6;
+      const isValid = ticketName.length > 2;
+      // ticketDescription.length > 6;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Free" && ticketStock.label === "Limited") {
       const isValid =
         ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketCapacity > 0;
+        // ticketDescription.length > 6 &&
+        Number(ticketCapacity) > 0;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Paid" && ticketStock.label === "Unlimited") {
       const isValid =
         ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketPrice > 0;
+        // ticketDescription.length > 6 &&
+        Number(ticketPrice) > 0;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Paid" && ticketStock.label === "Limited") {
       const isValid =
         ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketPrice > 0 &&
-        ticketCapacity > 0;
+        // ticketDescription.length > 6 &&
+        Number(ticketPrice) > 0 &&
+        Number(ticketCapacity) > 0;
       setisformValid(isValid);
     }
   };
@@ -177,9 +178,9 @@ export default function TicketPage() {
             if (res) {
               console.log(res);
               toast.success(res.data.message);
-              dispatch(clearEventState());
-              // router.push("/dashboard/events");
-              window.location.href = "/dashboard/events";
+              // dispatch(clearEventState());
+              router.push("/dashboard/events");
+              // window.location.href = "/dashboard/events";
             } else {
               toast.info(res.error);
             }

@@ -102,12 +102,10 @@ export default function MyEvents({ eventList }: any) {
         </div>
 
         <div className="flex items-center justify-between mb-4">
-          <div className="flex flex-col md:flex-row items-center">
-            
-          </div>
+          <div className="flex flex-col md:flex-row items-center"></div>
         </div>
 
-        {eventList.length && <PublishedEvents />}
+        {/* {eventList.length && <PublishedEvents />} */}
       </div>
     </>
   );

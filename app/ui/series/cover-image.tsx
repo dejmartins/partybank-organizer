@@ -5,6 +5,7 @@ interface CoverImageUploadProps {
   backgroundPosition: { x: number; y: number };
   onImageChange: (image: string) => void;
   onPositionChange: (position: { x: number; y: number }) => void;
+  setselectedFile: Function;
 }
 
 export default function CoverImageUpload({
@@ -12,10 +13,12 @@ export default function CoverImageUpload({
   backgroundPosition,
   onImageChange,
   onPositionChange,
+  setselectedFile,
 }: CoverImageUploadProps) {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
+      setselectedFile(file);
       const imageUrl = URL.createObjectURL(file);
       onImageChange(imageUrl);
     }

@@ -23,7 +23,10 @@ import { BsWhatsapp } from "react-icons/bs";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Loader from "../loaders/loader";
 import { toast } from "react-toastify";
-import { deleteEvent, publishEvents } from "@/services/event-services/event-service";
+import {
+  deleteEvent,
+  publishEvents,
+} from "@/services/event-services/event-service";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
@@ -91,9 +94,6 @@ export default function EventDetailsModal({
         console.error("Failed to copy text: ", err);
       });
   };
-  // useEffect(() => {
-  //   console.log("event==>", event);
-  // }, []);
 
   return (
     <>
@@ -119,7 +119,13 @@ export default function EventDetailsModal({
                     copyToClipboard={copyToClipboard}
                   />
                 )}
-                <ModalAction event={event} apiCall={apiCall} onClose={onClose} setIsLoaderModalOpen={setIsLoaderModalOpen} setactionText={setactionText} />
+                <ModalAction
+                  event={event}
+                  apiCall={apiCall}
+                  onClose={onClose}
+                  setIsLoaderModalOpen={setIsLoaderModalOpen}
+                  setactionText={setactionText}
+                />
               </div>
             </div>
 
@@ -155,7 +161,13 @@ export default function EventDetailsModal({
                     copyToClipboard={copyToClipboard}
                   />
                 )}
-                <ModalAction event={event} apiCall={apiCall} onClose={onClose} setIsLoaderModalOpen={setIsLoaderModalOpen} setactionText={setactionText} />
+                <ModalAction
+                  event={event}
+                  apiCall={apiCall}
+                  onClose={onClose}
+                  setIsLoaderModalOpen={setIsLoaderModalOpen}
+                  setactionText={setactionText}
+                />
               </div>
             </div>
 
@@ -327,10 +339,16 @@ type ModalActionPropT = {
   event: IEventResponse;
   apiCall: () => void;
   onClose: () => void;
-  setIsLoaderModalOpen: (e: boolean) => void
-  setactionText: (e: string) => void
+  setIsLoaderModalOpen: (e: boolean) => void;
+  setactionText: (e: string) => void;
 };
-const ModalAction = ({ event, apiCall, onClose, setIsLoaderModalOpen, setactionText }: ModalActionPropT) => {
+const ModalAction = ({
+  event,
+  apiCall,
+  onClose,
+  setIsLoaderModalOpen,
+  setactionText,
+}: ModalActionPropT) => {
   const [openActionPane, setopenActionPane] = useState(false);
   const [objj, setobjj] = useState<IEventForm>();
   const router = useRouter();
@@ -339,6 +357,7 @@ const ModalAction = ({ event, apiCall, onClose, setIsLoaderModalOpen, setactionT
   const handleEdit = () => {
     const { lat, lng, city, address, state, country } = event.location;
     const eventObj = {
+      id: event.id,
       eventName: event.event_name,
       eventDescription: event.description,
       eventContact: event.contact_information,
@@ -401,7 +420,6 @@ const ModalAction = ({ event, apiCall, onClose, setIsLoaderModalOpen, setactionT
       selectedImage: event.image_url,
       selectedFile: {},
     };
-
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
   };
@@ -430,9 +448,10 @@ const ModalAction = ({ event, apiCall, onClose, setIsLoaderModalOpen, setactionT
         setactionText("");
       },
     });
-  }
-
-
+  };
+  // useEffect(() => {
+  //   console.log("eventxxx==>", event);
+  // }, []);
   return (
     <div className="p-1 cursor-pointer relative">
       <div
@@ -456,7 +475,10 @@ const ModalAction = ({ event, apiCall, onClose, setIsLoaderModalOpen, setactionT
             <div className="w-6 h-6 bg-partybank-red rounded-full flex justify-center items-center">
               <RiDeleteBin6Line color="#fff" size={10} />
             </div>
-            <span className="font-bold text-xs text-partybank-red" onClick={handleDelete}>
+            <span
+              className="font-bold text-xs text-partybank-red"
+              onClick={handleDelete}
+            >
               Delete Event
             </span>
           </div>

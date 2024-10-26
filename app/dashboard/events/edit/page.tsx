@@ -73,7 +73,9 @@ export default function Page() {
       selectedFile,
       backgroundPosition,
       tickets: tempEventObj.tickets,
+      id: event.data.tempEvent.id,
     };
+
     dispatch(saveEvent(eventObj));
     router.push("./edit/tickets");
   };
@@ -101,14 +103,6 @@ export default function Page() {
   useEffect(() => {
     handleValidation();
   }, [eventDetailsObj, eventDateObj, selectedImage]);
-
-  // useEffect(() => {
-  //   console.log("event obj==>", eventDateObj);
-  // }, [eventDateObj, selectedFile]);
-
-  // useEffect(() => {
-  //   console.log("temp event==>", tempEventObj);
-  // }, []);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">

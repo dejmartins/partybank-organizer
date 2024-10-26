@@ -32,7 +32,11 @@ const eventSlice = createSlice({
     removeTicket: (state, param) => {
       const { payload } = param;
       const { tickets } = current(state.data.tempEvent);
-      const newTicketsArr = tickets.filter((obj: any) => obj.id !== payload.id);
+      const newTicketsArr = tickets.filter(
+        (obj: any) =>
+          obj.ticketDetailsObj.ticketName !==
+          payload.ticketDetailsObj.ticketName
+      );
       // console.log("to remover this tickets", payload);
       // console.log("new tickets", newTicketsArr);
       // console.log("tickets", current(state.data.tempEvent));

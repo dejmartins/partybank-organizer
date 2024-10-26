@@ -19,7 +19,6 @@ import { useDispatch } from "@/store/store";
 import { clearEventState } from "@/store/create-event/create-event-slice";
 import { clearTicketState } from "@/store/ticket-slice/ticket-slice";
 
-
 export default function Page() {
   const { USER } = useAuth();
   const [statusFilter, setStatusFilter] = useState("upcoming");
@@ -85,7 +84,6 @@ export default function Page() {
   };
 
   const fetchEvents = () => {
-    
     setIsLoaderModalOpen(true);
     return getOrgEvents({
       organizerId: USER.id,

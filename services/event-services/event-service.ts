@@ -10,6 +10,13 @@ export const createEvent = (payload: IEventDTO): Observable<any> => {
   );
 };
 
+export const updateEvent = ({ payload, id }: any): Observable<any> => {
+  return from(http.put(`/event/${id}`, payload)).pipe(
+    map((response: any) => response),
+    catchError(handleError)
+  );
+};
+
 export const getOrgEvents = (payload: any): Observable<any> => {
   return from(
     http.get("/event/organizer", {

@@ -18,7 +18,10 @@ import {
 import useAuth from "@/shared/hooks/useAuth";
 import { IEventForm } from "@/services/models/event-model";
 import Loader from "@/app/ui/loaders/loader";
-import { createEvent } from "@/services/event-services/event-service";
+import {
+  createEvent,
+  updateEvent,
+} from "@/services/event-services/event-service";
 import { toast } from "react-toastify";
 import {
   convertIsoToDate,
@@ -77,7 +80,6 @@ export default function TicketPage() {
       perks,
     };
     if (Object.keys(loadedTicket).length > 0) {
-      console.log("===> update");
       //dispatch ticket update
       dispatch(updateTicket({ ...ticketData, id: loadedTicket.id }));
       dispatch(clearTicketState());
@@ -117,7 +119,7 @@ export default function TicketPage() {
     }
   };
 
-  const handleCreateEvent = async () => {
+  const handleUpdate = async () => {
     setIsLoaderModalOpen(true);
     const ticketsPayload = tempEventObj.tickets.map((obj: any) => {
       return {
@@ -145,10 +147,9 @@ export default function TicketPage() {
       };
     });
 
-    const url = await uploadToCloudinary(
-      tempEventObj.selectedFile,
-      "event_image"
-    );
+    const url = tempEventObj.selectedFile
+      ? await uploadToCloudinary(tempEventObj.selectedFile, "event_image")
+      : tempEventObj.selectedImage;
     if (url) {
       const payload = {
         address: tempEventObj.eventLocation.address,
@@ -171,13 +172,12 @@ export default function TicketPage() {
         state: tempEventObj.eventLocation.state,
         country: tempEventObj.eventLocation.country,
       };
-      // console.log("full payload==>", payload);
       const queryApi = () => {
-        createEvent(payload).subscribe({
+        updateEvent({ payload, id: event.data.tempEvent.id }).subscribe({
           next: (res) => {
             if (res) {
               console.log(res);
-              toast.success(res.data.message);
+              toast.success("Event updated successfuly!");
               router.push("/dashboard/events");
             } else {
               toast.info(res.error);
@@ -241,7 +241,7 @@ export default function TicketPage() {
                 <div className="hidden md:block">
                   <button
                     className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
-                    onClick={handleCreateEvent}
+                    onClick={handleUpdate}
                     disabled={tempEventObj.tickets.length ? false : true}
                   >
                     Save Event
@@ -285,7 +285,7 @@ export default function TicketPage() {
               </div>
             </div>
           </div>
-          <Loader isOpen={isLoaderModalOpen} message="Creating your event" />
+          <Loader isOpen={isLoaderModalOpen} message="Updating your event" />
         </>
       )}
     </>

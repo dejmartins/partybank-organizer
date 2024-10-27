@@ -397,7 +397,7 @@ const ModalAction = ({
           },
           ticketType: { id: 1, title: ticket.ticket_type },
           perks: ticket.ticket_perks,
-          id: Date.now(),
+          id: ticket.id,
         };
       }),
       eventLocation: {
@@ -420,6 +420,7 @@ const ModalAction = ({
       selectedImage: event.image_url,
       selectedFile: {},
     };
+
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
   };
@@ -449,9 +450,9 @@ const ModalAction = ({
       },
     });
   };
-  // useEffect(() => {
-  //   console.log("eventxxx==>", event);
-  // }, []);
+  useEffect(() => {
+    // console.log("eventxxx==>", event);
+  }, []);
   return (
     <div className="p-1 cursor-pointer relative">
       <div

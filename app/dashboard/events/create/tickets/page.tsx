@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "@/store/store";
 import {
   clearEventState,
   saveTicket,
+  updateTicket,
 } from "@/store/create-event/create-event-slice";
 import useAuth from "@/shared/hooks/useAuth";
 import { IEventForm } from "@/services/models/event-model";
@@ -25,6 +26,7 @@ import {
   getTimeWithAmPm,
   uploadToCloudinary,
 } from "@/shared/utils/helper";
+import { clearTicketState } from "@/store/ticket-slice/ticket-slice";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -70,13 +72,22 @@ export default function TicketPage() {
       ticketCategory,
       ticketType: selectedType,
       perks,
-      id: Date.now(),
     };
-    dispatch(saveTicket(ticketData));
-    settickDetailsObj((prev: any) => {
-      return { ...prev, ticketName: "" };
-    });
+    if (Object.keys(loadedTicket).length > 0) {
+      //dispatch ticket update
+      dispatch(updateTicket({ ...ticketData, id: loadedTicket.id }));
+      dispatch(clearTicketState());
+      settickDetailsObj((prev: any) => {
+        return { ...prev, ticketName: "" };
+      });
+    } else {
+      dispatch(saveTicket({ ...ticketData, id: Date.now() }));
+      settickDetailsObj((prev: any) => {
+        return { ...prev, ticketName: "" };
+      });
+    }
   };
+
   const handleValidation = () => {
     const {
       ticketName,

@@ -105,7 +105,7 @@ export default function MyEvents({ eventList }: any) {
           <div className="flex flex-col md:flex-row items-center"></div>
         </div>
 
-        {/* {eventList.length && <PublishedEvents />} */}
+        {eventList.length && <PublishedEvents />}
       </div>
     </>
   );

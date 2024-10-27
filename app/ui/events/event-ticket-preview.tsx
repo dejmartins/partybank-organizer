@@ -82,6 +82,7 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
                 }}
                 onClick={(ev) => {
                   ev.stopPropagation();
+                  console.log("===>", tempEvent);
                   if (loadedTicket.id !== obj.id) {
                     dispatch(loadTicket(obj));
                   }

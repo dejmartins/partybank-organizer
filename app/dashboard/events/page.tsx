@@ -120,6 +120,7 @@ export default function Page() {
                 created_by: obj.created_by ?? "---",
                 tickets: obj.tickets.map((tic: IEventTicketRes) => {
                   return {
+                    id: tic.ticket_id,
                     ticket_type: tic.ticket_type ?? "---",
                     name: tic.name ?? "---",
                     capacity: tic.capacity ?? 0,

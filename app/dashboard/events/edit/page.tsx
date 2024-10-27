@@ -76,6 +76,7 @@ export default function Page() {
       id: event.data.tempEvent.id,
     };
 
+    console.log("====temp ", tempEventObj);
     dispatch(saveEvent(eventObj));
     router.push("./edit/tickets");
   };

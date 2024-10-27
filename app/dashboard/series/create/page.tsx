@@ -27,7 +27,7 @@ export default function Page() {
 
   const router = useRouter();
 
-  const handleCeateSeries = async () => {
+  const handleCreateSeries = async () => {
     setIsLoaderModalOpen(true);
     const url = await uploadToCloudinary(selectedFile, "event_image");
     if (url) {
@@ -91,7 +91,7 @@ export default function Page() {
               className="hidden md:block"
               onClick={() => {
                 if (isFormValid) {
-                  handleCeateSeries();
+                  handleCreateSeries();
                 }
               }}
             >

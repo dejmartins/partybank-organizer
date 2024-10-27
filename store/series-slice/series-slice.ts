@@ -4,21 +4,21 @@ import { toast } from "react-toastify";
 const initialState: any = {
   data: {},
 };
-const ticketSlice = createSlice({
+const seriesSice = createSlice({
   name: "ticket",
   initialState,
   reducers: {
-    loadTicket: (state, param) => {
+    loadSeries: (state, param) => {
       const { payload } = param;
       state.data = payload;
     },
 
-    clearTicketState: (state) => {
+    clearSeriesState: (state) => {
       state.data = {};
     },
   },
 });
 
-const { actions } = ticketSlice;
-export const { loadTicket, clearTicketState } = actions;
-export default ticketSlice.reducer;
+const { actions } = seriesSice;
+export const { loadSeries, clearSeriesState } = actions;
+export default seriesSice.reducer;

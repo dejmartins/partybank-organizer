@@ -8,6 +8,17 @@ export const createSeries = (payload: any): Observable<any> => {
   );
 };
 
+export const getOrgSeries = (payload: any): Observable<any> => {
+  return from(
+    http.get(`/series/organizer/${payload.organizerId}`, {
+      params: { ...payload },
+    })
+  ).pipe(
+    map((response: any) => response),
+    catchError(handleError)
+  );
+};
+
 export const updateSeries = ({ payload, id }: any): Observable<any> => {
   return from(http.put(`/series/${id}`, payload)).pipe(
     map((response: any) => response),

@@ -5,14 +5,18 @@ export default function AddMore({
   mainText,
   subText,
   href,
+  size = "250px",
 }: {
   mainText: string;
   subText: string;
   href: string;
+  size?: string;
 }) {
   return (
     <Link key={"Create"} href={href}>
-      <div className="cursor-pointer h-[250px]  border rounded-[10px]  p-6 flex flex-col items-center justify-center text-center gap-y-8">
+      <div
+        className={`cursor-pointer h-[${size}]  border rounded-[10px]  p-6 flex flex-col items-center justify-center text-center gap-y-8`}
+      >
         <div className="h-10 w-10 flex justify-center bg-[#F3F5F5] rounded-[10px]">
           <PlusIcon className="w-5" />
         </div>

@@ -221,13 +221,10 @@ export default function TicketPage() {
     handleValidation();
   }, [ticketDetailsObj, selectedType]);
 
-  useEffect(() => {
-    // console.log("tempevent", tempEvent);
-  }, [tempEvent]);
+  useEffect(() => {}, [tempEvent]);
 
   useEffect(() => {
     if (Object.keys(loadedTicket).length) {
-      console.log("loaded ticketxxxx==>", loadedTicket);
       settickDateObj(loadedTicket.ticketDateObj);
       settickDetailsObj(loadedTicket.ticketDetailsObj);
       setticketCategory(loadedTicket.ticketCategory);

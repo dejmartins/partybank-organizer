@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { uploadToCloudinary } from "@/shared/utils/helper";
 import useAuth from "@/shared/hooks/useAuth";
+import useSeries from "@/shared/hooks/useSeries";
 
 export default function Page() {
   const { USER } = useAuth();
@@ -24,6 +25,7 @@ export default function Page() {
   const [seriesName, setSeriesName] = useState("Series Name");
   const [seriesDescription, setSeriesDescription] = useState("Add Description");
   const [isFormValid, setisFormValid] = useState(false);
+  const { fetchSeries } = useSeries();
 
   const router = useRouter();
 
@@ -42,7 +44,6 @@ export default function Page() {
       createSeries(payload).subscribe({
         next: (res) => {
           if (res) {
-            console.log(res);
             toast.success(res.data.message);
             router.push("/dashboard/series");
           } else {

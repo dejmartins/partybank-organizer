@@ -15,9 +15,11 @@ import { getOrgEvents } from "@/services/event-services/event-service";
 import { toast } from "react-toastify";
 import { getOrgStats } from "@/services/dashboard-services/dashboard-service";
 import { IDashboardStat } from "@/services/models/stats-model";
+import useSeries from "@/shared/hooks/useSeries";
 
 export default function Page() {
   const { USER } = useAuth();
+  const { fetchSeries } = useSeries();
   const [isClient, setisClient] = useState(false);
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(true);
   const [actionText, setactionText] = useState("");
@@ -125,12 +127,14 @@ export default function Page() {
   };
 
   useEffect(() => {
-    // const eventSubscription = fetchEvents();
+    const seriesSubscription = fetchSeries();
+    const eventSubscription = fetchEvents();
     const statSubscription = fetchOrgStats();
     setisClient(true);
     return () => {
-      // eventSubscription.unsubscribe();
+      eventSubscription.unsubscribe();
       statSubscription.unsubscribe();
+      seriesSubscription.unsubscribe();
     };
   }, []);
 

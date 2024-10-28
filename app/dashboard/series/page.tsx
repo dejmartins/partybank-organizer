@@ -7,6 +7,8 @@ import Card from "@/app/ui/series/card";
 import { ISeriesResponse } from "@/services/models/series-response";
 import { getOrgSeries } from "@/services/series-services/series-service";
 import useAuth from "@/shared/hooks/useAuth";
+import { saveMySeries } from "@/store/series-slice/series-slice";
+import { useDispatch } from "@/store/store";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -16,6 +18,7 @@ export default function Page() {
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(true);
   const [seriesList, setseriesList] = useState<ISeriesResponse[]>([]);
   const seriesOfEvent = series;
+  const dispatch = useDispatch();
 
   const fetchSeries = () => {
     setIsLoaderModalOpen(true);
@@ -37,8 +40,8 @@ export default function Page() {
               data: obj,
             };
           });
+          dispatch(saveMySeries(transformed));
           setseriesList(transformed);
-          console.log("series==>", transformed);
         } else {
           toast.info(res.error);
           setIsLoaderModalOpen(false);

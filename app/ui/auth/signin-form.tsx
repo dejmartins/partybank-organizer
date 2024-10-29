@@ -60,7 +60,7 @@ export default function SigninForm() {
 
       <hr className="my-8 border-[1px]" />
 
-      <GoogleButton />
+      {/* <GoogleButton /> */}
     </div>
   );
 }

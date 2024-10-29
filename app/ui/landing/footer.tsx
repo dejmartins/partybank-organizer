@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+    const currentYear = new Date().getFullYear();
+
     return (
       <>
         <footer className="bg-[#1D0509] text-[#FBD1D9]">
@@ -13,9 +15,9 @@ export default function Footer() {
                 <h4 className="text-xl font-bold">Company</h4>
               </div>
               <ul className="space-y-2">
-                <li><a href="/about" className="hover:text-white">About Us</a></li>
+                <li><Link href="/about" className="hover:text-white">About Us</Link></li>
                 <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
-                <li><a href="/terms" className="hover:text-white">Terms and Conditions</a></li>
+                <li><Link href="/terms" className="hover:text-white">Terms and Conditions</Link></li>
               </ul>
             </div>
 
@@ -25,8 +27,8 @@ export default function Footer() {
                 <h4 className="text-xl font-bold">Products</h4>
               </div>
               <ul className="space-y-2">
-                <li><a href="/" className="hover:text-white">Create Event</a></li>
-                <li><a href="https://thepartybank.com/" className="hover:text-white">Attend Event</a></li>
+                <li><Link href="/" className="hover:text-white">Create Event</Link></li>
+                <li><a href="https://thepartybank.com/discover" className="hover:text-white">Attend Event</a></li>
               </ul>
             </div>
 
@@ -75,7 +77,7 @@ export default function Footer() {
           </div>
 
           <div className="mt-16 text-center text-sm pb-12">
-            © 2024 PartyBank. All rights reserved.
+            © {currentYear} PartyBank. All rights reserved.
           </div>
         </footer>
       </>

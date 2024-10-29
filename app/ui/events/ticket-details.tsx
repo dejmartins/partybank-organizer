@@ -23,7 +23,7 @@ type PropT = {
   ticketDetailsObj: {
     ticketName: string;
     ticketDescription: string;
-    ticketCapacity: number;
+    ticketCapacity: number | string;
     ticketStock: {
       id: any;
       label: string;
@@ -32,7 +32,7 @@ type PropT = {
       id: any;
       label: string;
     };
-    ticketPrice: number;
+    ticketPrice: number | string;
   };
 
   setticketDetailsObj: Function;
@@ -122,7 +122,7 @@ export default function TicketDetails({
                   ]}
                 />
 
-                <PBTextArea
+                {/* <PBTextArea
                   value={ticketDetailsObj.ticketDescription}
                   setvalue={(val: string) => {
                     setticketDetailsObj((prev: any) => {
@@ -131,7 +131,7 @@ export default function TicketDetails({
                   }}
                   placeHolder="Ticket Description"
                   icon={<RandomIcon />}
-                />
+                /> */}
               </div>
               <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBAutoSelect

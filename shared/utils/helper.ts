@@ -71,3 +71,25 @@ export function convertIsoToDate(isoString: any) {
 
   return `${day}-${month}-${year}`;
 }
+
+export function dateToISOFormat(dateStr: any) {
+  const [day, month, year] = dateStr.split("-");
+  const date = new Date(year, month - 1, day);
+  return date.toISOString();
+}
+
+export function convertTimeToISO(timeStr: any) {
+  const [time, period] = timeStr.split(" ");
+  const [hours, minutes] = time.split(":").map(Number);
+  const date = new Date();
+  let hour24 = hours;
+  if (period === "PM" && hours !== 12) {
+    hour24 = hours + 12;
+  } else if (period === "AM" && hours === 12) {
+    hour24 = 0;
+  }
+  date.setHours(hour24);
+  date.setMinutes(minutes);
+
+  return date.toISOString();
+}

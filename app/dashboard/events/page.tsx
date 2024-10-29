@@ -15,6 +15,9 @@ import {
 } from "@/services/models/event-response";
 import Loader from "@/app/ui/loaders/loader";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "@/store/store";
+import { clearEventState } from "@/store/create-event/create-event-slice";
+import { clearTicketState } from "@/store/ticket-slice/ticket-slice";
 
 export default function Page() {
   const { USER } = useAuth();
@@ -26,6 +29,7 @@ export default function Page() {
   const [eventListCopy, seteventListCopy] = useState<IEventResponseArr>([]);
 
   const router = useRouter();
+  const dispatch = useDispatch();
   const filteredEvents = eventList.filter((event) => {
     if (!isPublished) {
       return event.isPublished === isPublished;
@@ -116,6 +120,7 @@ export default function Page() {
                 created_by: obj.created_by ?? "---",
                 tickets: obj.tickets.map((tic: IEventTicketRes) => {
                   return {
+                    id: tic.ticket_id,
                     ticket_type: tic.ticket_type ?? "---",
                     name: tic.name ?? "---",
                     capacity: tic.capacity ?? 0,
@@ -153,6 +158,8 @@ export default function Page() {
         setIsLoaderModalOpen(false);
       },
       complete: () => {
+        dispatch(clearEventState());
+        dispatch(clearTicketState());
         setIsLoaderModalOpen(false);
       },
     });

@@ -18,10 +18,14 @@ import {
 } from "react-redux";
 import userSlice from "./userSlice/UserSlice";
 import eventSlice from "./create-event/create-event-slice";
+import ticketSlice from "./ticket-slice/ticket-slice";
+import seriesSlice from "./series-slice/series-slice";
 
 const reducers = combineReducers({
   user: userSlice,
   event: eventSlice,
+  ticket: ticketSlice,
+  series: seriesSlice,
 });
 
 const persistConfig = {

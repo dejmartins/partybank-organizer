@@ -1,27 +1,36 @@
-export default function Preview({selectedImage, backgroundPosition, seriesName, seriesDescription}: {
-    selectedImage: string, 
-    backgroundPosition: { x: number, y: number }, 
-    seriesName: string,
-    seriesDescription: string
+import { createEllipsis } from "@/shared/utils/helper";
+
+export default function Preview({
+  selectedImage,
+  backgroundPosition,
+  seriesName,
+  seriesDescription,
+}: {
+  selectedImage: string;
+  backgroundPosition: { x: number; y: number };
+  seriesName: string;
+  seriesDescription: string;
 }) {
-    return (
-        <div className="border p-10 flex-grow flex flex-col hidden md:block md:basis-[40%] lg:basis-[30%]">
-            <h3 className='font-[700] text-[20px] mb-1'>Preview</h3>
-            <div className="border flex flex-col p-4 h-[300px] w-full rounded-[10px]">
-                <div className="h-[200px] border bg-cover bg-center rounded-[10px] overflow-hidden"
-                    style={{
-                        backgroundImage: `url("${selectedImage}")`,
-                        backgroundPosition: `${backgroundPosition.x}% ${backgroundPosition.y}%`
-                    }}
-                >
-                </div>
-                <div className="flex items-center justify-between pt-3 relative">
-                    <div className="mr-12">
-                        <h4 className="text-xl font-bold line-clamp-1">{seriesName}</h4>
-                        <p className="text-[15px] line-clamp-2">{seriesDescription}</p>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="border p-10 flex-grow flex flex-col hidden md:block md:basis-[40%] lg:basis-[30%]">
+      <h3 className="font-[700] text-[20px] mb-1">Preview</h3>
+      <div className="border flex flex-col p-4 h-[300px] w-full rounded-[10px]">
+        <div
+          className="h-[200px] border bg-cover bg-center rounded-[10px] overflow-hidden"
+          style={{
+            backgroundImage: `url("${selectedImage}")`,
+            backgroundPosition: `${backgroundPosition.x}% ${backgroundPosition.y}%`,
+          }}
+        ></div>
+        <div className="flex items-center justify-between pt-3 relative">
+          <div className="mr-12">
+            <h4 className="text-xl font-bold line-clamp-1">{seriesName}</h4>
+            <p className="text-[15px] line-clamp-2">
+              {createEllipsis(seriesDescription, 28)}
+            </p>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }

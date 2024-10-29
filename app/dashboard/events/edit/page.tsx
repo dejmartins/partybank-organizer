@@ -9,17 +9,19 @@ import EventDateLocation from "@/app/ui/events/date-location";
 import EventDetails from "@/app/ui/events/event-details";
 import { getTimeWithAmPm } from "@/shared/utils/helper";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "@/store/store";
+import { useDispatch, useSelector } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
 import { IEventForm } from "@/services/models/event-model";
 import useAuth from "@/shared/hooks/useAuth";
-import { toast } from "react-toastify";
-import { createEvent } from "@/services/event-services/event-service";
+import { MdArrowForwardIos } from "react-icons/md";
+import EventMobilePreview from "@/shared/components/event-mobile-preview/event-mobile-preview";
 
 export default function Page() {
   const { USER } = useAuth();
+  const event = useSelector((state) => state.event);
+  const tempEventObj: IEventForm = event.data.tempEvent;
   const [isFormValid, setisFormValid] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<null | string>(null);
+  const [selectedImage, setSelectedImage] = useState("/defaultImage.png");
   const [selectedFile, setselectedFile] = useState<any>(null);
   const [backgroundPosition, setBackgroundPosition] = useState({
     x: 50,
@@ -41,9 +43,10 @@ export default function Page() {
       venueGeo: "",
     },
   });
+
   const [eventDetailsObj, seteventDetailsObj] = useState({
-    eventName: "Event Name",
-    eventDescription: "Add Description",
+    eventName: "",
+    eventDescription: "",
     eventContact: "",
     eventVisibility: {
       label: "",
@@ -55,6 +58,8 @@ export default function Page() {
       id: "",
     },
   });
+  const [isClient, setisClient] = useState(false);
+  const [showMobilePreview, setshowMobilePreview] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -67,10 +72,12 @@ export default function Page() {
       selectedImage,
       selectedFile,
       backgroundPosition,
-      tickets: [],
+      tickets: tempEventObj.tickets,
+      id: event.data.tempEvent.id,
     };
+
     dispatch(saveEvent(eventObj));
-    router.push("./create/tickets");
+    router.push("./edit/tickets");
   };
 
   const handleValidation = () => {
@@ -98,61 +105,126 @@ export default function Page() {
   }, [eventDetailsObj, eventDateObj, selectedImage]);
 
   useEffect(() => {
-    // console.log("event obj==>", eventDateObj);
-  }, [eventDateObj, selectedFile]);
+    const { selectedImage, eventDate } = tempEventObj;
+    setSelectedImage(selectedImage);
+    seteventDateObj({
+      eventDate: tempEventObj.eventDate,
+      startTime: tempEventObj.startTime,
+      endTime: tempEventObj.endTime,
+      eventLocation: {
+        address: tempEventObj.eventLocation.address ?? "",
+        lat: tempEventObj.eventLocation.lat,
+        city: tempEventObj.eventLocation.city,
+        state: tempEventObj.eventLocation.state,
+        country: tempEventObj.eventLocation.country,
+        lng: tempEventObj.eventLocation.lng,
+        geo: tempEventObj.eventLocation.geo,
+        venue: tempEventObj.eventLocation.venue,
+        venueGeo: tempEventObj.eventLocation.geo,
+      },
+    });
+
+    seteventDetailsObj({
+      eventName: tempEventObj.eventName ?? "",
+      eventDescription: tempEventObj.eventDescription,
+      eventContact: tempEventObj.eventContact,
+      eventVisibility: {
+        label: tempEventObj.eventVisibility.label,
+        title: tempEventObj.eventVisibility.label,
+        id: tempEventObj.eventVisibility.id,
+      },
+      selectedSeries: {
+        label: tempEventObj.selectedSeries.label,
+        id: tempEventObj.selectedSeries.id!,
+      },
+    });
+    console.log("==>", tempEventObj);
+    setisClient(true);
+  }, []);
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
-      <div className="sticky top-0 z-10 w-full">
-        <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
-          <h3 className="font-[700] text-[25px]">Events</h3>
-        </div>
+    <>
+      {isClient && (
+        <>
+          <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
+            <div className="sticky top-0 z-10 w-full">
+              <div className="flex items-center justify-between md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
+                <h3 className="font-[700] text-[25px]">Events</h3>
+                <div
+                  className="md:hidden text-bold flex items-center gap-x-1"
+                  onClick={() => setshowMobilePreview(!showMobilePreview)}
+                >
+                  Preview
+                  <MdArrowForwardIos className="mt-[0.20rem]" />
+                </div>
+              </div>
 
-        <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
-          <div className="flex items-center gap-7">
-            <BackButton href="/dashboard/events" />
-            <p className="text-[23px] md:text-[30px] md:font-[700]">
-              Edit Event
-            </p>
+              <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
+                <div className="flex items-center gap-7">
+                  <BackButton href="/dashboard/events" />
+                  <p className="text-[23px] md:text-[30px] md:font-[700]">
+                    Edit Event
+                  </p>
+                </div>
+                <div className="hidden md:block">
+                  <ProceedButton
+                    label="Proceed to ticket"
+                    onClick={handleProceed}
+                    isDisabled={!isFormValid}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-grow overflow-hidden">
+              <EventPreview
+                selectedImage={selectedImage ?? tempEventObj.selectedImage}
+                backgroundPosition={backgroundPosition}
+                eventName={eventDetailsObj.eventName}
+                eventDescription={eventDetailsObj.eventDescription}
+              />
+
+              <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%] px-4 lg:px-0">
+                <EventCoverImage
+                  setselectedFile={setselectedFile}
+                  selectedImage={selectedImage}
+                  backgroundPosition={backgroundPosition}
+                  onImageChange={setSelectedImage}
+                  onPositionChange={setBackgroundPosition}
+                />
+
+                <EventDateLocation
+                  eventDateObj={eventDateObj}
+                  setEventDateObj={seteventDateObj}
+                />
+
+                <EventDetails
+                  eventDetailsObj={eventDetailsObj}
+                  seteventDetailsObj={seteventDetailsObj}
+                />
+              </div>
+            </div>
+            <div className="block md:hidden my-4 px-4">
+              <div className="flex justify-center">
+                <ProceedButton
+                  label="Proceed to ticket"
+                  onClick={handleProceed}
+                  isDisabled={!isFormValid}
+                />
+              </div>
+            </div>
           </div>
-          <div className="hidden md:block">
-            <ProceedButton
-              label="Proceed to ticket"
-              onClick={handleProceed}
-              isDisabled={!isFormValid}
+          {showMobilePreview && (
+            <EventMobilePreview
+              selectedImage={selectedImage ?? tempEventObj.selectedImage}
+              backgroundPosition={backgroundPosition}
+              eventName={eventDetailsObj.eventName}
+              eventDescription={eventDetailsObj.eventDescription}
+              setShow={setshowMobilePreview}
             />
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-grow overflow-hidden">
-        <EventPreview
-          selectedImage={selectedImage ?? "/defaultImage.png"}
-          backgroundPosition={backgroundPosition}
-          eventName={eventDetailsObj.eventName}
-          eventDescription={eventDetailsObj.eventDescription}
-        />
-
-        <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
-          <EventCoverImage
-            setselectedFile={setselectedFile}
-            selectedImage={selectedImage}
-            backgroundPosition={backgroundPosition}
-            onImageChange={setSelectedImage}
-            onPositionChange={setBackgroundPosition}
-          />
-
-          <EventDateLocation
-            eventDateObj={eventDateObj}
-            setEventDateObj={seteventDateObj}
-          />
-
-          <EventDetails
-            eventDetailsObj={eventDetailsObj}
-            seteventDetailsObj={seteventDetailsObj}
-          />
-        </div>
-      </div>
-    </div>
+          )}
+        </>
+      )}
+    </>
   );
 }

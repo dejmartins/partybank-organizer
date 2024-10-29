@@ -27,11 +27,14 @@ export interface IEventLocation {
 
 export interface IEventVisibility {
   label: string;
+  title?: string;
+  id?: any;
 }
 
 export interface ISelectedSeries {
   label: string;
-  id: string;
+  title?: string;
+  id?: string;
 }
 
 export interface IBackgroundPosition {

@@ -11,17 +11,26 @@ import { ticketCategoryData } from "@/app/lib/placeholder-data";
 import TicketSales from "@/app/ui/events/ticket-sales";
 import TicketDetails from "@/app/ui/events/ticket-details";
 import { useDispatch, useSelector } from "@/store/store";
-import { saveTicket } from "@/store/create-event/create-event-slice";
+import {
+  saveTicket,
+  updateTicket,
+} from "@/store/create-event/create-event-slice";
 import useAuth from "@/shared/hooks/useAuth";
 import { IEventForm } from "@/services/models/event-model";
 import Loader from "@/app/ui/loaders/loader";
-import { createEvent } from "@/services/event-services/event-service";
+import {
+  createEvent,
+  updateEvent,
+} from "@/services/event-services/event-service";
 import { toast } from "react-toastify";
 import {
   convertIsoToDate,
   getTimeWithAmPm,
   uploadToCloudinary,
 } from "@/shared/utils/helper";
+import { MdArrowForwardIos } from "react-icons/md";
+import { clearTicketState } from "@/store/ticket-slice/ticket-slice";
+import TicketMobilePreview from "@/shared/components/ticket-mobile-preview copy/ticket-mobile-preview";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -30,10 +39,16 @@ const ticketTypeData = [
 ];
 
 export default function TicketPage() {
+  // Todo:load ticket object from global state for edit
+  const loadedTicket = useSelector((state) => state.ticket).data;
+
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(false);
   const { USER } = useAuth();
+
   const [selectedType, setselectedType] = useState(ticketTypeData[0]);
-  const [ticketCategory, setticketCategory] = useState(ticketCategoryData[0]);
+  const [ticketCategory, setticketCategory] = useState(
+    loadedTicket ? loadedTicket.ticketCategory : ticketCategoryData[0]
+  );
   const [perks, setperks] = useState<string[]>([]);
   const [ticketDetailsObj, settickDetailsObj] = useState({
     ticketName: "",
@@ -43,6 +58,7 @@ export default function TicketPage() {
     ticketPrice: 0.0,
     ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
   });
+  const [isClient, setisClient] = useState(false);
   const event = useSelector((state) => state.event);
   const tempEventObj: IEventForm = event.data.tempEvent;
 
@@ -54,8 +70,7 @@ export default function TicketPage() {
   });
 
   const [isformValid, setisformValid] = useState(false);
-  const { tempEvent } = usePBEvent();
-  const { tickets } = tempEvent;
+  const [showMobilePreview, setshowMobilePreview] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -66,55 +81,50 @@ export default function TicketPage() {
       ticketCategory,
       ticketType: selectedType,
       perks,
-      id: Date.now(),
     };
-    dispatch(saveTicket(ticketData));
-    settickDetailsObj((prev: any) => {
-      return { ...prev, ticketName: "" };
-    });
+    if (Object.keys(loadedTicket).length > 0) {
+      //dispatch ticket update
+      dispatch(updateTicket({ ...ticketData, id: loadedTicket.id }));
+      dispatch(clearTicketState());
+      settickDetailsObj((prev: any) => {
+        return { ...prev, ticketName: "" };
+      });
+    } else {
+      dispatch(saveTicket({ ...ticketData, id: Date.now() }));
+      settickDetailsObj((prev: any) => {
+        return { ...prev, ticketName: "" };
+      });
+    }
   };
+
   const handleValidation = () => {
-    const {
-      ticketName,
-      ticketPrice,
-      ticketDescription,
-      ticketStock,
-      ticketCapacity,
-    } = ticketDetailsObj;
+    const { ticketName, ticketPrice, ticketStock, ticketCapacity } =
+      ticketDetailsObj;
     if (selectedType.title === "Free" && ticketStock.label === "Unlimited") {
-      const isValid = ticketName.length > 2 && ticketDescription.length > 6;
+      const isValid = ticketName.length > 2;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Free" && ticketStock.label === "Limited") {
-      const isValid =
-        ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketCapacity > 0;
+      const isValid = ticketName.length > 2 && ticketCapacity > 0;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Paid" && ticketStock.label === "Unlimited") {
-      const isValid =
-        ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketPrice > 0;
+      const isValid = ticketName.length > 2 && ticketPrice > 0;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Paid" && ticketStock.label === "Limited") {
       const isValid =
-        ticketName.length > 2 &&
-        ticketDescription.length > 6 &&
-        ticketPrice > 0 &&
-        ticketCapacity > 0;
+        ticketName.length > 2 && ticketPrice > 0 && ticketCapacity > 0;
       setisformValid(isValid);
     }
   };
 
-  const handleCreateEvent = async () => {
+  const handleUpdate = async () => {
     setIsLoaderModalOpen(true);
-    const ticketsPayload = tickets.map((obj: any) => {
+    const ticketsPayload = tempEventObj.tickets.map((obj: any) => {
       return {
         capacity: Number(obj.ticketDetailsObj.ticketCapacity),
         colour: "red",
@@ -140,10 +150,9 @@ export default function TicketPage() {
       };
     });
 
-    const url = await uploadToCloudinary(
-      tempEventObj.selectedFile,
-      "event_image"
-    );
+    const url = tempEventObj.selectedFile
+      ? await uploadToCloudinary(tempEventObj.selectedFile, "event_image")
+      : tempEventObj.selectedImage;
     if (url) {
       const payload = {
         address: tempEventObj.eventLocation.address,
@@ -166,13 +175,12 @@ export default function TicketPage() {
         state: tempEventObj.eventLocation.state,
         country: tempEventObj.eventLocation.country,
       };
-      // console.log("full payload==>", payload);
       const queryApi = () => {
-        createEvent(payload).subscribe({
+        updateEvent({ payload, id: event.data.tempEvent.id }).subscribe({
           next: (res) => {
             if (res) {
               console.log(res);
-              toast.success(res.data.message);
+              toast.success("Event updated successfuly!");
               router.push("/dashboard/events");
             } else {
               toast.info(res.error);
@@ -194,7 +202,8 @@ export default function TicketPage() {
   };
 
   useEffect(() => {
-    if (tempEvent === undefined) {
+    setisClient(true);
+    if (tempEventObj === undefined) {
       router.back();
     }
   }, []);
@@ -204,74 +213,96 @@ export default function TicketPage() {
   }, [ticketDetailsObj, selectedType]);
 
   useEffect(() => {
-    // console.log("tempevent", tempEvent);
-  }, [tempEvent]);
+    if (Object.keys(loadedTicket).length) {
+      settickDateObj(loadedTicket.ticketDateObj);
+      settickDetailsObj(loadedTicket.ticketDetailsObj);
+      setticketCategory(loadedTicket.ticketCategory);
+      setselectedType(loadedTicket.ticketType);
+      setperks(loadedTicket.perks);
+    }
+  }, [loadedTicket]);
 
   return (
     <>
-      <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
-        <div className="sticky top-0 z-10 w-full">
-          <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
-            <h3 className="font-[700] text-[25px]">Events</h3>
-          </div>
-
-          <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
-            <div className="flex items-center gap-7">
-              <BackButton href="/dashboard/events/create" />
-              <p className="text-[23px] md:text-[30px] md:font-[700]">
-                Create Events
-                <span className="font-light text-lg">/Tickets</span>
-              </p>
-            </div>
-            <div className="hidden md:block">
-              <button
-                className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
-                onClick={handleCreateEvent}
-                disabled={tickets.length ? false : true}
-              >
-                Create Event
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-grow overflow-hidden">
-          <EventTicketPreview />
-
-          <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
-            <TicketCategory
-              selectedCategory={ticketCategory}
-              setselectedCategory={setticketCategory}
-            />
-            <TicketSales
-              ticketDateObj={{ ...ticketDateObj }}
-              setticketDateObj={settickDateObj}
-            />
-
-            <TicketDetails
-              ticketDetailsObj={{ ...ticketDetailsObj }}
-              setticketDetailsObj={settickDetailsObj}
-              selectedType={selectedType}
-              setselectedType={setselectedType}
-              perks={perks}
-              setperks={setperks}
-            />
-
-            <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">
-              <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
-                <button
-                  className="bg-partybank-red border border-partybank-text-black disabled:border-[#FEEFF2] rounded py-2 px-12 text-white font-bold disabled:bg-[#FEEFF2]"
-                  onClick={handleSaveTicket}
-                  disabled={!isformValid}
+      {isClient && (
+        <>
+          <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
+            <div className="sticky top-0 z-10 w-full">
+              <div className="flex items-center justify-between md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
+                <h3 className="font-[700] text-[25px]">Events</h3>
+                <div
+                  className="md:hidden text-bold flex items-center gap-x-1"
+                  onClick={() => setshowMobilePreview(true)}
                 >
-                  Save Ticket
-                </button>
+                  Preview
+                  <MdArrowForwardIos className="mt-[0.20rem]" />
+                </div>
+              </div>
+
+              <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
+                <div className="flex items-center gap-7">
+                  <BackButton href="/dashboard/events/edit" />
+                  <p className="text-[23px] md:text-[30px] md:font-[700]">
+                    Edit Events
+                    <span className="font-light text-lg">/Tickets</span>
+                  </p>
+                </div>
+                <div className="hidden md:block">
+                  <button
+                    className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
+                    onClick={handleUpdate}
+                    disabled={tempEventObj.tickets.length ? false : true}
+                  >
+                    Save Event
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-grow overflow-hidden">
+              <EventTicketPreview loadedTicket={loadedTicket} />
+              <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%]">
+                <TicketCategory
+                  selectedCategory={ticketCategory}
+                  setselectedCategory={setticketCategory}
+                />
+                <TicketSales
+                  ticketDateObj={{ ...ticketDateObj }}
+                  setticketDateObj={settickDateObj}
+                />
+
+                <TicketDetails
+                  ticketDetailsObj={{ ...ticketDetailsObj }}
+                  setticketDetailsObj={settickDetailsObj}
+                  selectedType={selectedType}
+                  setselectedType={setselectedType}
+                  perks={perks}
+                  setperks={setperks}
+                />
+
+                <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">
+                  <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
+                    <button
+                      className="bg-partybank-red border border-partybank-text-black disabled:border-[#FEEFF2] rounded py-2 px-12 text-white font-bold disabled:bg-[#FEEFF2]"
+                      onClick={handleSaveTicket}
+                      disabled={!isformValid}
+                    >
+                      Save Ticket
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <Loader isOpen={isLoaderModalOpen} message="Creating your event" />
+          <Loader isOpen={isLoaderModalOpen} message="Updating your event" />
+          {showMobilePreview && isClient && (
+            <TicketMobilePreview
+              loadedTicket={loadedTicket}
+              setshow={setshowMobilePreview}
+            />
+          )}
+        </>
+      )}
     </>
   );
 }

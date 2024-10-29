@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 const initialState: any = {
@@ -22,7 +22,7 @@ const eventSlice = createSlice({
           payload.ticketDetailsObj.ticketName
       );
       if (exstn.length) {
-        toast.error("Ticket already exisit, please change ticket name");
+        toast.error("Ticket already exist, please change ticket name");
       } else {
         const newTicketsArr = [payload, ...tickets];
         state.data.tempEvent.tickets = newTicketsArr;
@@ -31,11 +31,24 @@ const eventSlice = createSlice({
 
     removeTicket: (state, param) => {
       const { payload } = param;
-      const { tickets } = state.data.tempEvent;
+      const { tickets } = current(state.data.tempEvent);
       const newTicketsArr = tickets.filter(
-        (obj: any) => obj.ticketName !== payload.ticketName
+        (obj: any) =>
+          obj.ticketDetailsObj.ticketName !==
+          payload.ticketDetailsObj.ticketName
       );
+      // console.log("to remover this tickets", payload);
+      // console.log("new tickets", newTicketsArr);
+      // console.log("tickets", current(state.data.tempEvent));
       state.data.tempEvent.tickets = newTicketsArr;
+    },
+
+    updateTicket: (state, param) => {
+      const { payload } = param;
+      const { tickets } = current(state.data.tempEvent);
+      const newTicketsArr = tickets.filter((obj: any) => obj.id !== payload.id);
+      const newArr = [payload, ...newTicketsArr];
+      state.data.tempEvent.tickets = newArr;
     },
 
     loadedTicket: (state, param) => {
@@ -50,5 +63,11 @@ const eventSlice = createSlice({
 });
 
 const { actions } = eventSlice;
-export const { saveEvent, clearEventState, saveTicket, removeTicket } = actions;
+export const {
+  saveEvent,
+  clearEventState,
+  saveTicket,
+  removeTicket,
+  updateTicket,
+} = actions;
 export default eventSlice.reducer;

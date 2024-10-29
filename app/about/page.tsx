@@ -2,7 +2,6 @@
 import Header from "../ui/landing/header";
 import Footer from "../ui/landing/footer";
 import { useState } from "react";
-import { ClassNames } from "@emotion/react";
 
 export default function Page() {
     const [isOrganizer, setIsOrganizer] = useState(true);
@@ -54,14 +53,14 @@ export default function Page() {
 
             {/* Mission and Vision */}
             <div className="container mx-auto px-3 md:px-6 flex flex-col md:flex-row justify-between items-center gap-5 my-20">
-                <div className="relative p-10 w-full md:w-1/2 bg-[#FFF9FA] md:h-[350px]">
+                <div className="relative p-10 w-full md:w-1/2 bg-[#FFF9FA] md:h-[420px] lg:h-[350px]">
                     <h2 className="absolute  top-0 font-[400] text-[30px] md:text-[50px] md:text-[60px] bg-[#FBD1D933] left-0 px-10 py-2">Vision</h2>
-                    <p className="w-full md:w-[80%] mt-14 md:mt-24">Our vision is to enhance the way people experience live entertainment through technology. We aim to be the go-to platform for organizers and attendees of parties, festivals, and concerts, constantly improving our tools to meet the needs of the modern event landscape.</p>
+                    <p className="w-full lg:w-[80%] mt-14 md:mt-24">Our vision is to enhance the way people experience live entertainment through technology. We aim to be the go-to platform for organizers and attendees of parties, festivals, and concerts, constantly improving our tools to meet the needs of the modern event landscape.</p>
                     <div className="absolute left-0 bottom-0 w-full h-2 mt-6 bg-gradient-to-r from-[#E91B41] to-[#9E3AC3]"></div>
                 </div>
-                <div className="relative p-10 w-full md:w-1/2 bg-[#FFF9FA] md:h-[350px]">
+                <div className="relative p-10 w-full md:w-1/2 bg-[#FFF9FA] md:h-[420px] lg:h-[350px]">
                     <h2 className="absolute top-0 font-[400] text-[30px] md:text-[50px] md:text-[60px] bg-[#FBD1D933] left-0 px-10 py-2">Mission</h2>
-                    <p className="w-full md:w-[80%] mt-14 md:mt-24">Our mission is to use technology to improve the way people experience live events, such as parties, festivals, and concerts. We empower event organizers with an all-in-one platform that streamlines everything from event creation to ticket validation, while giving attendees the easiest and most secure way to discover and purchase tickets.</p>
+                    <p className="w-full lg:w-[80%] mt-14 md:mt-24">Our mission is to use technology to improve the way people experience live events, such as parties, festivals, and concerts. We empower event organizers with an all-in-one platform that streamlines everything from event creation to ticket validation, while giving attendees the easiest and most secure way to discover and purchase tickets.</p>
                     <div className="absolute left-0 bottom-0 w-full h-2 mt-6 bg-gradient-to-r from-[#9E3AC3] to-[#E91B41]"></div>
                 </div>
             </div>

@@ -133,7 +133,7 @@ export default function Analytics() {
   }, [timeRange, filterType]);
 
   return (
-    <div className="">
+    <div className="hidden md:block">
       <h3 className="text-2xl font-bold mb-4">Dashboard Analytics</h3>
 
       <div className="relative flex justify-center items-center">

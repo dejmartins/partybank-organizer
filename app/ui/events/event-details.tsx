@@ -8,6 +8,7 @@ import PBTextArea from "@/shared/components/pb-text-area/pb-text-area";
 import { FiEye } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import useAuth from "@/shared/hooks/useAuth";
+import useSeries from "@/shared/hooks/useSeries";
 
 type PropT = {
   eventDetailsObj: {
@@ -20,7 +21,7 @@ type PropT = {
       title: string;
     };
     selectedSeries: {
-      id: string;
+      id: any;
       label: string;
     };
   };
@@ -44,13 +45,8 @@ export default function EventDetails({
 }: PropT) {
   const [isClient, setisClient] = useState(false);
   const { USER } = useAuth();
+  const { mySeries, seriesArr } = useSeries();
   const { series } = USER;
-
-  const seriesArr =
-    USER.series &&
-    USER.series.map((obj: any) => {
-      return { label: obj?.name, id: obj?.series_id };
-    });
 
   useEffect(() => {
     setisClient(true);

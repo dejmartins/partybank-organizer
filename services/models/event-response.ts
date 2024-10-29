@@ -45,4 +45,6 @@ export interface IEventTicketRes {
   ticket_sale_start_date: string;
   ticket_sale_start_time: string;
   ticket_perks: string[];
+  ticket_id?: any;
+  id?: any;
 }

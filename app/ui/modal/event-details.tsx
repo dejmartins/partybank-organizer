@@ -23,11 +23,22 @@ import { BsWhatsapp } from "react-icons/bs";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Loader from "../loaders/loader";
 import { toast } from "react-toastify";
-import { publishEvents } from "@/services/event-services/event-service";
+import {
+  deleteEvent,
+  publishEvents,
+} from "@/services/event-services/event-service";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { IEventForm } from "@/services/models/event-model";
+import {
+  convertIsoToDate,
+  convertTimeToISO,
+  dateToISOFormat,
+} from "@/shared/utils/helper";
+import { useDispatch } from "@/store/store";
+import { saveEvent } from "@/store/create-event/create-event-slice";
 
 export default function EventDetailsModal({
   event,
@@ -83,9 +94,6 @@ export default function EventDetailsModal({
         console.error("Failed to copy text: ", err);
       });
   };
-  // useEffect(() => {
-  //   console.log("event==>", event);
-  // }, []);
 
   return (
     <>
@@ -111,7 +119,13 @@ export default function EventDetailsModal({
                     copyToClipboard={copyToClipboard}
                   />
                 )}
-                <ModalAction />
+                <ModalAction
+                  event={event}
+                  apiCall={apiCall}
+                  onClose={onClose}
+                  setIsLoaderModalOpen={setIsLoaderModalOpen}
+                  setactionText={setactionText}
+                />
               </div>
             </div>
 
@@ -147,7 +161,13 @@ export default function EventDetailsModal({
                     copyToClipboard={copyToClipboard}
                   />
                 )}
-                <ModalAction />
+                <ModalAction
+                  event={event}
+                  apiCall={apiCall}
+                  onClose={onClose}
+                  setIsLoaderModalOpen={setIsLoaderModalOpen}
+                  setactionText={setactionText}
+                />
               </div>
             </div>
 
@@ -315,9 +335,124 @@ const TicketersButton = ({ eventObj, copyToClipboard }: PropT) => {
   );
 };
 
-const ModalAction = () => {
+type ModalActionPropT = {
+  event: IEventResponse;
+  apiCall: () => void;
+  onClose: () => void;
+  setIsLoaderModalOpen: (e: boolean) => void;
+  setactionText: (e: string) => void;
+};
+const ModalAction = ({
+  event,
+  apiCall,
+  onClose,
+  setIsLoaderModalOpen,
+  setactionText,
+}: ModalActionPropT) => {
   const [openActionPane, setopenActionPane] = useState(false);
+  const [objj, setobjj] = useState<IEventForm>();
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleEdit = () => {
+    const { lat, lng, city, address, state, country } = event.location;
+    const eventObj = {
+      id: event.id,
+      eventName: event.event_name,
+      eventDescription: event.description,
+      eventContact: event.contact_information,
+      eventVisibility: {
+        label: "Public",
+        title: "Public",
+        id: 1,
+      },
+      selectedSeries: {
+        label: event.series_name,
+        id: event.series_id,
+      },
+      eventDate: dateToISOFormat(event.date),
+      startTime: convertTimeToISO(event.time),
+      endTime: convertTimeToISO(event.time),
+      tickets: event.tickets.map((ticket, index: number) => {
+        return {
+          ticketDateObj: {
+            salesStartDate: dateToISOFormat(ticket.ticket_sale_start_date),
+            salesEndDate: dateToISOFormat(ticket.ticket_sale_end_date),
+            salesStartTime: convertTimeToISO(ticket.ticket_sale_start_time),
+            salesEndTime: convertTimeToISO(ticket.ticket_sales_end_time),
+          },
+          ticketDetailsObj: {
+            ticketName: ticket.name,
+            ticketDescription: "",
+            ticketCapacity: ticket.capacity,
+            ticketStock: { id: index, label: ticket.stock },
+            ticketPrice: 0.0,
+            ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
+          },
+          ticketCategory: {
+            label: "Single Ticket",
+            description:
+              "This will only allow a single entry per person to the event",
+            id: 1,
+          },
+          ticketType: { id: 1, title: ticket.ticket_type },
+          perks: ticket.ticket_perks,
+          id: ticket.id,
+        };
+      }),
+      eventLocation: {
+        address: event.location.address ?? event.venue,
+        lat: event.location.lat,
+        city: event.location.city,
+        state: event.location.state,
+        country: event.location.country,
+        lng: event.location.lng,
+        geo: JSON.stringify({
+          value: { lat, lng, address, city, state, country },
+        }),
+        venue: event.venue,
+        venueGeo: "",
+      },
+      backgroundPosition: {
+        x: 50,
+        y: 50,
+      },
+      selectedImage: event.image_url,
+      selectedFile: {},
+    };
+
+    dispatch(saveEvent(eventObj));
+    router.push("/dashboard/events/edit");
+  };
+
+  const handleDelete = () => {
+    setIsLoaderModalOpen(true);
+    setactionText("Deleting your event");
+    deleteEvent({ id: event.id }).subscribe({
+      next: (res) => {
+        if (res) {
+          setIsLoaderModalOpen(false);
+          setactionText("");
+          apiCall();
+          onClose();
+        } else {
+          toast.info(res.error);
+          setIsLoaderModalOpen(false);
+        }
+      },
+      error: (msg) => {
+        toast.error(msg.message);
+        setIsLoaderModalOpen(false);
+      },
+      complete: () => {
+        setIsLoaderModalOpen(false);
+        setactionText("");
+      },
+    });
+  };
+  useEffect(() => {
+    // console.log("eventxxx==>", event);
+  }, []);
   return (
     <div className="p-1 cursor-pointer relative">
       <div
@@ -329,10 +464,7 @@ const ModalAction = () => {
 
       {openActionPane && (
         <div className="min-w-40 absolute min-h-10 rounded-lg px-4 -left-28 mt-2 bg-white p-2 border border-[#F6F5F5] shadow-sm">
-          <div
-            className="flex items-center gap-x-2 py-2"
-            onClick={() => router.push("/dashboard/events/edit")}
-          >
+          <div className="flex items-center gap-x-2 py-2" onClick={handleEdit}>
             <div className="w-6 h-6 rounded-full flex justify-center items-center">
               <FaRegEdit />
             </div>
@@ -344,7 +476,10 @@ const ModalAction = () => {
             <div className="w-6 h-6 bg-partybank-red rounded-full flex justify-center items-center">
               <RiDeleteBin6Line color="#fff" size={10} />
             </div>
-            <span className="font-bold text-xs text-partybank-red">
+            <span
+              className="font-bold text-xs text-partybank-red"
+              onClick={handleDelete}
+            >
               Delete Event
             </span>
           </div>

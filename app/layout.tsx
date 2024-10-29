@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   },
   description: "Where Every Ticket Holds A Celebration",
   metadataBase: new URL("https://organizer.thepartybank.com/"),
+  icons: {
+    icon: '/partybank.png'
+  }
 };
 const mapkey = process.env.NEXT_PUBLIC_MAP_API_KEY;
 export default function RootLayout({

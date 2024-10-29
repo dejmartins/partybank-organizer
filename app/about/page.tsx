@@ -2,7 +2,6 @@
 import Header from "../ui/landing/header";
 import Footer from "../ui/landing/footer";
 import { useState } from "react";
-import { ClassNames } from "@emotion/react";
 
 export default function Page() {
     const [isOrganizer, setIsOrganizer] = useState(true);

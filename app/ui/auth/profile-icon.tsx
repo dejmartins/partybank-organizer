@@ -103,7 +103,7 @@ export default function ProfileIcon() {
                 );
               } else {
                 return (
-                  <>
+                  <div className="md:hidden">
                     <MenuItem>
                       {({ close }) => (
                         <Link href={link.path}>
@@ -117,7 +117,7 @@ export default function ProfileIcon() {
                         </Link>
                       )}
                     </MenuItem>
-                  </>
+                  </div>
                 );
               }
             })}

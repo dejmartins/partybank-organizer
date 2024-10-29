@@ -27,14 +27,14 @@ export default function Card({
         dispatch(loadSeries(data));
       }}
     >
-      <Link href={`/dashboard/series/${id}/events`}>
-        <div
-          className="h-[200px] border bg-cover bg-center rounded-[10px] overflow-hidden cursor-pointer"
-          style={{
-            backgroundImage: `url("${backgroundImageUrl}")`,
-          }}
-        ></div>
-      </Link>
+      {/* <Link href={`/dashboard/series/${id}/events`}> */}
+      <div
+        className="h-[200px] border bg-cover bg-center rounded-[10px] overflow-hidden cursor-pointer"
+        style={{
+          backgroundImage: `url("${backgroundImageUrl}")`,
+        }}
+      ></div>
+      {/* </Link> */}
       <div className="flex items-center justify-between pt-3 relative">
         <div className="mr-12">
           <h4 className="text-xl font-bold line-clamp-1">{name}</h4>

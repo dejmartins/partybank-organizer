@@ -20,7 +20,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative bg-cover bg-center min-h-screen xl:min-h-[130vh] flex flex-col md:pt-36 items-center justify-center md:justify-start text-white rounded-b-[20px]"
+      className="relative bg-cover bg-center min-h-screen xl:min-h-[50vh] flex flex-col md:pt-36 items-center justify-center md:justify-start text-white rounded-b-[20px]"
       style={{
         backgroundImage:
           'url("https://res.cloudinary.com/drddoxnsi/image/upload/v1724406331/PARTYBANK/ORGANIZER/hero-image_xqdvny.png")',

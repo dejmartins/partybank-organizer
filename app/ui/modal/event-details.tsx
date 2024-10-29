@@ -386,7 +386,7 @@ const ModalAction = ({
             ticketDescription: "",
             ticketCapacity: ticket.capacity,
             ticketStock: { id: index, label: ticket.stock },
-            ticketPrice: 0.0,
+            ticketPrice: ticket.price,
             ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
           },
           ticketCategory: {

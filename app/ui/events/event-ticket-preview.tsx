@@ -33,7 +33,7 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
   }, [loadedTicket]);
 
   return (
-    <div className="border p-10 flex-grow flex flex-col hidden md:block md:basis-[40%] lg:basis-[30%] overflow-y-auto  max-h-[calc(100vh-170px)]">
+    <div className="border p-10 flex-grow flex-col hidden md:block md:basis-[40%] lg:basis-[30%] overflow-y-auto  max-h-[calc(100vh-170px)]">
       <h3 className="font-[700] text-[20px] mb-1">Preview</h3>
       <div className="border flex flex-col p-4 h-[300px] w-full rounded-[10px]">
         <div

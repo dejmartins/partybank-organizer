@@ -33,7 +33,7 @@ export default function TicketMobilePreview({ loadedTicket, setshow }: PropT) {
   }, [loadedTicket]);
 
   return (
-    <div className="event-mob-prev-container flex justify-center w-full">
+    <div className="event-mob-prev-container flex justify-center w-full md:hidden">
       <div className="w-full overflow-y-auto  max-h-[calc(100vh-170px)]">
         <div className="my-4 px-4 flex items-center justify-between">
           <h3 className="font-[700] text-[20px] mb-1">Preview</h3>

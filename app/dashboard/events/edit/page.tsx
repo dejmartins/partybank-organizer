@@ -166,17 +166,24 @@ export default function Page() {
             />
           </div>
         </div>
+        <div className="block md:hidden my-4 px-4">
+          <div className="flex justify-center">
+            <ProceedButton
+              label="Proceed to ticket"
+              onClick={handleProceed}
+              isDisabled={!isFormValid}
+            />
+          </div>
+        </div>
       </div>
       {showMobilePreview && (
-        <div className="md:hidden">
-          <EventMobilePreview
-            selectedImage={selectedImage ?? tempEventObj.selectedImage}
-            backgroundPosition={backgroundPosition}
-            eventName={eventDetailsObj.eventName}
-            eventDescription={eventDetailsObj.eventDescription}
-            setShow={setshowMobilePreview}
-          />
-        </div>
+        <EventMobilePreview
+          selectedImage={selectedImage ?? tempEventObj.selectedImage}
+          backgroundPosition={backgroundPosition}
+          eventName={eventDetailsObj.eventName}
+          eventDescription={eventDetailsObj.eventDescription}
+          setShow={setshowMobilePreview}
+        />
       )}
     </>
   );

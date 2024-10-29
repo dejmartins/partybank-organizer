@@ -232,7 +232,7 @@ export default function TicketPage() {
                 <h3 className="font-[700] text-[25px]">Events</h3>
                 <div
                   className="md:hidden text-bold flex items-center gap-x-1"
-                  onClick={() => setshowMobilePreview(!showMobilePreview)}
+                  onClick={() => setshowMobilePreview(true)}
                 >
                   Preview
                   <MdArrowForwardIos className="mt-[0.20rem]" />
@@ -295,13 +295,11 @@ export default function TicketPage() {
             </div>
           </div>
           <Loader isOpen={isLoaderModalOpen} message="Updating your event" />
-          {showMobilePreview && (
-            <div className="md:hidden">
-              <TicketMobilePreview
-                loadedTicket={loadedTicket}
-                setshow={setshowMobilePreview}
-              />
-            </div>
+          {showMobilePreview && isClient && (
+            <TicketMobilePreview
+              loadedTicket={loadedTicket}
+              setshow={setshowMobilePreview}
+            />
           )}
         </>
       )}

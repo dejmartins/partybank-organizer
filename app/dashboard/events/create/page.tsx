@@ -172,15 +172,13 @@ export default function Page() {
       </div>
 
       {showMobilePreview && (
-        <div className="md:hidden">
-          <EventMobilePreview
-            selectedImage={selectedImage ?? "/defaultImage.png"}
-            backgroundPosition={backgroundPosition}
-            eventName={eventDetailsObj.eventName}
-            eventDescription={eventDetailsObj.eventDescription}
-            setShow={setshowMobilePreview}
-          />
-        </div>
+        <EventMobilePreview
+          selectedImage={selectedImage ?? "/defaultImage.png"}
+          backgroundPosition={backgroundPosition}
+          eventName={eventDetailsObj.eventName}
+          eventDescription={eventDetailsObj.eventDescription}
+          setShow={setshowMobilePreview}
+        />
       )}
     </>
   );

@@ -29,7 +29,7 @@ export default function TicketMobilePreview({ loadedTicket, setshow }: PropT) {
   } = tempEvent;
 
   useEffect(() => {
-    console.log("currently loaded==>", loadedTicket);
+    // console.log("currently loaded==>", loadedTicket);
   }, [loadedTicket]);
 
   return (

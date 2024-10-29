@@ -24,7 +24,12 @@ export default function Page() {
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(true);
   const [actionText, setactionText] = useState("");
   const [eventList, seteventList] = useState<IEventResponseArr>([]);
-  const [dashboardStat, setdashboardStat] = useState<IDashboardStat>();
+  const [dashboardStat, setdashboardStat] = useState<IDashboardStat>({
+    totalAttendees: 0,
+    totalTicketsPurchase: 0,
+    totalEvents: 0,
+    totalSales: 0,
+  });
 
   const fetchEvents = () => {
     setactionText("Fetching events");

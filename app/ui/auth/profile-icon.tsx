@@ -88,22 +88,24 @@ export default function ProfileIcon() {
           </MenuButton>
 
           <MenuItems className="absolute right-0 mt-2 w-72 origin-top-right divide-y divide-gray-100 rounded-md bg-[#F9F7F7] shadow-lg ring-1 ring-black/5 focus:outline-none">
-            {links.map((link) => {
+            {links.map((link, index: number) => {
               if (link.label == "Sign out") {
                 return (
-                  <MenuItem key={link.label} as="div">
-                    <button
-                      className="w-full flex gap-2 items-center bg-[#FAF9F9] border border-[#ECE7E7] text-left p-[10px] rounded-[5px] hover:text-white hover:bg-[var(--pb-c-red)] hover:border-[#4E0916] ui-not-active:bg-white ui-not-active:text-black"
-                      onClick={() => handleClick(link)}
-                    >
-                      <link.icon className="w-6" />
-                      {link.label}
-                    </button>
-                  </MenuItem>
+                  <div key={index}>
+                    <MenuItem key={link.label} as="div">
+                      <button
+                        className="w-full flex gap-2 items-center bg-[#FAF9F9] border border-[#ECE7E7] text-left p-[10px] rounded-[5px] hover:text-white hover:bg-[var(--pb-c-red)] hover:border-[#4E0916] ui-not-active:bg-white ui-not-active:text-black"
+                        onClick={() => handleClick(link)}
+                      >
+                        <link.icon className="w-6" />
+                        {link.label}
+                      </button>
+                    </MenuItem>
+                  </div>
                 );
               } else {
                 return (
-                  <div className="md:hidden">
+                  <div className="md:hidden" key={index}>
                     <MenuItem>
                       {({ close }) => (
                         <Link href={link.path}>

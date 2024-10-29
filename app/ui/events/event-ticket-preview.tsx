@@ -21,7 +21,7 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
   // };
 
   useEffect(() => {
-    console.log("currently loaded==>", tempEvent);
+    // console.log("currently loaded==>", tempEvent);
   }, [loadedTicket]);
 
   return (
@@ -78,7 +78,7 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
                 }}
                 onClick={(ev) => {
                   ev.stopPropagation();
-                  console.log("===>", tempEvent);
+                  // console.log("===>", tempEvent);
                   if (loadedTicket.id !== obj.id) {
                     dispatch(loadTicket(obj));
                   }

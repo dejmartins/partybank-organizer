@@ -97,7 +97,7 @@ export default function EventDateLocation({
                     placeholder="Add event location"
                     handleGeoCode={(valueObj: any) => {
                       const { lat, lng, address } = valueObj;
-                      console.log("placesx", valueObj);
+                      // console.log("placesx", valueObj);
                       setEventDateObj((prev: any) => {
                         return {
                           ...prev,

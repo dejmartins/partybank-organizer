@@ -201,7 +201,7 @@ export default function Page() {
                 }`}
                 onClick={() => setisPublished(false)}
               >
-                Pending Events
+                Pending
               </button>
 
               <button

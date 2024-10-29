@@ -1,5 +1,6 @@
 "use client";
 import SigninForm from "@/app/ui/auth/signin-form";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -18,7 +19,7 @@ export default function Page() {
       <p className="text-[15px] leading-[20.81px] md:text-[18px] font-[400] md:leading-[23.81px] mt-8">
         By continuing, you agree to have read and accepted partybank{" "}
         <span className="text-[var(--pb-c-red)] font-[500] underline underline-offset-4 cursor-pointer">
-          terms and conditions
+          <Link href='/terms'>terms and conditions</Link>
         </span>
       </p>
     </div>

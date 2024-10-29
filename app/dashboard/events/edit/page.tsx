@@ -20,47 +20,45 @@ export default function Page() {
   const { USER } = useAuth();
   const event = useSelector((state) => state.event);
   const tempEventObj: IEventForm = event.data.tempEvent;
-
   const [isFormValid, setisFormValid] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(
-    tempEventObj.selectedImage ?? ""
-  );
+  const [selectedImage, setSelectedImage] = useState("/defaultImage.png");
   const [selectedFile, setselectedFile] = useState<any>(null);
   const [backgroundPosition, setBackgroundPosition] = useState({
     x: 50,
     y: 50,
   });
   const [eventDateObj, seteventDateObj] = useState({
-    eventDate: tempEventObj.eventDate,
-    startTime: tempEventObj.startTime,
-    endTime: tempEventObj.endTime,
+    eventDate: new Date().toISOString(),
+    startTime: new Date().toISOString(),
+    endTime: new Date().toISOString(),
     eventLocation: {
-      address: tempEventObj.eventLocation.address ?? "",
-      lat: tempEventObj.eventLocation.lat,
-      city: tempEventObj.eventLocation.city,
-      state: tempEventObj.eventLocation.state,
-      country: tempEventObj.eventLocation.country,
-      lng: tempEventObj.eventLocation.lng,
-      geo: tempEventObj.eventLocation.geo,
-      venue: tempEventObj.eventLocation.venue,
-      venueGeo: tempEventObj.eventLocation.geo,
-    },
-  });
-  const [eventDetailsObj, seteventDetailsObj] = useState({
-    eventName: tempEventObj.eventName ?? "",
-    eventDescription: tempEventObj.eventDescription,
-    eventContact: tempEventObj.eventContact,
-    eventVisibility: {
-      label: tempEventObj.eventVisibility.label,
-      title: tempEventObj.eventVisibility.label,
-      id: tempEventObj.eventVisibility.id,
-    },
-    selectedSeries: {
-      label: tempEventObj.selectedSeries.label,
-      id: tempEventObj.selectedSeries.id,
+      address: "",
+      lat: "",
+      city: "",
+      state: "",
+      country: "",
+      lng: "",
+      geo: "",
+      venue: "",
+      venueGeo: "",
     },
   });
 
+  const [eventDetailsObj, seteventDetailsObj] = useState({
+    eventName: "",
+    eventDescription: "",
+    eventContact: "",
+    eventVisibility: {
+      label: "",
+      title: "",
+      id: "",
+    },
+    selectedSeries: {
+      label: "",
+      id: "",
+    },
+  });
+  const [isClient, setisClient] = useState(false);
   const [showMobilePreview, setshowMobilePreview] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -106,84 +104,126 @@ export default function Page() {
     handleValidation();
   }, [eventDetailsObj, eventDateObj, selectedImage]);
 
+  useEffect(() => {
+    const { selectedImage, eventDate } = tempEventObj;
+    setSelectedImage(selectedImage);
+    seteventDateObj({
+      eventDate: tempEventObj.eventDate,
+      startTime: tempEventObj.startTime,
+      endTime: tempEventObj.endTime,
+      eventLocation: {
+        address: tempEventObj.eventLocation.address ?? "",
+        lat: tempEventObj.eventLocation.lat,
+        city: tempEventObj.eventLocation.city,
+        state: tempEventObj.eventLocation.state,
+        country: tempEventObj.eventLocation.country,
+        lng: tempEventObj.eventLocation.lng,
+        geo: tempEventObj.eventLocation.geo,
+        venue: tempEventObj.eventLocation.venue,
+        venueGeo: tempEventObj.eventLocation.geo,
+      },
+    });
+
+    seteventDetailsObj({
+      eventName: tempEventObj.eventName ?? "",
+      eventDescription: tempEventObj.eventDescription,
+      eventContact: tempEventObj.eventContact,
+      eventVisibility: {
+        label: tempEventObj.eventVisibility.label,
+        title: tempEventObj.eventVisibility.label,
+        id: tempEventObj.eventVisibility.id,
+      },
+      selectedSeries: {
+        label: tempEventObj.selectedSeries.label,
+        id: tempEventObj.selectedSeries.id!,
+      },
+    });
+    console.log("==>", tempEventObj);
+    setisClient(true);
+  }, []);
+
   return (
     <>
-      <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
-        <div className="sticky top-0 z-10 w-full">
-          <div className="flex items-center justify-between md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
-            <h3 className="font-[700] text-[25px]">Events</h3>
-            <div
-              className="md:hidden text-bold flex items-center gap-x-1"
-              onClick={() => setshowMobilePreview(!showMobilePreview)}
-            >
-              Preview
-              <MdArrowForwardIos className="mt-[0.20rem]" />
-            </div>
-          </div>
+      {isClient && (
+        <>
+          <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
+            <div className="sticky top-0 z-10 w-full">
+              <div className="flex items-center justify-between md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
+                <h3 className="font-[700] text-[25px]">Events</h3>
+                <div
+                  className="md:hidden text-bold flex items-center gap-x-1"
+                  onClick={() => setshowMobilePreview(!showMobilePreview)}
+                >
+                  Preview
+                  <MdArrowForwardIos className="mt-[0.20rem]" />
+                </div>
+              </div>
 
-          <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
-            <div className="flex items-center gap-7">
-              <BackButton href="/dashboard/events" />
-              <p className="text-[23px] md:text-[30px] md:font-[700]">
-                Edit Event
-              </p>
+              <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
+                <div className="flex items-center gap-7">
+                  <BackButton href="/dashboard/events" />
+                  <p className="text-[23px] md:text-[30px] md:font-[700]">
+                    Edit Event
+                  </p>
+                </div>
+                <div className="hidden md:block">
+                  <ProceedButton
+                    label="Proceed to ticket"
+                    onClick={handleProceed}
+                    isDisabled={!isFormValid}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="hidden md:block">
-              <ProceedButton
-                label="Proceed to ticket"
-                onClick={handleProceed}
-                isDisabled={!isFormValid}
+
+            <div className="flex flex-grow overflow-hidden">
+              <EventPreview
+                selectedImage={selectedImage ?? tempEventObj.selectedImage}
+                backgroundPosition={backgroundPosition}
+                eventName={eventDetailsObj.eventName}
+                eventDescription={eventDetailsObj.eventDescription}
               />
+
+              <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%] px-4 lg:px-0">
+                <EventCoverImage
+                  setselectedFile={setselectedFile}
+                  selectedImage={selectedImage}
+                  backgroundPosition={backgroundPosition}
+                  onImageChange={setSelectedImage}
+                  onPositionChange={setBackgroundPosition}
+                />
+
+                <EventDateLocation
+                  eventDateObj={eventDateObj}
+                  setEventDateObj={seteventDateObj}
+                />
+
+                <EventDetails
+                  eventDetailsObj={eventDetailsObj}
+                  seteventDetailsObj={seteventDetailsObj}
+                />
+              </div>
+            </div>
+            <div className="block md:hidden my-4 px-4">
+              <div className="flex justify-center">
+                <ProceedButton
+                  label="Proceed to ticket"
+                  onClick={handleProceed}
+                  isDisabled={!isFormValid}
+                />
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="flex flex-grow overflow-hidden">
-          <EventPreview
-            selectedImage={selectedImage ?? tempEventObj.selectedImage}
-            backgroundPosition={backgroundPosition}
-            eventName={eventDetailsObj.eventName}
-            eventDescription={eventDetailsObj.eventDescription}
-          />
-
-          <div className="border-0 md:border-l border-partybank-soft-grey flex-grow overflow-y-auto  max-h-[calc(100vh-170px)] md:basis-[60%] lg:basis-[70%] px-4 lg:px-0">
-            <EventCoverImage
-              setselectedFile={setselectedFile}
-              selectedImage={selectedImage}
+          {showMobilePreview && (
+            <EventMobilePreview
+              selectedImage={selectedImage ?? tempEventObj.selectedImage}
               backgroundPosition={backgroundPosition}
-              onImageChange={setSelectedImage}
-              onPositionChange={setBackgroundPosition}
+              eventName={eventDetailsObj.eventName}
+              eventDescription={eventDetailsObj.eventDescription}
+              setShow={setshowMobilePreview}
             />
-
-            <EventDateLocation
-              eventDateObj={eventDateObj}
-              setEventDateObj={seteventDateObj}
-            />
-
-            <EventDetails
-              eventDetailsObj={eventDetailsObj}
-              seteventDetailsObj={seteventDetailsObj}
-            />
-          </div>
-        </div>
-        <div className="block md:hidden my-4 px-4">
-          <div className="flex justify-center">
-            <ProceedButton
-              label="Proceed to ticket"
-              onClick={handleProceed}
-              isDisabled={!isFormValid}
-            />
-          </div>
-        </div>
-      </div>
-      {showMobilePreview && (
-        <EventMobilePreview
-          selectedImage={selectedImage ?? tempEventObj.selectedImage}
-          backgroundPosition={backgroundPosition}
-          eventName={eventDetailsObj.eventName}
-          eventDescription={eventDetailsObj.eventDescription}
-          setShow={setshowMobilePreview}
-        />
+          )}
+        </>
       )}
     </>
   );

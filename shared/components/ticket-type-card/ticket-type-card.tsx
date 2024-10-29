@@ -15,7 +15,7 @@ export default function TickettypeCard({ data, value, setValue }: propT) {
   const { id, title } = data;
   return (
     <div
-      className="min-w-52 p-3 flex items-center gap-3 border border-red-400 cursor-pointer"
+      className="min-w-40 md:min-w-52 p-3 flex items-center gap-3 border border-red-400 cursor-pointer"
       style={{
         backgroundColor: title === value.title ? "#FEEFF2" : "#fff",
         border:

@@ -86,9 +86,9 @@ export default function TicketMobilePreview({ loadedTicket, setshow }: PropT) {
                   }}
                   onClick={(ev) => {
                     ev.stopPropagation();
-                    console.log("===>", tempEvent);
                     if (loadedTicket.id !== obj.id) {
                       dispatch(loadTicket(obj));
+                      setshow(false);
                     }
                   }}
                 >

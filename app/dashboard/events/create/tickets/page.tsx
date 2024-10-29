@@ -21,12 +21,14 @@ import { IEventForm } from "@/services/models/event-model";
 import Loader from "@/app/ui/loaders/loader";
 import { createEvent } from "@/services/event-services/event-service";
 import { toast } from "react-toastify";
+import { MdArrowForwardIos } from "react-icons/md";
 import {
   convertIsoToDate,
   getTimeWithAmPm,
   uploadToCloudinary,
 } from "@/shared/utils/helper";
 import { clearTicketState } from "@/store/ticket-slice/ticket-slice";
+import TicketMobilePreview from "@/shared/components/ticket-mobile-preview copy/ticket-mobile-preview";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -60,6 +62,7 @@ export default function TicketPage() {
   });
 
   const [isformValid, setisformValid] = useState(false);
+  const [showMobilePreview, setshowMobilePreview] = useState(false);
   const { tempEvent } = usePBEvent();
   const { tickets } = tempEvent;
   const router = useRouter();
@@ -237,8 +240,15 @@ export default function TicketPage() {
     <>
       <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
         <div className="sticky top-0 z-10 w-full">
-          <div className="inline-block md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
+          <div className="flex items-center justify-between md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
             <h3 className="font-[700] text-[25px]">Events</h3>
+            <div
+              className="md:hidden text-bold flex items-center gap-x-1"
+              onClick={() => setshowMobilePreview(!showMobilePreview)}
+            >
+              Preview
+              <MdArrowForwardIos className="mt-[0.20rem]" />
+            </div>
           </div>
 
           <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
@@ -298,6 +308,14 @@ export default function TicketPage() {
         </div>
       </div>
       <Loader isOpen={isLoaderModalOpen} message="Creating your event" />
+      {showMobilePreview && (
+        <div className="md:hidden">
+          <TicketMobilePreview
+            loadedTicket={loadedTicket}
+            setshow={setshowMobilePreview}
+          />
+        </div>
+      )}
     </>
   );
 }

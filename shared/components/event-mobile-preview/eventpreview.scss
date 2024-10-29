@@ -3,6 +3,17 @@
   height: 100vh;
   z-index: 2000;
   position: fixed;
-  top: 0;
+  margin-top: 60rem;
   background-color: #fff;
+  animation: moveUp 0.4s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes moveUp {
+  0% {
+    margin-top: 60rem;
+  }
+  100% {
+    margin-top: 0rem;
+  }
 }

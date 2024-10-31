@@ -9,6 +9,8 @@ import { FiEye } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import useAuth from "@/shared/hooks/useAuth";
 import useSeries from "@/shared/hooks/useSeries";
+import PbSelect from "@/shared/components/pb-select/pb-select";
+import { MdOutlinePhoneAndroid } from "react-icons/md";
 
 type PropT = {
   eventDetailsObj: {
@@ -48,6 +50,14 @@ export default function EventDetails({
   const { mySeries, seriesArr } = useSeries();
   const { series } = USER;
 
+  const handlePhone = (val: any) => {
+    if (isNaN(val) || val.length > 11) return;
+    else {
+      seteventDetailsObj((prev: any) => {
+        return { ...prev, eventContact: val };
+      });
+    }
+  };
   useEffect(() => {
     setisClient(true);
   }, []);
@@ -87,7 +97,7 @@ export default function EventDetails({
                   />
                 </div>
                 <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
-                  <PBAutoSelect
+                  <PbSelect
                     value={eventDetailsObj.selectedSeries.label ?? ""}
                     setvalue={(event: any) => {
                       seteventDetailsObj((prev: any) => {
@@ -98,16 +108,25 @@ export default function EventDetails({
                     icon={<RandomIcon />}
                     options={seriesArr ?? dummySeries}
                   />
+                  {/* <PBAutoSelect
+                    value={eventDetailsObj.selectedSeries.label ?? ""}
+                    setvalue={(event: any) => {
+                      seteventDetailsObj((prev: any) => {
+                        return { ...prev, selectedSeries: event };
+                      });
+                    }}
+                    placeHolder="Series"
+                    icon={<RandomIcon />}
+                    options={seriesArr ?? dummySeries}
+                  /> */}
 
                   <PBInput
                     value={eventDetailsObj.eventContact}
                     setvalue={(val: string) => {
-                      seteventDetailsObj((prev: any) => {
-                        return { ...prev, eventContact: val };
-                      });
+                      handlePhone(val);
                     }}
-                    placeHolder="Event contact"
-                    icon={<FaRegUser size={16} />}
+                    placeHolder="Phone no"
+                    icon={<MdOutlinePhoneAndroid size={16} />}
                   />
                 </div>
               </div>
@@ -121,7 +140,7 @@ export default function EventDetails({
 
               <div className="w-full flex flex-col md:flex-row mt-2  gap-x-4">
                 <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3">
-                  <PBAutoSelect
+                  <PbSelect
                     value={
                       eventDetailsObj.eventVisibility.title !== null
                         ? eventDetailsObj.eventVisibility.title
@@ -136,6 +155,22 @@ export default function EventDetails({
                     icon={<FiEye size={20} />}
                     options={dummyVisibilityties}
                   />
+
+                  {/* <PBAutoSelect
+                    value={
+                      eventDetailsObj.eventVisibility.title !== null
+                        ? eventDetailsObj.eventVisibility.title
+                        : "Public"
+                    }
+                    setvalue={(event: any) => {
+                      seteventDetailsObj((prev: any) => {
+                        return { ...prev, eventVisibility: event };
+                      });
+                    }}
+                    placeHolder="Visibility"
+                    icon={<FiEye size={20} />}
+                    options={dummyVisibilityties}
+                  /> */}
                 </div>
               </div>
             </div>

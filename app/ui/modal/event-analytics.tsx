@@ -93,8 +93,8 @@ export default function EventAnalytics({
 
   return (
     <>
-      <div className="px-6 py-3 max-h-[50rem]">
-        <div className="flex items-center justify-between gap-3">
+      <div className="px-2 md:px-6 py-3 max-h-[50rem]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 ">
           <div className="flex items-center gap-2 w-1/3">
             <div
               className="min-w-[68px] min-h-[68px] border bg-cover bg-center rounded-[10px] overflow-hidden"
@@ -113,13 +113,13 @@ export default function EventAnalytics({
             </div>
           </div>
 
-          <div className="rounded-[20px] p-3 flex items-center gap-4 w-[60%]">
+          <div className="rounded-[20px] p-3 flex justify-between items-center gap-4 w-full md:w-[60%]">
             <div className="flex w-1/3 items-start gap-x-2">
-              <div className="mt-1">
+              <div className="mt-1 hidden md:block">
                 <TagIcon />
               </div>
               <div className="flex flex-col ">
-                <p>Sales</p>
+                <p className="text-sm md:text-base">Sales</p>
                 <p className="font-[700] text-[24px]">
                   <span className="text-[12px] mr-[2px]">NGN</span>
                   {formatNumber(analyticsData?.totalTicketSales ?? 0)}
@@ -128,11 +128,11 @@ export default function EventAnalytics({
             </div>
 
             <div className="flex w-1/3 items-start gap-x-2">
-              <div className="mt-1">
-                <FaRegCalendar size={20} />
+              <div className="mt-1 hidden md:block">
+                <FaRegCalendar className="w-4 md:w-10" />
               </div>
               <div className="flex flex-col">
-                <p>Tickets</p>
+                <p className="text-sm md:text-base">Tickets</p>
                 <p className="font-[700] text-[24px]">
                   {formatNumber(analyticsData?.totalTicketSold ?? 0)}
                 </p>
@@ -140,11 +140,11 @@ export default function EventAnalytics({
             </div>
 
             <div className="flex w-1/3 items-start gap-x-2">
-              <div className="mt-1">
+              <div className="mt-1 hidden md:block">
                 <GrValidate size={20} />
               </div>
               <div className="flex flex-col w-1/3">
-                <p>Scanned</p>
+                <p className="text-sm md:text-base">Scanned</p>
                 <div className="flex items-center gap-x-2">
                   <p className="font-[700] text-[24px]">
                     {formatNumber(analyticsData?.totalTicketValidated ?? 0)}
@@ -157,11 +157,11 @@ export default function EventAnalytics({
             </div>
 
             <div className="flex w-1/3 items-start gap-x-2">
-              <div className="mt-1">
+              <div className="mt-1 hidden md:block">
                 <GrValidate size={20} />
               </div>
               <div className="flex flex-col w-1/3">
-                <p>Unscanned</p>
+                <p className="text-sm md:text-base">Unscanned</p>
 
                 <div className="flex items-center gap-x-2">
                   <p className="font-[700] text-[24px]">
@@ -179,7 +179,7 @@ export default function EventAnalytics({
         {/* -----------------------≠≠ */}
         <hr className="mt-4" />
         <div className="w-full py-2 my-4 flex items-center justify-end">
-          <div className="w-1/3 flex items-center border border-partybank-border rounded-lg h-[44px] pr-2">
+          <div className="w-1/2 md:w-1/3 flex items-center border border-partybank-border rounded-lg h-[44px] pr-2">
             <input
               placeholder="Enter search words here"
               className="w-full h-[40px] outline-none px-2 placeholder:text-partybank-text-black"

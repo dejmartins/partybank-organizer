@@ -10,8 +10,8 @@ interface CoverImageUploadProps {
   backgroundPosition: { x: number; y: number };
   onImageChange: (image: string) => void;
   onPositionChange: (position: { x: number; y: number }) => void;
-  register: any;
-  required: boolean;
+  register?: any;
+  required?: boolean;
 }
 
 export default function EventCoverImage({

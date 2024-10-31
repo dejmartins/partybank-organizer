@@ -26,7 +26,7 @@ type PropT = {
     };
   };
   setEventDateObj: Function;
-  register: any;
+  register?: any;
 };
 
 export default function EventDateLocation({

@@ -2,6 +2,7 @@ import { useDrag } from "@/app/lib/actions";
 import React from "react";
 import { IoImageOutline } from "react-icons/io5";
 import { uploadToCloudinary } from "@/shared/utils/helper";
+import { UseFormRegister } from "react-hook-form";
 
 interface CoverImageUploadProps {
   selectedImage: string | null;
@@ -9,6 +10,8 @@ interface CoverImageUploadProps {
   backgroundPosition: { x: number; y: number };
   onImageChange: (image: string) => void;
   onPositionChange: (position: { x: number; y: number }) => void;
+  register: any;
+  required: boolean;
 }
 
 export default function EventCoverImage({
@@ -17,6 +20,8 @@ export default function EventCoverImage({
   onImageChange,
   onPositionChange,
   setselectedFile,
+  register,
+  required,
 }: CoverImageUploadProps) {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
@@ -60,9 +65,13 @@ export default function EventCoverImage({
         >
           <div>
             <input
+              {...register("SelectedFile")}
               type="file"
               accept="image/*"
               className="absolute inset-0 opacity-0 cursor-pointer"
+              // onFocus={() => {
+              //   console.log("here");
+              // }}
               onChange={handleImageChange}
             />
             <IoImageOutline size={26} />

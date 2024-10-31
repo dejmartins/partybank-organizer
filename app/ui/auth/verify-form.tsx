@@ -100,7 +100,7 @@ export default function VerifyEmailForm() {
 
   return (
     <div className="text-left w-full">
-      <div className="flex space-x-4 justify-between mb-[30px] w-full">
+      <div className="flex space-x-2 md:space-x-4 justify-between mb-[30px] w-full">
         {code.map((digit, index) => (
           <input
             key={index}

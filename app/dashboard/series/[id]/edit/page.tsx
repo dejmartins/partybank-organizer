@@ -75,7 +75,7 @@ export default function Page() {
   const handleValidation = () => {
     const isValid =
       seriesName.length > 2 &&
-      seriesDescription.length > 5 &&
+      seriesDescription?.length > 5 &&
       selectedImage.length > 5;
     setisFormValid(isValid);
   };

@@ -43,7 +43,7 @@ export default function Card({
           </p>
         </div>
 
-        <EditSeries id={id} />
+        {/* <EditSeries id={id} /> */}
       </div>
     </div>
   );

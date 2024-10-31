@@ -100,7 +100,7 @@ export default function VerifyEmailForm() {
 
   return (
     <div className="text-left w-full">
-      <div className="flex space-x-2 md:space-x-4 justify-between mb-[30px] w-full">
+      <div className="flex justify-center space-x-2 md:space-x-4 mb-[30px] w-full">
         {code.map((digit, index) => (
           <input
             key={index}
@@ -109,7 +109,7 @@ export default function VerifyEmailForm() {
             maxLength={1}
             value={digit}
             onChange={(e) => handleCodeInputChange(e.target.value, index)}
-            className="w-12 h-12 rounded-[10px] p-[10px] text-center text-[18px] font-bold focus:outline-none focus:ring-2 focus:ring-[var(--pb-c-red)] focus:border-[var(--pb-c-red)] border border-partybank-border"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-[10px] p-[10px] text-center text-[18px] font-bold focus:outline-none focus:ring-2 focus:ring-[var(--pb-c-red)] focus:border-[var(--pb-c-red)] border border-partybank-border"
             onKeyUp={(e: any) => handleDelete(e)}
           />
         ))}

@@ -28,16 +28,16 @@ export default function Page() {
   };
 
   useEffect(() => {
-    const tempemail = localStorage.getItem("tempemail");
-    if (!tempemail) {
-      router.back();
-    } else {
-      setemail(tempemail);
-    }
+    // const tempemail = localStorage.getItem("tempemail");
+    // if (!tempemail) {
+    //   router.back();
+    // } else {
+    //   setemail(tempemail);
+    // }
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-between text-center bg-[var(--pb-c-soft-grey)] h-full rounded-[40px] lg:p-12 text-[#080D18]">
+    <div className="flex flex-col items-center justify-between text-center bg-[var(--pb-c-soft-grey)] h-full rounded-[40px] p-8 py-12 lg:p-12 text-[#080D18]">
       <div>
         <h3 className="text-[29px] md:text-[32px] font-[700] leading-[35.34px] md:leading-[42.34px]">
           Verify Email Address

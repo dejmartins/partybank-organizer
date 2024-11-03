@@ -19,10 +19,10 @@ export default function SigninForm() {
         setisLoading(true);
         loginWithEmail({ username: email }).subscribe({
           next: (res) => {
-            if (res && res.data.username === email) {
+            if (res && res.data.username === email.toLowerCase()) {
               setemail("");
               toast.success(res.data.message);
-              localStorage.setItem("tempemail", email);
+              localStorage.setItem("tempemail", email.toLowerCase());
               router.push("/auth/verify");
             } else {
               toast.info(res.error);

@@ -26,13 +26,11 @@ type PropT = {
     };
   };
   setEventDateObj: Function;
-  register?: any;
 };
 
 export default function EventDateLocation({
   eventDateObj,
   setEventDateObj,
-  register,
 }: PropT) {
   const { startTime, eventDate, endTime, eventLocation } = eventDateObj;
   return (
@@ -51,7 +49,6 @@ export default function EventDateLocation({
                     return { ...prev, eventDate: new Date(val).toISOString() };
                   });
                 }}
-                {...register("eventDate")}
                 label="Event Date"
                 value={eventDate}
               />

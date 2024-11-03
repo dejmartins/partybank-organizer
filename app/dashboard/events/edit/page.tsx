@@ -92,11 +92,11 @@ export default function Page() {
     const isValid =
       eventName.length > 1 &&
       selectedImage !== null &&
-      eventContact.length > 5 &&
-      eventDescription.length > 10 &&
-      eventLocation.address.length > 5 &&
-      selectedSeries.label.length > 0 &&
-      eventVisibility.label.length > 0;
+      eventContact?.length > 5 &&
+      eventDescription?.length > 10 &&
+      eventLocation.address?.length > 5 &&
+      selectedSeries.label?.length > 0 &&
+      eventVisibility.label?.length > 0;
     setisFormValid(isValid);
   };
 

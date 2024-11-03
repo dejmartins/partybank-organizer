@@ -55,7 +55,7 @@ export const handleError = (errorResponse: any) => {
   }
   const unExpectedError = errorResponse?.response?.status >= 500;
   if (unExpectedError) {
-    toast.error("An unexpected error occured.");
+    toast.error("Oops, something went wrong.");
   }
 
   return throwError(() => errorResponse);

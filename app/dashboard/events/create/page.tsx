@@ -101,6 +101,7 @@ export default function Page() {
   useEffect(() => {
     const seriesSubscription = fetchSeries();
     handleValidation();
+    // console.log("==>", eventDetailsObj);
     return () => {
       seriesSubscription.unsubscribe();
     };

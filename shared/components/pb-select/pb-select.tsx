@@ -30,6 +30,7 @@ export default function PbSelect({
       >
         {icon && <div className="w-5">{icon}</div>}
         <Select
+          // value={value}
           onChange={(event, value: any) => {
             try {
               if (Object.keys(value).length) {
@@ -39,7 +40,7 @@ export default function PbSelect({
           }}
           onFocus={() => setisActive(true)}
           onBlur={() => setisActive(false)}
-          placeholder={placeHolder}
+          placeholder={value.length ? value : placeHolder}
           indicator={<KeyboardArrowDown />}
           sx={{
             width: "100%",

@@ -16,9 +16,11 @@ import useAuth from "@/shared/hooks/useAuth";
 import { MdArrowForwardIos } from "react-icons/md";
 import EventMobilePreview from "@/shared/components/event-mobile-preview/event-mobile-preview";
 import { useForm } from "react-hook-form";
+import useSeries from "@/shared/hooks/useSeries";
 
 export default function Page() {
   const { USER } = useAuth();
+  const { fetchSeries } = useSeries();
   const [isFormValid, setisFormValid] = useState(false);
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
   const [selectedFile, setselectedFile] = useState<any>(null);
@@ -97,7 +99,11 @@ export default function Page() {
   };
 
   useEffect(() => {
+    const seriesSubscription = fetchSeries();
     handleValidation();
+    return () => {
+      seriesSubscription.unsubscribe();
+    };
   }, [eventDetailsObj, eventDateObj, selectedImage]);
 
   return (

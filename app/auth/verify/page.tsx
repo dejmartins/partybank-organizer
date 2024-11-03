@@ -28,11 +28,13 @@ export default function Page() {
   };
 
   useEffect(() => {
-    const tempemail = localStorage.getItem("tempemail");
-    if (!tempemail) {
-      router.back();
-    } else {
-      setemail(tempemail);
+    if (process.env.NODE_ENV !== "development") {
+      const tempemail = localStorage.getItem("tempemail");
+      if (!tempemail) {
+        router.back();
+      } else {
+        setemail(tempemail);
+      }
     }
   }, []);
 

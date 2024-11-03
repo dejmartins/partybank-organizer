@@ -20,7 +20,6 @@ export default function EventCoverImage({
   onImageChange,
   onPositionChange,
   setselectedFile,
-  register,
   required,
 }: CoverImageUploadProps) {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +64,6 @@ export default function EventCoverImage({
         >
           <div>
             <input
-              {...register("SelectedFile")}
               type="file"
               accept="image/*"
               className="absolute inset-0 opacity-0 cursor-pointer"

@@ -16,9 +16,11 @@ import useAuth from "@/shared/hooks/useAuth";
 import { MdArrowForwardIos } from "react-icons/md";
 import EventMobilePreview from "@/shared/components/event-mobile-preview/event-mobile-preview";
 import { useForm } from "react-hook-form";
+import useSeries from "@/shared/hooks/useSeries";
 
 export default function Page() {
   const { USER } = useAuth();
+  const { fetchSeries } = useSeries();
   const [isFormValid, setisFormValid] = useState(false);
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
   const [selectedFile, setselectedFile] = useState<any>(null);
@@ -60,8 +62,6 @@ export default function Page() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm();
-
   //@desc: dispatch event to store and navigate to ticket creation page
   const handleProceed = () => {
     localStorage.setItem("eventSelected", selectedImage!);
@@ -99,16 +99,17 @@ export default function Page() {
   };
 
   useEffect(() => {
+    const seriesSubscription = fetchSeries();
     handleValidation();
+    // console.log("==>", eventDetailsObj);
+    return () => {
+      seriesSubscription.unsubscribe();
+    };
   }, [eventDetailsObj, eventDateObj, selectedImage]);
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit((data) => {
-          console.log("here", data);
-        })}
-      >
+      <form>
         <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
           <div className="sticky top-0 z-10 w-full">
             <div className="flex items-center justify-between md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
@@ -154,14 +155,12 @@ export default function Page() {
                 backgroundPosition={backgroundPosition}
                 onImageChange={setSelectedImage}
                 onPositionChange={setBackgroundPosition}
-                register={register}
                 required={true}
               />
 
               <EventDateLocation
                 eventDateObj={eventDateObj}
                 setEventDateObj={seteventDateObj}
-                register={register}
               />
 
               <EventDetails

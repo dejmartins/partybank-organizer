@@ -19,7 +19,7 @@ import useSeries from "@/shared/hooks/useSeries";
 
 export default function Page() {
   const { USER } = useAuth();
-  const { fetchSeries } = useSeries();
+  const { fetchSeries, isSeriesLoading } = useSeries();
   const [isClient, setisClient] = useState(false);
   const [isLoaderModalOpen, setIsLoaderModalOpen] = useState(true);
   const [actionText, setactionText] = useState("");
@@ -103,7 +103,9 @@ export default function Page() {
         setIsLoaderModalOpen(false);
       },
       complete: () => {
-        setIsLoaderModalOpen(false);
+        if(!isSeriesLoading) {
+          setIsLoaderModalOpen(false);
+        }
       },
     });
   };
@@ -126,20 +128,21 @@ export default function Page() {
         setIsLoaderModalOpen(false);
       },
       complete: () => {
+        fetchSeries();
         fetchEvents();
       },
     });
   };
 
   useEffect(() => {
-    const seriesSubscription = fetchSeries();
+    // const seriesSubscription = fetchSeries();
     const eventSubscription = fetchEvents();
     const statSubscription = fetchOrgStats();
     setisClient(true);
     return () => {
       eventSubscription.unsubscribe();
       statSubscription.unsubscribe();
-      seriesSubscription.unsubscribe();
+      // seriesSubscription.unsubscribe();
     };
   }, []);
 

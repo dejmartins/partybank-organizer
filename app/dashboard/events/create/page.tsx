@@ -60,8 +60,6 @@ export default function Page() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm();
-
   //@desc: dispatch event to store and navigate to ticket creation page
   const handleProceed = () => {
     localStorage.setItem("eventSelected", selectedImage!);
@@ -104,11 +102,7 @@ export default function Page() {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit((data) => {
-          console.log("here", data);
-        })}
-      >
+      <form>
         <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
           <div className="sticky top-0 z-10 w-full">
             <div className="flex items-center justify-between md:hidden bg-[var(--pb-c-soft-grey)] w-full px-6 py-3">
@@ -154,14 +148,12 @@ export default function Page() {
                 backgroundPosition={backgroundPosition}
                 onImageChange={setSelectedImage}
                 onPositionChange={setBackgroundPosition}
-                register={register}
                 required={true}
               />
 
               <EventDateLocation
                 eventDateObj={eventDateObj}
                 setEventDateObj={seteventDateObj}
-                register={register}
               />
 
               <EventDetails

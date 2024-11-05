@@ -138,10 +138,9 @@ export default function EventDetailsModal({
       ) : (
         <Modal isOpen={true} onClose={onClose}>
           <div>
-            <div className="flex justify-between px-6 py-4 border-0 border-b">
+            <div className="flex justify-between px-4 md:px-6 py-4 border-0 border-b">
               <div className="flex items-center gap-3">
                 <button
-                  //   onClick={viewAnalytics ? toggleAnalyticsView : onClose}
                   onClick={onClose}
                   className="border cursor-pointer bg-[#F3F5F5] px-[10px] py-[5px] rounded-[15px]"
                 >
@@ -195,7 +194,7 @@ export function EventDetails({
   setisAnalytics: Function;
 }) {
   return (
-    <div className="p-6 flex gap-3">
+    <div className="p-4 md:p-6 flex gap-3">
       <div className="hidden md:block">
         <div className="w-40 h-40">
           <Image
@@ -218,8 +217,8 @@ export function EventDetails({
         {/* <p>Created By: {event.series}</p> */}
 
         <div>
-          <div className="mr-12 flex items-center justify-between gap-2 border-0 border-b border-t w-full py-2">
-            <div className="flex items-center gap-2 w-1/3">
+          <div className="mr-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 border-0 border-b border-t w-full py-2">
+            <div className="flex items-center gap-2 w-full md:w-1/3">
               <MapPinIcon className="w-6" />
               <div>
                 <p className="text-[17px] font-[500]">

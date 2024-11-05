@@ -253,14 +253,14 @@ export default function TicketPage() {
           <div className="flex items-center py-3 px-6 justify-between border-0 border-b-[3px] border-[var(--pb-c-soft-grey)]">
             <div className="flex items-center gap-7">
               <BackButton href="/dashboard/events/create" />
-              <p className="text-[23px] md:text-[30px] md:font-[700]">
+              <p className="text-[23px] hidden md:block md:text-[30px] md:font-[700]">
                 Create Events
                 <span className="font-light text-lg">/Tickets</span>
               </p>
             </div>
-            <div className="hidden md:block">
+            <div className="md:block">
               <button
-                className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
+                className={`bg-partybank-red text-base flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
                 onClick={handleCreateEvent}
                 disabled={tickets.length ? false : true}
               >

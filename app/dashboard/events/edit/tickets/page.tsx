@@ -147,6 +147,7 @@ export default function TicketPage() {
         ),
         ticket_sales_end_time: getTimeWithAmPm(obj.ticketDateObj.salesEndTime),
         ticket_type: obj.ticketType.title,
+        id: obj.id
       };
     });
 

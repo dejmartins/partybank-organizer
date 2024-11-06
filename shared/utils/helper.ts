@@ -79,17 +79,51 @@ export function dateToISOFormat(dateStr: any) {
 }
 
 export function convertTimeToISO(timeStr: any) {
+  if (typeof timeStr !== "string") {
+    throw new Error("Invalid input: timeStr must be a string");
+  }
+
   const [time, period] = timeStr.split(" ");
+  if (!time || !period || (period !== "AM" && period !== "PM")) {
+    throw new Error("Invalid time format");
+  }
+
   const [hours, minutes] = time.split(":").map(Number);
+  if (
+    isNaN(hours) ||
+    isNaN(minutes) ||
+    hours < 1 ||
+    hours > 12 ||
+    minutes < 0 ||
+    minutes > 59
+  ) {
+    throw new Error("Invalid time values");
+  }
+
   const date = new Date();
   let hour24 = hours;
+
   if (period === "PM" && hours !== 12) {
     hour24 = hours + 12;
   } else if (period === "AM" && hours === 12) {
     hour24 = 0;
   }
+
   date.setHours(hour24);
   date.setMinutes(minutes);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
 
   return date.toISOString();
+}
+
+export function splitTimeRange(timeRange: string) {
+  const [start, end] = timeRange.split(" - ").map((str) => str.trim());
+  return [start, end];
+}
+
+export function converttimeToISO(timeString: any) {
+  const currentDate = new Date().toISOString().split("T")[0];
+  const dateWithTime = new Date(`${currentDate} ${timeString}`);
+  return dateWithTime.toISOString();
 }

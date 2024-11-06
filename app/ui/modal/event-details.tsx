@@ -34,8 +34,10 @@ import Image from "next/image";
 import { IEventForm } from "@/services/models/event-model";
 import {
   convertIsoToDate,
+  converttimeToISO,
   convertTimeToISO,
   dateToISOFormat,
+  splitTimeRange,
 } from "@/shared/utils/helper";
 import { useDispatch } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
@@ -341,6 +343,7 @@ type ModalActionPropT = {
   setIsLoaderModalOpen: (e: boolean) => void;
   setactionText: (e: string) => void;
 };
+
 const ModalAction = ({
   event,
   apiCall,
@@ -370,8 +373,8 @@ const ModalAction = ({
         id: event.series_id,
       },
       eventDate: dateToISOFormat(event.date),
-      startTime: convertTimeToISO(event.time),
-      endTime: convertTimeToISO(event.time),
+      startTime: convertTimeToISO(splitTimeRange(event.time)[0]),
+      endTime: convertTimeToISO(splitTimeRange(event.time)[1]),
       tickets: event.tickets.map((ticket, index: number) => {
         return {
           ticketDateObj: {
@@ -419,6 +422,8 @@ const ModalAction = ({
       selectedImage: event.image_url,
       selectedFile: {},
     };
+
+    console.log("date===>", eventObj.endTime);
 
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");

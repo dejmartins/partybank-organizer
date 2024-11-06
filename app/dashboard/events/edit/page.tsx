@@ -138,7 +138,7 @@ export default function Page() {
         id: tempEventObj.selectedSeries.id!,
       },
     });
-    // console.log("==>", tempEventObj);
+    console.log("==>", tempEventObj);
     setisClient(true);
   }, []);
 

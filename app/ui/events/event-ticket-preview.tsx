@@ -1,11 +1,8 @@
 "use client";
 import { IEventForm } from "@/services/models/event-model";
-import usePBEvent from "@/shared/hooks/usePBEvent";
-import { createEllipsis } from "@/shared/utils/helper";
 import { removeTicket } from "@/store/create-event/create-event-slice";
 import { useDispatch, useSelector } from "@/store/store";
 import { loadTicket } from "@/store/ticket-slice/ticket-slice";
-import { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 type PropT = {
@@ -15,14 +12,6 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
   const event = useSelector((state) => state.event);
   const tempEvent: IEventForm = event.data.tempEvent;
   const dispatch = useDispatch();
-
-  // const handleRemoveTicket = (payload: any) => {
-  //   dispatch(removeTicket(payload));
-  // };
-
-  useEffect(() => {
-    // console.log("currently loaded==>", tempEvent);
-  }, [loadedTicket]);
 
   return (
     <div className="border p-10 flex-grow flex-col hidden md:block md:basis-[40%] lg:basis-[30%] overflow-y-auto  max-h-[calc(100vh-170px)]">
@@ -60,26 +49,25 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
                   backgroundColor:
                     loadedTicket &&
                     Object.keys(loadedTicket).length &&
-                    loadedTicket.id === obj.id
+                    loadedTicket.fid === obj.fid
                       ? "#E91B41"
                       : "#FAF9F9",
                   color:
                     loadedTicket &&
                     Object.keys(loadedTicket).length &&
-                    loadedTicket.id === obj.id
+                    loadedTicket.fid === obj.fid
                       ? "#fff"
                       : "#000",
                   border:
                     loadedTicket &&
                     Object.keys(loadedTicket).length &&
-                    loadedTicket.id === obj.id
+                    loadedTicket.fid === obj.fid
                       ? "1px solid red"
                       : "none",
                 }}
                 onClick={(ev) => {
                   ev.stopPropagation();
-                  // console.log("===>", tempEvent);
-                  if (loadedTicket.id !== obj.id) {
+                  if (loadedTicket.fid !== obj.fid) {
                     dispatch(loadTicket(obj));
                   }
                 }}
@@ -88,9 +76,6 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
                   <span className="text-lg block">
                     {obj.ticketDetailsObj.ticketName}
                   </span>
-                  {/* <span className="text-sm">
-                    {createEllipsis(obj.ticketDetailsObj.ticketDescription, 30)}
-                  </span> */}
                 </div>
                 <div>
                   <RiDeleteBin6Line

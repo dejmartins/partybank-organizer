@@ -82,15 +82,24 @@ export default function TicketPage() {
       ticketType: selectedType,
       perks,
     };
+
+    //if we have loaded ticket in view
     if (Object.keys(loadedTicket).length > 0) {
       //dispatch ticket update
-      dispatch(updateTicket({ ...ticketData, id: loadedTicket.id }));
+      dispatch(
+        updateTicket({
+          ...ticketData,
+          id: loadedTicket.id ?? 0,
+          fid: loadedTicket.fid,
+        })
+      );
       dispatch(clearTicketState());
       settickDetailsObj((prev: any) => {
         return { ...prev, ticketName: "" };
       });
     } else {
-      dispatch(saveTicket({ ...ticketData, id: Date.now() }));
+      //if no loaded ticket in view
+      dispatch(saveTicket({ ...ticketData, fid: Date.now() }));
       settickDetailsObj((prev: any) => {
         return { ...prev, ticketName: "" };
       });
@@ -147,7 +156,7 @@ export default function TicketPage() {
         ),
         ticket_sales_end_time: getTimeWithAmPm(obj.ticketDateObj.salesEndTime),
         ticket_type: obj.ticketType.title,
-        id: obj.id
+        id: obj.id ?? 0,
       };
     });
 
@@ -180,7 +189,6 @@ export default function TicketPage() {
         updateEvent({ payload, id: event.data.tempEvent.id }).subscribe({
           next: (res) => {
             if (res) {
-              console.log(res);
               toast.success("Event updated successfuly!");
               router.push("/dashboard/events");
             } else {

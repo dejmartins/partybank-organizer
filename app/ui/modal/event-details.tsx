@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowLongLeftIcon,
   CalendarIcon,
-  ChevronDoubleRightIcon,
   ClockIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
 import Modal from "./base-modal";
-import { Event } from "@/app/lib/definitions";
 import EventAnalytics from "./event-analytics";
-import moment from "moment";
 import AnalyticsModal from "./base-analytics-modal";
 import { HiDotsVertical } from "react-icons/hi";
 import { IEventResponse } from "@/services/models/event-response";
@@ -31,10 +28,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { IEventForm } from "@/services/models/event-model";
 import {
-  convertIsoToDate,
-  converttimeToISO,
   convertTimeToISO,
   dateToISOFormat,
   splitTimeRange,
@@ -352,7 +346,6 @@ const ModalAction = ({
   setactionText,
 }: ModalActionPropT) => {
   const [openActionPane, setopenActionPane] = useState(false);
-  const [objj, setobjj] = useState<IEventForm>();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -400,6 +393,7 @@ const ModalAction = ({
           ticketType: { id: 1, title: ticket.ticket_type },
           perks: ticket.ticket_perks,
           id: ticket.id,
+          fid: index + 1,
         };
       }),
       eventLocation: {
@@ -422,8 +416,6 @@ const ModalAction = ({
       selectedImage: event.image_url,
       selectedFile: {},
     };
-
-    console.log("date===>", eventObj.endTime);
 
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
@@ -454,9 +446,7 @@ const ModalAction = ({
       },
     });
   };
-  useEffect(() => {
-    // console.log("eventxxx==>", event);
-  }, []);
+
   return (
     <div className="p-1 cursor-pointer relative">
       <div

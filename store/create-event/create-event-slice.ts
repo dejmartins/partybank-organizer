@@ -21,6 +21,7 @@ const eventSlice = createSlice({
           obj.ticketDetailsObj.ticketName ===
           payload.ticketDetailsObj.ticketName
       );
+
       if (exstn.length) {
         toast.error("Ticket already exist, please change ticket name");
       } else {
@@ -37,17 +38,18 @@ const eventSlice = createSlice({
           obj.ticketDetailsObj.ticketName !==
           payload.ticketDetailsObj.ticketName
       );
-      // console.log("to remover this tickets", payload);
-      // console.log("new tickets", newTicketsArr);
-      // console.log("tickets", current(state.data.tempEvent));
+
       state.data.tempEvent.tickets = newTicketsArr;
     },
 
     updateTicket: (state, param) => {
       const { payload } = param;
       const { tickets } = current(state.data.tempEvent);
-      const newTicketsArr = tickets.filter((obj: any) => obj.id !== payload.id);
-      const newArr = [payload, ...newTicketsArr];
+      const newTicketsArr = tickets.filter(
+        (obj: any) => obj.fid !== payload.fid
+      );
+      //Tode: get the index before update
+      const newArr = [...newTicketsArr, payload];
       state.data.tempEvent.tickets = newArr;
     },
 

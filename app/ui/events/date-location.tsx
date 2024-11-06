@@ -10,6 +10,9 @@ import EventPlacesInput from "@/shared/components/event-places-input/event-place
 import { getVenueName } from "@/shared/utils/helper";
 import Switch from "@mui/joy/Switch";
 import { toast } from "react-toastify";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import Tooltip from "@mui/joy/Tooltip";
+import { Button } from "@mui/material";
 
 type PropT = {
   eventDateObj: {
@@ -88,6 +91,16 @@ export default function EventDateLocation({
                   <span className="bg-partybank-red h-6 flex items-center px-3 rounded border border-[#4E0916] text-white text-sm font-bold">
                     Address
                   </span>
+
+                  <Tooltip
+                    title="This is where attendees will go directly to join the event."
+                    size="sm"
+                    placement="top"
+                  >
+                    <button>
+                      <IoMdInformationCircleOutline />
+                    </button>
+                  </Tooltip>
                 </div>
                 <div className="mt-2 w-full">
                   <EventPlacesInput
@@ -161,6 +174,15 @@ export default function EventDateLocation({
                   <span className="bg-partybank-red h-6 flex items-center px-3 rounded border border-[#4E0916] text-white text-sm font-bold">
                     Venue
                   </span>
+                  <Tooltip
+                    title="The name of the place hosting the event, like 'City Park' or 'Downtown Hall.'"
+                    size="sm"
+                    placement="top"
+                  >
+                    <button>
+                      <IoMdInformationCircleOutline />
+                    </button>
+                  </Tooltip>
                 </div>
                 <div className="mt-2">
                   <div className="relative">

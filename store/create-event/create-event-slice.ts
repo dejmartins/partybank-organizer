@@ -1,3 +1,4 @@
+import { updateObjectInArray } from "@/shared/utils/helper";
 import { createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
@@ -45,12 +46,12 @@ const eventSlice = createSlice({
     updateTicket: (state, param) => {
       const { payload } = param;
       const { tickets } = current(state.data.tempEvent);
-      const newTicketsArr = tickets.filter(
-        (obj: any) => obj.fid !== payload.fid
+      const copiedTickets = [...tickets];
+      const index = copiedTickets.findIndex(
+        (obj: any) => obj.fid === payload.fid
       );
-      //Tode: get the index before update
-      const newArr = [...newTicketsArr, payload];
-      state.data.tempEvent.tickets = newArr;
+      copiedTickets[index] = { ...payload };
+      state.data.tempEvent.tickets = copiedTickets;
     },
 
     loadedTicket: (state, param) => {

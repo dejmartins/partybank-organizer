@@ -94,6 +94,7 @@ export default function Page() {
         if (res) {
           const transformed: IEventResponseArr = res.map(
             (obj: IEventResponse) => {
+              console.log('tickets ===> ', obj.tickets)
               return {
                 id: obj.id,
                 series_id: obj.series_id,
@@ -134,6 +135,8 @@ export default function Page() {
                     ticket_sale_start_date: tic.ticket_sale_start_date ?? "---",
                     ticket_sale_start_time: tic.ticket_sale_start_time ?? "---",
                     ticket_perks: tic.ticket_perks ?? [],
+                    category: tic.category ?? "---",
+                    group_ticket_capacity: tic.group_ticket_capacity ?? 0
                   };
                 }),
                 publication_state: obj.publication_state,

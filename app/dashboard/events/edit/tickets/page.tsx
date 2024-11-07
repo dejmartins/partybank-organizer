@@ -157,6 +157,8 @@ export default function TicketPage() {
         ticket_sales_end_time: getTimeWithAmPm(obj.ticketDateObj.salesEndTime),
         ticket_type: obj.ticketType.title,
         id: obj.id ?? 0,
+        category: 'Group', // Single | Group
+        group_ticket_capacity: 3 // Minimum 2 if group
       };
     });
 
@@ -204,7 +206,7 @@ export default function TicketPage() {
           },
         });
       };
-      queryApi();
+      // queryApi();
     } else {
       setIsLoaderModalOpen(false);
     }

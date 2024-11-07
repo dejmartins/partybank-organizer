@@ -127,3 +127,17 @@ export function converttimeToISO(timeString: any) {
   const dateWithTime = new Date(`${currentDate} ${timeString}`);
   return dateWithTime.toISOString();
 }
+
+export const updateObjectInArray = (
+  array: any[],
+  property: any,
+  value: any,
+  updatedObject: any
+) => {
+  const index = array.findIndex((obj) => obj[property] === value);
+  if (index !== -1) {
+    array[index] = { ...array[index], ...updatedObject };
+  }
+
+  return array;
+};

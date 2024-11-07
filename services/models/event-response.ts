@@ -47,4 +47,6 @@ export interface IEventTicketRes {
   ticket_perks: string[];
   ticket_id?: any;
   id?: any;
+  category: string;
+  group_ticket_capacity: number;
 }

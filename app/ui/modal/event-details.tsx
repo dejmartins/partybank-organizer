@@ -35,6 +35,7 @@ import {
 } from "@/shared/utils/helper";
 import { useDispatch } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
+import { ticketCategoryData } from "@/app/lib/placeholder-data";
 
 export default function EventDetailsModal({
   event,
@@ -384,12 +385,7 @@ const ModalAction = ({
             ticketPrice: ticket.price,
             ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
           },
-          ticketCategory: {
-            label: "Single Ticket",
-            description:
-              "This will only allow a single entry per person to the event",
-            id: 1,
-          },
+          ticketCategory: event.category === 'Single' ? ticketCategoryData[0] : ticketCategoryData[1],
           ticketType: { id: 1, title: ticket.ticket_type },
           perks: ticket.ticket_perks,
           id: ticket.id,

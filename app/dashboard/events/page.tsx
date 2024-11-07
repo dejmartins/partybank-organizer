@@ -94,7 +94,6 @@ export default function Page() {
         if (res) {
           const transformed: IEventResponseArr = res.map(
             (obj: IEventResponse) => {
-              console.log('tickets ===> ', obj.tickets)
               return {
                 id: obj.id,
                 series_id: obj.series_id,

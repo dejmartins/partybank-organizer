@@ -132,7 +132,7 @@ export default function TicketPage() {
   };
 
   const handleUpdate = async () => {
-    // setIsLoaderModalOpen(true);
+    setIsLoaderModalOpen(true);
     const ticketsPayload = tempEventObj.tickets.map((obj: any) => {
       console.log("category", ticketCategory.label.split(' ')[0])
       return {
@@ -210,7 +210,7 @@ export default function TicketPage() {
           },
         });
       };
-      // queryApi();
+      queryApi();
     } else {
       setIsLoaderModalOpen(false);
     }

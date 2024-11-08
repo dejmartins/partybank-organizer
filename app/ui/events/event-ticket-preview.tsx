@@ -67,7 +67,9 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
                 }}
                 onClick={(ev) => {
                   ev.stopPropagation();
+                  console.log("ticket==>", obj);
                   if (loadedTicket.fid !== obj.fid) {
+                    console.log("ticket==>", obj);
                     dispatch(loadTicket(obj));
                   }
                 }}

@@ -79,13 +79,21 @@ export default function TicketPage() {
     };
     if (Object.keys(loadedTicket).length > 0) {
       //dispatch ticket update
-      dispatch(updateTicket({ ...ticketData, id: loadedTicket.id }));
+      // dispatch(updateTicket({ ...ticketData, id: loadedTicket.id }));
+      dispatch(
+        updateTicket({
+          ...ticketData,
+          id: loadedTicket.id ?? 0,
+          fid: loadedTicket.fid,
+        })
+      );
       dispatch(clearTicketState());
       settickDetailsObj((prev: any) => {
         return { ...prev, ticketName: "" };
       });
     } else {
-      dispatch(saveTicket({ ...ticketData, id: Date.now() }));
+      // dispatch(saveTicket({ ...ticketData, id: Date.now() }));
+      dispatch(saveTicket({ ...ticketData, fid: Date.now() }));
       settickDetailsObj((prev: any) => {
         return { ...prev, ticketName: "" };
       });

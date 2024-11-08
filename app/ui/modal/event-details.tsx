@@ -385,7 +385,10 @@ const ModalAction = ({
             ticketPrice: ticket.price,
             ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
           },
-          ticketCategory: event.category === 'Single' ? ticketCategoryData[0] : ticketCategoryData[1],
+          ticketCategory:
+            ticket.category === "Single"
+              ? ticketCategoryData[0]
+              : ticketCategoryData[1],
           ticketType: { id: 1, title: ticket.ticket_type },
           perks: ticket.ticket_perks,
           id: ticket.id,
@@ -413,6 +416,7 @@ const ModalAction = ({
       selectedFile: {},
     };
 
+    // console.log("event obj", event);
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
   };

@@ -134,6 +134,7 @@ export default function TicketPage() {
   const handleUpdate = async () => {
     setIsLoaderModalOpen(true);
     const ticketsPayload = tempEventObj.tickets.map((obj: any) => {
+      console.log("category", ticketCategory.label.split(' ')[0])
       return {
         capacity: Number(obj.ticketDetailsObj.ticketCapacity),
         colour: "red",
@@ -157,8 +158,8 @@ export default function TicketPage() {
         ticket_sales_end_time: getTimeWithAmPm(obj.ticketDateObj.salesEndTime),
         ticket_type: obj.ticketType.title,
         id: obj.id ?? 0,
-        category: 'Group', // Single | Group
-        group_ticket_capacity: 3 // Minimum 2 if group
+        category: obj.ticketCategory.label.split(' ')[0],
+        group_ticket_capacity: 5 // To be modified
       };
     });
 
@@ -187,6 +188,9 @@ export default function TicketPage() {
         state: tempEventObj.eventLocation.state,
         country: tempEventObj.eventLocation.country,
       };
+
+      console.log("Payload ==>", payload);
+      console.log("Ticket ==>", tempEventObj.tickets);
       const queryApi = () => {
         updateEvent({ payload, id: event.data.tempEvent.id }).subscribe({
           next: (res) => {
@@ -206,7 +210,7 @@ export default function TicketPage() {
           },
         });
       };
-      // queryApi();
+      queryApi();
     } else {
       setIsLoaderModalOpen(false);
     }

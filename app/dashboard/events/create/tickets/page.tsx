@@ -133,6 +133,7 @@ export default function TicketPage() {
 
   const handleCreateEvent = async () => {
     setIsLoaderModalOpen(true);
+    
     const ticketsPayload = tickets.map((obj: any) => {
       return {
         capacity: Number(obj.ticketDetailsObj.ticketCapacity),
@@ -156,6 +157,8 @@ export default function TicketPage() {
         ),
         ticket_sales_end_time: getTimeWithAmPm(obj.ticketDateObj.salesEndTime),
         ticket_type: obj.ticketType.title,
+        category: obj.ticketCategory.label.split(' ')[0],
+        group_ticket_capacity: 5 // Minimum 2 if group, Maximum of 10
       };
     });
 

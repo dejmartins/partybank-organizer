@@ -49,6 +49,7 @@ export default function TicketPage() {
     ticketCapacity: "",
     ticketStock: { id: 1, label: "Limited" },
     ticketPrice: "",
+    group_ticket_capacity: "",
     ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
   });
   const event = useSelector((state) => state.event);
@@ -98,6 +99,7 @@ export default function TicketPage() {
       ticketDescription,
       ticketStock,
       ticketCapacity,
+      group_ticket_capacity,
     } = ticketDetailsObj;
     if (selectedType.title === "Free" && ticketStock.label === "Unlimited") {
       const isValid = ticketName.length > 2;
@@ -129,10 +131,20 @@ export default function TicketPage() {
         Number(ticketCapacity) > 0;
       setisformValid(isValid);
     }
+
+    if (
+      ticketCategory &&
+      ticketCategory.label === "Group Ticket" &&
+      Number(group_ticket_capacity) < 2
+    ) {
+      toast.info("Atleast two people are needed to create group ticket");
+      setisformValid(false);
+    }
   };
 
   const handleCreateEvent = async () => {
     setIsLoaderModalOpen(true);
+
     const ticketsPayload = tickets.map((obj: any) => {
       return {
         capacity: Number(obj.ticketDetailsObj.ticketCapacity),
@@ -142,9 +154,10 @@ export default function TicketPage() {
         price: Number(obj.ticketDetailsObj.ticketPrice),
         price_change_date: "empty",
         price_change_time: "empty",
-        purchase_limit: parseInt(
-          obj.ticketDetailsObj.ticketPurchaseLimit.label
-        ),
+        purchase_limit:
+          obj.ticketCategory.label.split(" ")[0] === "Group"
+            ? 1
+            : parseInt(obj.ticketDetailsObj.ticketPurchaseLimit.label),
         stock: obj.ticketDetailsObj.ticketStock.label,
         ticket_perks: obj.perks,
         ticket_sale_end_date: convertIsoToDate(obj.ticketDateObj.salesEndDate),
@@ -156,6 +169,10 @@ export default function TicketPage() {
         ),
         ticket_sales_end_time: getTimeWithAmPm(obj.ticketDateObj.salesEndTime),
         ticket_type: obj.ticketType.title,
+        category: obj.ticketCategory.label.split(" ")[0],
+        group_ticket_capacity: parseInt(
+          obj.ticketDetailsObj.group_ticket_capacity
+        ), // To be modified
       };
     });
 
@@ -290,6 +307,7 @@ export default function TicketPage() {
               setselectedType={setselectedType}
               perks={perks}
               setperks={setperks}
+              ticketCategory={ticketCategory}
             />
 
             <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">

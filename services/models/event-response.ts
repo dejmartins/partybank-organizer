@@ -20,6 +20,8 @@ export interface IEventResponse {
   publication_state: string;
   isPublished: boolean;
   series_name: string;
+  category: string;
+  group_ticket_capacity: number
 }
 
 export interface Location {

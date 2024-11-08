@@ -53,6 +53,7 @@ export default function TicketPage() {
   const [ticketDetailsObj, settickDetailsObj] = useState({
     ticketName: "",
     ticketDescription: "",
+    group_ticket_capacity: "",
     ticketCapacity: 0,
     ticketStock: { id: 1, label: "Limited" },
     ticketPrice: 0.0,
@@ -107,8 +108,13 @@ export default function TicketPage() {
   };
 
   const handleValidation = () => {
-    const { ticketName, ticketPrice, ticketStock, ticketCapacity } =
-      ticketDetailsObj;
+    const {
+      ticketName,
+      ticketPrice,
+      ticketStock,
+      ticketCapacity,
+      group_ticket_capacity,
+    } = ticketDetailsObj;
     if (selectedType.title === "Free" && ticketStock.label === "Unlimited") {
       const isValid = ticketName.length > 2;
       setisformValid(isValid);
@@ -129,12 +135,19 @@ export default function TicketPage() {
         ticketName.length > 2 && ticketPrice > 0 && ticketCapacity > 0;
       setisformValid(isValid);
     }
+    if (
+      ticketCategory &&
+      ticketCategory.label === "Group Ticket" &&
+      Number(group_ticket_capacity) < 2
+    ) {
+      toast.info("Atleast two people are needed to create group ticket");
+      setisformValid(false);
+    }
   };
 
   const handleUpdate = async () => {
     setIsLoaderModalOpen(true);
     const ticketsPayload = tempEventObj.tickets.map((obj: any) => {
-      // console.log("category", ticketCategory.label.split(' ')[0])
       return {
         capacity: Number(obj.ticketDetailsObj.ticketCapacity),
         colour: "red",
@@ -143,9 +156,10 @@ export default function TicketPage() {
         price: Number(obj.ticketDetailsObj.ticketPrice),
         price_change_date: "empty",
         price_change_time: "empty",
-        purchase_limit: parseInt(
-          obj.ticketDetailsObj.ticketPurchaseLimit.label
-        ),
+        purchase_limit:
+          obj.ticketCategory.label.split(" ")[0] === "Group"
+            ? 1
+            : parseInt(obj.ticketDetailsObj.ticketPurchaseLimit.label),
         stock: obj.ticketDetailsObj.ticketStock.label,
         ticket_perks: obj.perks,
         ticket_sale_end_date: convertIsoToDate(obj.ticketDateObj.salesEndDate),
@@ -159,7 +173,9 @@ export default function TicketPage() {
         ticket_type: obj.ticketType.title,
         id: obj.id ?? 0,
         category: obj.ticketCategory.label.split(" ")[0],
-        group_ticket_capacity: 5, // To be modified
+        group_ticket_capacity: parseInt(
+          obj.ticketDetailsObj.group_ticket_capacity
+        ), // To be modified
       };
     });
 
@@ -188,9 +204,8 @@ export default function TicketPage() {
         state: tempEventObj.eventLocation.state,
         country: tempEventObj.eventLocation.country,
       };
-
-      console.log("Payload ==>", payload);
-      console.log("Ticket ==>", tempEventObj.tickets);
+      // console.log("Payload ==>", payload);
+      // console.log("Ticket ==>", tempEventObj.tickets);
       const queryApi = () => {
         updateEvent({ payload, id: event.data.tempEvent.id }).subscribe({
           next: (res) => {
@@ -293,6 +308,7 @@ export default function TicketPage() {
                   setselectedType={setselectedType}
                   perks={perks}
                   setperks={setperks}
+                  ticketCategory={ticketCategory}
                 />
 
                 <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">

@@ -12,6 +12,8 @@ import { FiGift } from "react-icons/fi";
 import { IoCloseSharp } from "react-icons/io5";
 import PBAutoSelect from "@/shared/components/pb-auto-select/pb-auto-select";
 import { FaMoneyBill1 } from "react-icons/fa6";
+import { MdOutlinePeopleAlt } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -24,6 +26,7 @@ type PropT = {
     ticketName: string;
     ticketDescription: string;
     ticketCapacity: number | string;
+    group_ticket_capacity: number | string;
     ticketStock: {
       id: any;
       label: string;
@@ -40,6 +43,7 @@ type PropT = {
   setselectedType: Function;
   perks: string[];
   setperks: Function;
+  ticketCategory: any;
 };
 
 export default function TicketDetails({
@@ -49,6 +53,7 @@ export default function TicketDetails({
   setselectedType,
   perks,
   setperks,
+  ticketCategory,
 }: PropT) {
   const handlePrice = (value: any) => {
     if (isNaN(value)) return;
@@ -65,6 +70,22 @@ export default function TicketDetails({
       setticketDetailsObj((prev: any) => {
         return { ...prev, ticketCapacity: value };
       });
+    }
+  };
+
+  const handleGroupCapacity = (value: any) => {
+    if (isNaN(value)) return;
+    else {
+      if (value > 15) {
+        toast.info("Maximum value exceeded!");
+        setticketDetailsObj((prev: any) => {
+          return { ...prev, group_ticket_capacity: "" };
+        });
+      } else {
+        setticketDetailsObj((prev: any) => {
+          return { ...prev, group_ticket_capacity: value };
+        });
+      }
     }
   };
   return (
@@ -133,24 +154,27 @@ export default function TicketDetails({
                   icon={<RandomIcon />}
                 /> */}
               </div>
+
               <div className="w-full md:w-1/2 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
-                <PBAutoSelect
-                  value={ticketDetailsObj.ticketPurchaseLimit.label}
-                  setvalue={(event: any) => {
-                    setticketDetailsObj((prev: any) => {
-                      return { ...prev, ticketPurchaseLimit: event };
-                    });
-                  }}
-                  placeHolder="Ticket Purchase Limit"
-                  icon={<RandomIcon />}
-                  options={[
-                    { id: 1, label: "1" },
-                    { id: 2, label: "2" },
-                    { id: 3, label: "3" },
-                    { id: 4, label: "4" },
-                    { id: 5, label: "5" },
-                  ]}
-                />
+                {ticketCategory && ticketCategory.label === "Single Ticket" && (
+                  <PBAutoSelect
+                    value={ticketDetailsObj.ticketPurchaseLimit.label}
+                    setvalue={(event: any) => {
+                      setticketDetailsObj((prev: any) => {
+                        return { ...prev, ticketPurchaseLimit: event };
+                      });
+                    }}
+                    placeHolder="Ticket Purchase Limit"
+                    icon={<RandomIcon />}
+                    options={[
+                      { id: 1, label: "1" },
+                      { id: 2, label: "2" },
+                      { id: 3, label: "3" },
+                      { id: 4, label: "4" },
+                      { id: 5, label: "5" },
+                    ]}
+                  />
+                )}
 
                 {ticketDetailsObj.ticketStock.label === "Limited" && (
                   <PBInput
@@ -160,6 +184,17 @@ export default function TicketDetails({
                     }}
                     placeHolder="Ticket Capacity"
                     icon={<NoteIcon />}
+                  />
+                )}
+
+                {ticketCategory && ticketCategory.label === "Group Ticket" && (
+                  <PBInput
+                    value={ticketDetailsObj.group_ticket_capacity}
+                    setvalue={(val: string) => {
+                      handleGroupCapacity(val);
+                    }}
+                    placeHolder="No of people"
+                    icon={<MdOutlinePeopleAlt size={20} />}
                   />
                 )}
 

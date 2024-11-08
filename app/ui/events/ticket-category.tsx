@@ -1,7 +1,7 @@
 import { useDrag } from "@/app/lib/actions";
 import { ticketCategoryData } from "@/app/lib/placeholder-data";
 import SelectedCard from "@/shared/components/selected-card/selected-card";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoImageOutline } from "react-icons/io5";
 
 type PropT = {

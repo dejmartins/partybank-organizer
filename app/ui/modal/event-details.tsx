@@ -36,6 +36,7 @@ import {
 import { useDispatch } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
 import { ticketCategoryData } from "@/app/lib/placeholder-data";
+import { ticketTypeData } from "@/shared/utils/data";
 
 export default function EventDetailsModal({
   event,
@@ -381,6 +382,7 @@ const ModalAction = ({
             ticketName: ticket.name,
             ticketDescription: "",
             ticketCapacity: ticket.capacity,
+            group_ticket_capacity: ticket.group_ticket_capacity,
             ticketStock: { id: index, label: ticket.stock },
             ticketPrice: ticket.price,
             ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
@@ -389,7 +391,10 @@ const ModalAction = ({
             ticket.category === "Single"
               ? ticketCategoryData[0]
               : ticketCategoryData[1],
-          ticketType: { id: 1, title: ticket.ticket_type },
+          ticketType:
+            ticket.price && ticket.price > 0
+              ? ticketTypeData[1]
+              : ticketTypeData[0],
           perks: ticket.ticket_perks,
           id: ticket.id,
           fid: index + 1,
@@ -416,7 +421,7 @@ const ModalAction = ({
       selectedFile: {},
     };
 
-    // console.log("event obj", event);
+    console.log("event obj", event);
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
   };

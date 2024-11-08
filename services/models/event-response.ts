@@ -20,6 +20,8 @@ export interface IEventResponse {
   publication_state: string;
   isPublished: boolean;
   series_name: string;
+  category: string;
+  group_ticket_capacity: number
 }
 
 export interface Location {
@@ -47,4 +49,6 @@ export interface IEventTicketRes {
   ticket_perks: string[];
   ticket_id?: any;
   id?: any;
+  category: string;
+  group_ticket_capacity: number;
 }

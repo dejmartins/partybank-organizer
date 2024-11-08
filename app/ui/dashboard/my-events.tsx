@@ -24,7 +24,7 @@ export default function MyEvents({ eventList }: any) {
       <>
         {eventStatusBased.length ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {eventStatusBased.map((event: any, index: number) => (
+            {eventStatusBased.slice(0, 4).map((event: any, index: number) => (
               <div
                 key={index}
                 className="border flex items-center gap-3 p-3 rounded-[10px]"
@@ -54,10 +54,6 @@ export default function MyEvents({ eventList }: any) {
       </>
     );
   };
-
-  // useEffect(() => {
-  //   console.log("events==>", eventList);
-  // }, []);
 
   return (
     <>

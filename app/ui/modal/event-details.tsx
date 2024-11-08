@@ -421,7 +421,6 @@ const ModalAction = ({
       selectedFile: {},
     };
 
-    console.log("event obj", event);
     dispatch(saveEvent(eventObj));
     router.push("/dashboard/events/edit");
   };

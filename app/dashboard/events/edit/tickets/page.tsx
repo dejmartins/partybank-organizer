@@ -75,7 +75,7 @@ export default function TicketPage() {
   const [showMobilePreview, setshowMobilePreview] = useState(false);
   //opt in for notification
   const [is_notification_enabled, setis_notification_enabled] =
-    useState<boolean>(tempEventObj.is_notification_enabled ?? true);
+    useState<boolean>(tempEventObj?.is_notification_enabled ?? true);
   const [showNotiPrefModal, setshowNotiPrefModal] = useState(false);
 
   const router = useRouter();

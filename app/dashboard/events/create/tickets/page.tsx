@@ -29,6 +29,7 @@ import {
 } from "@/shared/utils/helper";
 import { clearTicketState } from "@/store/ticket-slice/ticket-slice";
 import TicketMobilePreview from "@/shared/components/ticket-mobile-preview copy/ticket-mobile-preview";
+import OptinNotiModal from "@/shared/components/optin-noti-modal/optin-noti-modal";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -52,6 +53,10 @@ export default function TicketPage() {
     group_ticket_capacity: "",
     ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
   });
+  //opt in for notification
+  const [is_notification_enabled, setis_notification_enabled] = useState(true);
+  const [showNotiPrefModal, setshowNotiPrefModal] = useState(false);
+
   const event = useSelector((state) => state.event);
   const tempEventObj: IEventForm = event.data.tempEvent;
 
@@ -152,7 +157,6 @@ export default function TicketPage() {
 
   const handleCreateEvent = async () => {
     setIsLoaderModalOpen(true);
-
     const ticketsPayload = tickets.map((obj: any) => {
       return {
         capacity: Number(obj.ticketDetailsObj.ticketCapacity),
@@ -209,6 +213,7 @@ export default function TicketPage() {
         city: tempEventObj.eventLocation.city,
         state: tempEventObj.eventLocation.state,
         country: tempEventObj.eventLocation.country,
+        is_notification_enabled,
       };
       // console.log("full payload==>", payload);
       const queryApi = () => {
@@ -217,9 +222,7 @@ export default function TicketPage() {
             if (res) {
               console.log(res);
               toast.success(res.data.message);
-              // dispatch(clearEventState());
               router.push("/dashboard/events");
-              // window.location.href = "/dashboard/events";
             } else {
               toast.info(res.error);
             }
@@ -247,7 +250,6 @@ export default function TicketPage() {
 
   useEffect(() => {
     handleValidation();
-    // console.log("=====>ticketobj", ticketDetailsObj);
   }, [ticketDetailsObj, selectedType]);
 
   useEffect(() => {
@@ -286,10 +288,12 @@ export default function TicketPage() {
             <div className="md:block">
               <button
                 className={`bg-partybank-red text-base flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
-                onClick={handleCreateEvent}
+                // onClick={handleCreateEvent}
+                onClick={() => setshowNotiPrefModal(true)}
                 disabled={tickets.length ? false : true}
               >
-                Create Event
+                {/* Create Event */}
+                Proceed
               </button>
             </div>
           </div>
@@ -337,6 +341,19 @@ export default function TicketPage() {
         <TicketMobilePreview
           loadedTicket={loadedTicket}
           setshow={setshowMobilePreview}
+        />
+      )}
+
+      {showNotiPrefModal && (
+        <OptinNotiModal
+          eventName={event.name}
+          is_notification_enabled={is_notification_enabled!}
+          setis_notification_enabled={setis_notification_enabled}
+          handleAction={(val: boolean) => {
+            setis_notification_enabled(val);
+            setshowNotiPrefModal(false);
+            handleCreateEvent();
+          }}
         />
       )}
     </>

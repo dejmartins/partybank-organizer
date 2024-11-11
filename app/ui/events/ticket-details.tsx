@@ -44,6 +44,7 @@ type PropT = {
   perks: string[];
   setperks: Function;
   ticketCategory: any;
+  isPriceErr: boolean;
 };
 
 export default function TicketDetails({
@@ -54,6 +55,7 @@ export default function TicketDetails({
   perks,
   setperks,
   ticketCategory,
+  isPriceErr,
 }: PropT) {
   const handlePrice = (value: any) => {
     if (isNaN(value)) return;
@@ -199,14 +201,21 @@ export default function TicketDetails({
                 )}
 
                 {selectedType.title === "Paid" && (
-                  <PBInput
-                    value={ticketDetailsObj.ticketPrice}
-                    setvalue={(val: string) => {
-                      handlePrice(val);
-                    }}
-                    placeHolder="Ticket Price"
-                    icon={<FaMoneyBill1 size={20} />}
-                  />
+                  <div>
+                    <PBInput
+                      value={ticketDetailsObj.ticketPrice}
+                      setvalue={(val: string) => {
+                        handlePrice(val);
+                      }}
+                      placeHolder="Ticket Price"
+                      icon={<FaMoneyBill1 size={20} />}
+                    />
+                    {isPriceErr && (
+                      <p className="text-xs text-right text-red-800">
+                        Min amount: NGN200
+                      </p>
+                    )}
+                  </div>
                 )}
               </div>
             </div>

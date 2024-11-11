@@ -74,6 +74,7 @@ export default function Page() {
       backgroundPosition,
       tickets: tempEventObj.tickets,
       id: event.data.tempEvent.id,
+      is_notification_enabled: tempEventObj.is_notification_enabled,
     };
 
     dispatch(saveEvent(eventObj));

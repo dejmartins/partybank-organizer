@@ -12,6 +12,7 @@ export interface IEventForm {
   selectedFile: any;
   backgroundPosition: IBackgroundPosition;
   tickets: any[];
+  is_notification_enabled: boolean;
 }
 
 export interface IEventLocation {

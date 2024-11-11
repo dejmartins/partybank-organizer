@@ -419,6 +419,7 @@ const ModalAction = ({
       },
       selectedImage: event.image_url,
       selectedFile: {},
+      is_notification_enabled: event.is_notification_enabled,
     };
 
     dispatch(saveEvent(eventObj));

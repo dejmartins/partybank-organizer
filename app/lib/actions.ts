@@ -42,10 +42,12 @@ export const useDrag = (onDrag: (x: number, y: number) => void) => {
 
 export function formatNumber(value: number) {
   if (value >= 1000000) {
-    return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    return (Math.floor(value / 100000) / 10) + 'M';
   }
   if (value >= 1000) {
-    return (value / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    return (Math.floor(value / 100) / 10) + 'K';
   }
   return value.toString();
 }
+
+

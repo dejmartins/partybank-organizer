@@ -135,10 +135,12 @@ export default function Page() {
                     ticket_sale_start_time: tic.ticket_sale_start_time ?? "---",
                     ticket_perks: tic.ticket_perks ?? [],
                     category: tic.category ?? "---",
-                    group_ticket_capacity: tic.group_ticket_capacity ?? 0
+                    group_ticket_capacity: tic.group_ticket_capacity ?? 0,
                   };
                 }),
                 publication_state: obj.publication_state,
+
+                is_notification_enabled: obj.is_notification_enabled,
                 isPublished:
                   obj.publication_state === "PUBLISHED" ? true : false,
               };
@@ -149,7 +151,7 @@ export default function Page() {
           );
           seteventList(notPublishedArr);
           seteventListCopy(transformed);
-          // console.log("events==>", res);
+          // console.log("events==>", transformed);
         } else {
           toast.info(res.error);
           setIsLoaderModalOpen(false);

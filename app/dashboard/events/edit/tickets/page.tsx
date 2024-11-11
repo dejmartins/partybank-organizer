@@ -31,6 +31,7 @@ import {
 import { MdArrowForwardIos } from "react-icons/md";
 import { clearTicketState } from "@/store/ticket-slice/ticket-slice";
 import TicketMobilePreview from "@/shared/components/ticket-mobile-preview copy/ticket-mobile-preview";
+import OptinNotiModal from "@/shared/components/optin-noti-modal/optin-noti-modal";
 
 const ticketTypeData = [
   { id: 1, title: "Free" },
@@ -72,6 +73,11 @@ export default function TicketPage() {
 
   const [isformValid, setisformValid] = useState(false);
   const [showMobilePreview, setshowMobilePreview] = useState(false);
+  //opt in for notification
+  const [is_notification_enabled, setis_notification_enabled] =
+    useState<boolean>(tempEventObj?.is_notification_enabled ?? true);
+  const [showNotiPrefModal, setshowNotiPrefModal] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -203,6 +209,7 @@ export default function TicketPage() {
         city: tempEventObj.eventLocation.city,
         state: tempEventObj.eventLocation.state,
         country: tempEventObj.eventLocation.country,
+        is_notification_enabled: false,
       };
       // console.log("Payload ==>", payload);
       // console.log("Ticket ==>", tempEventObj.tickets);
@@ -280,10 +287,11 @@ export default function TicketPage() {
                 <div className="md:block">
                   <button
                     className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
-                    onClick={handleUpdate}
+                    // onClick={handleUpdate}
+                    onClick={() => setshowNotiPrefModal(true)}
                     disabled={tempEventObj.tickets.length ? false : true}
                   >
-                    Save Event
+                    Proceed
                   </button>
                 </div>
               </div>
@@ -330,6 +338,19 @@ export default function TicketPage() {
             <TicketMobilePreview
               loadedTicket={loadedTicket}
               setshow={setshowMobilePreview}
+            />
+          )}
+
+          {showNotiPrefModal && (
+            <OptinNotiModal
+              eventName={event.name}
+              is_notification_enabled={is_notification_enabled!}
+              setis_notification_enabled={setis_notification_enabled}
+              handleAction={(val: boolean) => {
+                setis_notification_enabled(val);
+                setshowNotiPrefModal(false);
+                handleUpdate();
+              }}
             />
           )}
         </>

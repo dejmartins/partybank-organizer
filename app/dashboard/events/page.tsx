@@ -164,6 +164,7 @@ export default function Page() {
       complete: () => {
         dispatch(clearEventState());
         dispatch(clearTicketState());
+        setisPublished(false);
         setIsLoaderModalOpen(false);
       },
     });
@@ -172,7 +173,7 @@ export default function Page() {
   useEffect(() => {
     const subscription: Subscription = fetchEvents();
     return () => {
-      subscription.unsubscribe(); // Cleanup the subscription
+      subscription.unsubscribe();
     };
   }, []);
 

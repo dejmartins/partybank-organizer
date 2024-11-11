@@ -27,9 +27,9 @@ export default function OptinNotiModal({
     tempEvent.is_notification_enabled ?? true
   );
 
-  useEffect(() => {
-    console.log("===>", tempEvent.is_notification_enabled);
-  }, []);
+  // useEffect(() => {
+  //   console.log("===>", tempEvent.is_notification_enabled);
+  // }, []);
 
   return (
     <React.Fragment>

@@ -53,6 +53,7 @@ export default function TicketPage() {
     group_ticket_capacity: "",
     ticketPurchaseLimit: { id: 1, label: "5" }, //chnage to obj
   });
+  const [isPriceError, setisPriceError] = useState(false);
   //opt in for notification
   const [is_notification_enabled, setis_notification_enabled] = useState(true);
   const [showNotiPrefModal, setshowNotiPrefModal] = useState(false);
@@ -124,7 +125,7 @@ export default function TicketPage() {
       const isValid =
         ticketName.length > 2 &&
         // ticketDescription.length > 6 &&
-        Number(ticketCapacity) > 0;
+        Number(ticketCapacity) >= 200;
       setisformValid(isValid);
     }
 
@@ -132,15 +133,14 @@ export default function TicketPage() {
       const isValid =
         ticketName.length > 2 &&
         // ticketDescription.length > 6 &&
-        Number(ticketPrice) > 0;
+        Number(ticketPrice) >= 200;
       setisformValid(isValid);
     }
 
     if (selectedType.title === "Paid" && ticketStock.label === "Limited") {
       const isValid =
         ticketName.length > 2 &&
-        // ticketDescription.length > 6 &&
-        Number(ticketPrice) > 0 &&
+        Number(ticketPrice) >= 200 &&
         Number(ticketCapacity) > 0;
       setisformValid(isValid);
     }
@@ -153,6 +153,8 @@ export default function TicketPage() {
       toast.info("Atleast two people are needed to create group ticket");
       setisformValid(false);
     }
+    if (ticketPrice && parseInt(ticketPrice) < 200) setisPriceError(true);
+    else setisPriceError(false);
   };
 
   const handleCreateEvent = async () => {
@@ -320,6 +322,7 @@ export default function TicketPage() {
               perks={perks}
               setperks={setperks}
               ticketCategory={ticketCategory}
+              isPriceErr={isPriceError}
             />
 
             <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">

@@ -19,7 +19,7 @@ export default function CardWrapper({ ...statsObj }: IDashboardStat) {
   return (
     <>
       <Card
-        title="Total Ticket Buyers"
+        title="Total Buyers"
         value={statsObj.totalAttendees}
         type="attendees"
       />

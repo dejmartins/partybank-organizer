@@ -21,7 +21,8 @@ export interface IEventResponse {
   isPublished: boolean;
   series_name: string;
   category: string;
-  group_ticket_capacity: number
+  group_ticket_capacity: number;
+  is_notification_enabled: boolean;
 }
 
 export interface Location {

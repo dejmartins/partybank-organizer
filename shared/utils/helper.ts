@@ -78,17 +78,83 @@ export function dateToISOFormat(dateStr: any) {
   return date.toISOString();
 }
 
-export function convertTimeToISO(timeStr: any) {
+// export function convertTimeToISO(timeStr: any) {
+//   if (typeof timeStr !== "string") {
+//     throw new Error("Invalid input: timeStr must be a string");
+//   }
+
+//   const [time, period] = timeStr.split(" ");
+//   if (!time || !period || (period !== "AM" && period !== "PM")) {
+//     throw new Error("Invalid time format");
+//   }
+
+//   const [hours, minutes] = time.split(":").map(Number);
+//   if (
+//     isNaN(hours) ||
+//     isNaN(minutes) ||
+//     hours < 1 ||
+//     hours > 12 ||
+//     minutes < 0 ||
+//     minutes > 59
+//   ) {
+//     throw new Error("Invalid time values");
+//   }
+
+//   const date = new Date();
+//   let hour24 = hours;
+
+//   if (period === "PM" && hours !== 12) {
+//     hour24 = hours + 12;
+//   } else if (period === "AM" && hours === 12) {
+//     hour24 = 0;
+//   }
+
+//   date.setHours(hour24);
+//   date.setMinutes(minutes);
+//   date.setSeconds(0);
+//   date.setMilliseconds(0);
+
+//   return date.toISOString();
+// }
+
+export function convertTimeToISO(timeStr: string) {
   if (typeof timeStr !== "string") {
     throw new Error("Invalid input: timeStr must be a string");
   }
 
+  const date = new Date();
+
+  // Check for 24-hour format
+  if (timeStr.match(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/)) {
+    const [hours, minutes] = timeStr.split(":").map(Number);
+    
+    if (
+      isNaN(hours) ||
+      isNaN(minutes) ||
+      hours < 0 ||
+      hours > 23 ||
+      minutes < 0 ||
+      minutes > 59
+    ) {
+      throw new Error("Invalid time values");
+    }
+
+    date.setHours(hours);
+    date.setMinutes(minutes);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+
+    return date.toISOString();
+  }
+
+  // Check for 12-hour format
   const [time, period] = timeStr.split(" ");
-  if (!time || !period || (period !== "AM" && period !== "PM")) {
+  if (period !== "AM" && period !== "PM") {
     throw new Error("Invalid time format");
   }
 
   const [hours, minutes] = time.split(":").map(Number);
+  
   if (
     isNaN(hours) ||
     isNaN(minutes) ||
@@ -100,11 +166,9 @@ export function convertTimeToISO(timeStr: any) {
     throw new Error("Invalid time values");
   }
 
-  const date = new Date();
   let hour24 = hours;
-
   if (period === "PM" && hours !== 12) {
-    hour24 = hours + 12;
+    hour24 += 12;
   } else if (period === "AM" && hours === 12) {
     hour24 = 0;
   }
@@ -116,6 +180,7 @@ export function convertTimeToISO(timeStr: any) {
 
   return date.toISOString();
 }
+
 
 export function splitTimeRange(timeRange: string) {
   const [start, end] = timeRange.split(" - ").map((str) => str.trim());

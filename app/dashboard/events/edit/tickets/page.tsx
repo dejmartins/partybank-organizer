@@ -73,6 +73,7 @@ export default function TicketPage() {
 
   const [isformValid, setisformValid] = useState(false);
   const [showMobilePreview, setshowMobilePreview] = useState(false);
+  const [isPriceError, setisPriceError] = useState(false);
   //opt in for notification
   const [is_notification_enabled, setis_notification_enabled] =
     useState<boolean>(tempEventObj?.is_notification_enabled ?? true);
@@ -149,6 +150,13 @@ export default function TicketPage() {
       toast.info("Atleast two people are needed to create group ticket");
       setisformValid(false);
     }
+
+    if (ticketPrice && Number(ticketPrice) < 200) {
+      setisPriceError(true);
+      setisformValid(false);
+    } else {
+      setisPriceError(false);
+    }
   };
 
   const handleUpdate = async () => {
@@ -209,7 +217,7 @@ export default function TicketPage() {
         city: tempEventObj.eventLocation.city,
         state: tempEventObj.eventLocation.state,
         country: tempEventObj.eventLocation.country,
-        is_notification_enabled: false,
+        is_notification_enabled,
       };
       // console.log("Payload ==>", payload);
       // console.log("Ticket ==>", tempEventObj.tickets);
@@ -317,6 +325,7 @@ export default function TicketPage() {
                   perks={perks}
                   setperks={setperks}
                   ticketCategory={ticketCategory}
+                  isPriceErr={isPriceError}
                 />
 
                 <div className="w-full flex lex-col md:flex-row  p-4 md:p-0 xl:py-2 mb-20">

@@ -22,7 +22,6 @@ authHttp.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 authHttp.interceptors.response.use(
   (response) => {
     return response.data;

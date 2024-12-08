@@ -14,7 +14,7 @@ import PBAutoSelect from "@/shared/components/pb-auto-select/pb-auto-select";
 import { FaMoneyBill1 } from "react-icons/fa6";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { toast } from "react-toastify";
-
+import { FaPeopleRoof } from "react-icons/fa6";
 const ticketTypeData = [
   { id: 1, title: "Free" },
   { id: 2, title: "Paid" },
@@ -127,6 +127,8 @@ export default function TicketDetails({
                     });
                   }}
                   placeHolder="Ticket Name"
+                  label="Ticket name"
+                  tooltip="Name of ticket"
                   icon={<NoteIcon />}
                 />
 
@@ -138,6 +140,8 @@ export default function TicketDetails({
                     });
                   }}
                   placeHolder="Ticket Stock"
+                  label="Ticket Stock"
+                  tooltip="Stock of ticket"
                   icon={<RandomIcon />}
                   options={[
                     { id: 1, label: "Limited" },
@@ -185,7 +189,9 @@ export default function TicketDetails({
                       handleCapacity(val);
                     }}
                     placeHolder="Ticket Capacity"
-                    icon={<NoteIcon />}
+                    label="Ticket Capacity"
+                    tooltip="Capacity of ticket"
+                    icon={<FaPeopleRoof />}
                   />
                 )}
 
@@ -196,6 +202,8 @@ export default function TicketDetails({
                       handleGroupCapacity(val);
                     }}
                     placeHolder="No of people"
+                    tooltip="Max number of people allowed to buy this ticket"
+                    label="No of people"
                     icon={<MdOutlinePeopleAlt size={20} />}
                   />
                 )}
@@ -207,6 +215,8 @@ export default function TicketDetails({
                       setvalue={(val: string) => {
                         handlePrice(val);
                       }}
+                      label="Ticket Price"
+                      tooltip="Price of ticket"
                       placeHolder="Ticket Price"
                       icon={<FaMoneyBill1 size={20} />}
                     />

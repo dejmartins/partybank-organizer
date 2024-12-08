@@ -82,6 +82,7 @@ export default function EventDetails({
                       });
                     }}
                     placeHolder="Event Name"
+                    
                     icon={<MdEventNote size={20} />}
                   />
 

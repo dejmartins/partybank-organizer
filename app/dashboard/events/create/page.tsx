@@ -10,7 +10,7 @@ import EventDetails from "@/app/ui/events/event-details";
 import { getTimeWithAmPm } from "@/shared/utils/helper";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "@/store/store";
-import { saveEvent } from "@/store/create-event/create-event-slice";
+import { saveEvent } from "@/store/event-slice/event-slice";
 import { IEventForm } from "@/services/models/event-model";
 import useAuth from "@/shared/hooks/useAuth";
 import { MdArrowForwardIos } from "react-icons/md";
@@ -22,7 +22,7 @@ export default function Page() {
   const { USER } = useAuth();
   const { fetchSeries } = useSeries();
   const [isFormValid, setisFormValid] = useState(false);
-  const event = useSelector((state) => state.event);
+  const event = useSelector((state) => state.createEvent);
   const tempEventObj: IEventForm = event?.data?.tempEvent;
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
   const [selectedFile, setselectedFile] = useState<any>(null);

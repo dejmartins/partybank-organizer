@@ -15,7 +15,7 @@ import {
   clearEventState,
   saveTicket,
   updateTicket,
-} from "@/store/create-event/create-event-slice";
+} from "@/store/event-slice/event-slice";
 import useAuth from "@/shared/hooks/useAuth";
 import { IEventForm } from "@/services/models/event-model";
 import Loader from "@/app/ui/loaders/loader";
@@ -58,7 +58,7 @@ export default function TicketPage() {
   const [is_notification_enabled, setis_notification_enabled] = useState(true);
   const [showNotiPrefModal, setshowNotiPrefModal] = useState(false);
 
-  const event = useSelector((state) => state.event);
+  const event = useSelector((state) => state.createEvent);
   const tempEventObj: IEventForm = event.data.tempEvent;
 
   const [ticketDateObj, settickDateObj] = useState({

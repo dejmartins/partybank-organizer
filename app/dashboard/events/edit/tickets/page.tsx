@@ -4,7 +4,7 @@ import { BackButton } from "@/app/ui/series/buttons";
 
 import { useRouter } from "next/navigation";
 import usePBEvent from "@/shared/hooks/usePBEvent";
-import EventTicketPreview from "@/app/ui/events/event-ticket-preview";
+import EventTicketPreview from "@/app/ui/events/edit-event-ticket-preview";
 import EventCoverImage from "@/app/ui/events/cover-image";
 import TicketCategory from "@/app/ui/events/ticket-category";
 import { ticketCategoryData } from "@/app/lib/placeholder-data";

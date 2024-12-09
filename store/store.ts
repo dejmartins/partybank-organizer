@@ -18,12 +18,14 @@ import {
 } from "react-redux";
 import userSlice from "./userSlice/UserSlice";
 import eventSlice from "./create-event/create-event-slice";
+import createEventSlice from "./event-slice/event-slice";
 import ticketSlice from "./ticket-slice/ticket-slice";
 import seriesSlice from "./series-slice/series-slice";
 
 const reducers = combineReducers({
   user: userSlice,
   event: eventSlice,
+  createEvent: createEventSlice,
   ticket: ticketSlice,
   series: seriesSlice,
 });

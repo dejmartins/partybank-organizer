@@ -9,7 +9,7 @@ type PropT = {
   loadedTicket: any;
 };
 export default function EventTicketPreview({ loadedTicket }: PropT) {
-  const event = useSelector((state) => state.createEvent);
+  const event = useSelector((state) => state.event);
   const tempEvent: IEventForm = event.data.tempEvent;
   const dispatch = useDispatch();
 

@@ -65,7 +65,8 @@ export default function Page() {
   const router = useRouter();
 
   //@desc: dispatch event to store and navigate to ticket creation page
-  const handleProceed = () => {
+  const handleProceed = (e: any) => {
+    e.preventDefault()
     localStorage.setItem("eventSelected", selectedImage!);
     const eventObj = {
       ...eventDateObj,
@@ -75,9 +76,11 @@ export default function Page() {
       backgroundPosition,
       tickets: [],
     };
+    if (isFormValid) {
     // console.log({ ...eventObj });
     dispatch(saveEvent(eventObj));
     router.push("./create/tickets");
+    }
   };
 
   const handleValidation = () => {
@@ -151,7 +154,7 @@ export default function Page() {
   }, [tempEventObj]);
 
   return (
-    <>
+    <form onSubmit={handleProceed}>
       <div>
         <div className="flex flex-col min-h-[calc(100vh-170px)] border-[var(--pb-c-soft-grey)]">
           <div className="sticky top-0 z-10 w-full">
@@ -176,8 +179,8 @@ export default function Page() {
               <div className="hidden md:block">
                 <ProceedButton
                   label="Proceed to ticket"
-                  onClick={handleProceed}
-                  isDisabled={!isFormValid}
+                  // onClick={handleProceed}
+                  // isDisabled={!isFormValid}
                 />
               </div>
             </div>
@@ -198,7 +201,7 @@ export default function Page() {
                 backgroundPosition={backgroundPosition}
                 onImageChange={setSelectedImage}
                 onPositionChange={setBackgroundPosition}
-                required={true}
+                required={!selectedImage && !selectedImage}
               />
 
               <EventDateLocation
@@ -217,8 +220,8 @@ export default function Page() {
             <div className="flex justify-center">
               <ProceedButton
                 label="Proceed to ticket"
-                onClick={handleProceed}
-                isDisabled={!isFormValid}
+                // onClick={handleProceed}
+                // isDisabled={!isFormValid}
               />
             </div>
           </div>
@@ -234,6 +237,6 @@ export default function Page() {
           setShow={setshowMobilePreview}
         />
       )}
-    </>
+    </form>
   );
 }

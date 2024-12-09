@@ -54,6 +54,7 @@ export default function PBTextArea({
           onFocus={() => setisActive(true)}
           onBlur={() => setisActive(false)}
           minLength={20}
+          required
         />
       </div>
     </div>

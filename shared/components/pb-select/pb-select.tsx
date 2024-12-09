@@ -64,6 +64,7 @@ export default function PbSelect({
           onBlur={() => setisActive(false)}
           placeholder={value.length ? value : placeHolder}
           indicator={<KeyboardArrowDown />}
+          required={value.length ? false : true}
           sx={{
             width: "100%",
             height: "40px",

@@ -94,6 +94,7 @@ const EventPlacesInput: React.FC<EventPlacesInputProps> = ({
               <div className="w-full">
                 <input
                   name={name}
+                  required
                   {...getInputProps({
                     placeholder: placeholder,
                     disabled: disbl,

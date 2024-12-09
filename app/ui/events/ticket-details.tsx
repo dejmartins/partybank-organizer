@@ -171,6 +171,8 @@ export default function TicketDetails({
                       });
                     }}
                     placeHolder="Ticket Purchase Limit"
+                     label="Ticket Purchase Limit"
+                  tooltip="How many tickets can be bought at a time by users?"
                     icon={<RandomIcon />}
                     options={[
                       { id: 1, label: "1" },

@@ -49,7 +49,7 @@ export default function EventCoverImage({
           </div>
           <div className="mt-4 flex flex-col gap-y-1">
             <p className="text-base">
-              Upload a high-quality image to represent your event creationt
+              Upload a high-quality image to represent your event creation
             </p>
           </div>
         </div>
@@ -70,6 +70,7 @@ export default function EventCoverImage({
               //   console.log("here");
               // }}
               onChange={handleImageChange}
+              required={required}
             />
             <IoImageOutline size={26} />
           </div>

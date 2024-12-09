@@ -75,7 +75,8 @@ export default function TicketPage() {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const handleSaveTicket = () => {
+  const handleSaveTicket = (e:any) => {
+    e.preventDefault()
     const ticketData = {
       ticketDateObj,
       ticketDetailsObj,
@@ -104,6 +105,7 @@ export default function TicketPage() {
         return { ...prev, ticketName: "" };
       });
     }
+      toast.info("Ticket added!");
   };
 
   const handleValidation = () => {
@@ -300,7 +302,8 @@ export default function TicketPage() {
             </div>
           </div>
         </div>
-
+        <form onSubmit={handleSaveTicket}>
+          
         <div className="flex flex-grow overflow-hidden">
           <EventTicketPreview loadedTicket={loadedTicket} />
 
@@ -329,8 +332,8 @@ export default function TicketPage() {
               <div className="w-full flex flex-col items-center md:flex-row md:w-11/12 gap-y-4 md:gap-y-0 m-auto py-4">
                 <button
                   className="bg-partybank-red border border-partybank-text-black disabled:border-[#FEEFF2] rounded py-2 px-12 text-white font-bold disabled:bg-[#FEEFF2]"
-                  onClick={handleSaveTicket}
-                  disabled={!isformValid}
+                  // onClick={}
+                  // disabled={!isformValid}
                 >
                   Save Ticket
                 </button>
@@ -338,6 +341,8 @@ export default function TicketPage() {
             </div>
           </div>
         </div>
+</form>
+
       </div>
       <Loader isOpen={isLoaderModalOpen} message="Creating your event" />
       {showMobilePreview && (

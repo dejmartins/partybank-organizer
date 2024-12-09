@@ -47,6 +47,7 @@ export default function PBInput({ value, setvalue, placeHolder, icon, tooltip, l
           onChange={(e: any) => setvalue(e.target.value)}
           onFocus={() => setisActive(true)}
           onBlur={() => setisActive(false)}
+          required
         />
       </div>
     </div>

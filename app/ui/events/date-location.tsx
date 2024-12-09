@@ -212,6 +212,7 @@ export default function EventDateLocation({
                           value={eventDateObj.eventLocation.venue}
                           className="w-full h-[44px] outline-none placeholder:text-partybank-text-black"
                           placeholder="Add event venue"
+                          required
                           onChange={(event) => {
                             if (eventDateObj.eventLocation.address) {
                               setEventDateObj((prev: any) => {

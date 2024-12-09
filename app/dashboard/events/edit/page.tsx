@@ -19,7 +19,6 @@ import EventMobilePreview from "@/shared/components/event-mobile-preview/event-m
 export default function Page() {
   const { USER } = useAuth();
   const event = useSelector((state) => state.event);
-  console.log(event)
   const tempEventObj: IEventForm = event?.data?.tempEvent;
   const [isFormValid, setisFormValid] = useState(false);
   const [selectedImage, setSelectedImage] = useState("/defaultImage.png");

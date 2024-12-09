@@ -9,7 +9,7 @@ import EventDateLocation from "@/app/ui/events/date-location";
 import EventDetails from "@/app/ui/events/event-details";
 import { getTimeWithAmPm } from "@/shared/utils/helper";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "@/store/store";
+import { useDispatch, useSelector } from "@/store/store";
 import { saveEvent } from "@/store/create-event/create-event-slice";
 import { IEventForm } from "@/services/models/event-model";
 import useAuth from "@/shared/hooks/useAuth";
@@ -22,6 +22,8 @@ export default function Page() {
   const { USER } = useAuth();
   const { fetchSeries } = useSeries();
   const [isFormValid, setisFormValid] = useState(false);
+  const event = useSelector((state) => state.event);
+  const tempEventObj: IEventForm = event?.data?.tempEvent;
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
   const [selectedFile, setselectedFile] = useState<any>(null);
   const [backgroundPosition, setBackgroundPosition] = useState({
@@ -106,6 +108,47 @@ export default function Page() {
       seriesSubscription.unsubscribe();
     };
   }, [eventDetailsObj, eventDateObj, selectedImage]);
+
+  useEffect(() => {
+    if(!tempEventObj) return
+    const { selectedImage, selectedFile } = tempEventObj;
+    setSelectedImage(selectedImage);
+    if (selectedFile) {
+      setselectedFile(selectedFile);
+    }
+    seteventDateObj({
+      eventDate: tempEventObj.eventDate,
+      startTime: tempEventObj.startTime,
+      endTime: tempEventObj.endTime,
+      eventLocation: {
+        address: tempEventObj.eventLocation.address ?? "",
+        lat: tempEventObj.eventLocation.lat,
+        city: tempEventObj.eventLocation.city,
+        state: tempEventObj.eventLocation.state,
+        country: tempEventObj.eventLocation.country,
+        lng: tempEventObj.eventLocation.lng,
+        geo: tempEventObj.eventLocation.geo,
+        venue: tempEventObj.eventLocation.venue,
+        venueGeo: tempEventObj.eventLocation.geo,
+      },
+    });
+
+    seteventDetailsObj({
+      eventName: tempEventObj.eventName ?? "",
+      eventDescription: tempEventObj.eventDescription,
+      eventContact: tempEventObj.eventContact,
+      eventVisibility: {
+        label: tempEventObj.eventVisibility.label,
+        title: tempEventObj.eventVisibility.label,
+        id: tempEventObj.eventVisibility.id,
+      },
+      selectedSeries: {
+        label: tempEventObj.selectedSeries.label,
+        id: tempEventObj.selectedSeries.id!,
+      },
+    });
+    // console.log("==>", tempEventObj);
+  }, [tempEventObj]);
 
   return (
     <>

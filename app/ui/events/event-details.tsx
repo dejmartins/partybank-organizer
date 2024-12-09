@@ -82,7 +82,8 @@ export default function EventDetails({
                       });
                     }}
                     placeHolder="Event Name"
-                    
+                    label="Event name"
+                    tooltip="Name of event"
                     icon={<MdEventNote size={20} />}
                   />
 
@@ -94,6 +95,8 @@ export default function EventDetails({
                       });
                     }}
                     placeHolder="Add a description"
+                     label="Description"
+                    tooltip="Add event description"
                     icon={<RandomIcon />}
                   />
                 </div>
@@ -107,6 +110,8 @@ export default function EventDetails({
                     }}
                     placeHolder="Series"
                     icon={<RandomIcon />}
+                     label="Event series"
+                    tooltip="Add an event series"
                     options={seriesArr ?? dummySeries}
                   />
                   {/* <PBAutoSelect
@@ -127,6 +132,8 @@ export default function EventDetails({
                       handlePhone(val);
                     }}
                     placeHolder="Phone no"
+                     label="Phone number"
+                    tooltip="Add a phone number to your event"
                     icon={<MdOutlinePhoneAndroid size={16} />}
                   />
                 </div>

@@ -3,12 +3,15 @@ import Select, { selectClasses } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
-
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import Tooltip from "@mui/joy/Tooltip";
 type PropT = {
   value: any;
   setvalue: Function;
   placeHolder: string;
   icon?: React.ReactNode;
+   tooltip?: string;
+  label?: string;
   options: any[];
 };
 
@@ -18,10 +21,29 @@ export default function PbSelect({
   placeHolder,
   icon,
   options,
+  tooltip, label
 }: PropT) {
   const [isActive, setisActive] = useState(false);
   return (
     <div className="w-full">
+        {label && tooltip && (
+        <div className="flex gap-x-4 w-full items-center mb-2">
+          <span className="bg-partybank-red h-6 flex items-center px-3 rounded border border-[#4E0916] text-white text-sm font-bold">
+            {label}
+          </span>
+
+          <Tooltip
+            title={tooltip}
+            size="sm"
+            placement="top"
+            // open={addressTooltipOpen}
+          >
+            <button>
+              <IoMdInformationCircleOutline />
+            </button>
+          </Tooltip>
+        </div>
+      )}
       <div
         className="flex items-center w-full bg-white h-[44px] rounded-md px-2 transition-all duration-300 ease-in-out transform"
         style={{

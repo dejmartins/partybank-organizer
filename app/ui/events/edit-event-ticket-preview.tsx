@@ -1,5 +1,6 @@
 "use client";
 import { IEventForm } from "@/services/models/event-model";
+import {useEffect} from 'react'
 import { removeTicket } from "@/store/create-event/create-event-slice";
 import { useDispatch, useSelector } from "@/store/store";
 import { loadTicket } from "@/store/ticket-slice/ticket-slice";
@@ -11,7 +12,13 @@ type PropT = {
 export default function EventTicketPreview({ loadedTicket }: PropT) {
   const event = useSelector((state) => state.event);
   const tempEvent: IEventForm = event.data.tempEvent;
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    
+useEffect(() => {
+  if (tempEvent.tickets.length !== 0) {
+    dispatch(loadTicket(tempEvent.tickets[0]));
+  }
+}, [tempEvent.tickets, dispatch]);
 
   return (
     <div className="border p-10 flex-grow flex-col hidden md:block md:basis-[40%] lg:basis-[30%] overflow-y-auto  max-h-[calc(100vh-170px)]">
@@ -66,7 +73,7 @@ export default function EventTicketPreview({ loadedTicket }: PropT) {
                       : "none",
                 }}
                 onClick={(ev) => {
-                  ev.stopPropagation();
+                //   ev.stopPropagation();
                   console.log("ticket==>", obj);
                   if (loadedTicket.fid !== obj.fid) {
                     console.log("ticket==>", obj);

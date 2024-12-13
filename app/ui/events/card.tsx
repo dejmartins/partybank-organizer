@@ -6,6 +6,8 @@ import EventDetailsModal from "../modal/event-details";
 import { Event } from "@/app/lib/definitions";
 import { IEventResponse } from "@/services/models/event-response";
 import { convertIsoToDate, getTimeWithAmPm } from "@/shared/utils/helper";
+import dayjs from 'dayjs'
+import { useRouter } from "next/navigation";
 
 export default function Card({
   event,
@@ -15,11 +17,15 @@ export default function Card({
   apiCall: Function;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const backgroundImageUrl = event.image_url || "/defaultImage.png";
+  const formatDate = (date: string) => dayjs(date).format("MMM DD, YYYY");
+
 
   const toggleModal = () => {
-    setIsModalOpen((prev) => !prev);
+    router.push("/dashboard/events/details");
+    return;
   };
 
   return (
@@ -56,7 +62,7 @@ export default function Card({
             </div>
             <div className="flex items-center gap-2">
               <CalendarIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">{event.date}</p>
+              <p className="text-[15px] line-clamp-2">{formatDate(event.date)}</p>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-6" />

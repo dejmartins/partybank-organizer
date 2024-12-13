@@ -13,8 +13,11 @@ const config: Config = {
         "partybank-red": "#E91B41",
         "partybank-text-black": "#080D18",
         "partybank-soft-grey": "#F8F9F9",
+        "partybank-light-black": "rgba(0, 0, 0, 0.4)",
         "partybank-mid-red": "#FEEFF2",
         "partybank-light-red": "#FFF9FA",
+        "partybank-dark-brown": "rgba(68, 47, 51, 1)",
+        "partybank-light-brown": "rgba(253, 219, 225, 1)",
         "partybank-border": "#DDE0E3",
       },
       backgroundImage: {

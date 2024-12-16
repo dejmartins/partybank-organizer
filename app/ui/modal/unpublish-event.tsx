@@ -1,27 +1,31 @@
 import React, { FC, useState } from "react";
 import { LuCircleSlash2 } from "react-icons/lu";
+
 type ModalProps = {
   isOpen: boolean;
+  unpublishReason: string;
   onClose?: () => void;
   setIsConfirmUnpublishOpen: (value: boolean) => void;
+  setUnpublishReason: (value: string) => void;
 };
 
 const Modal: FC<ModalProps> = ({
   isOpen,
   onClose,
   setIsConfirmUnpublishOpen,
+  setUnpublishReason,
+  unpublishReason
 }) => {
-    if (isOpen === false) return null;
-    const [selectedReason, setSelectedReason] = useState("event_postponed");
-    
-    const onDelete = () => {
-      if (onClose) onClose();
-      setIsConfirmUnpublishOpen(true);
-    };
+  if (!isOpen) return null;
+
+  const onProceed = () => {
+    setIsConfirmUnpublishOpen(true); // Open confirmation modal
+    if (onClose) onClose(); // Close current modal
+  };
 
   return (
     <div
-      className={`fixed  inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[4000] transition-opacity duration-300 ${
+      className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[4000] transition-opacity duration-300 ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible"
       } backdrop-blur-sm`}
     >
@@ -39,28 +43,28 @@ const Modal: FC<ModalProps> = ({
         </h4>
         <p className="text-center text-gray-600 mb-6 text-sm">
           Provide us a reason for unpublishing this event by selecting from a
-          list or entering a custom explanation to inform attendees
+          list or entering a custom explanation to inform attendees.
         </p>
 
         <div className="my-4 w-full flex items-center justify-between gap-4">
           <div className="flex gap-3 flex-col">
             <button
               className={
-                selectedReason === "event_postponed"
+                unpublishReason === "event_postponed"
                   ? "bg-partybank-dark-brown text-white rounded px-2 py-2 text-sm font-extrabold"
                   : "bg-[rgba(0, 0, 0, 0.5)] text-partybank-light-black border-2 border-[rgba(0, 0, 0, 0.5)] rounded px-2 py-2 text-sm font-extrabold"
               }
-              onClick={() => setSelectedReason("event_postponed")}
+              onClick={() => setUnpublishReason("event_postponed")}
             >
               Event postponed
             </button>
             <button
               className={
-                selectedReason === "event_canceled"
+                unpublishReason === "event_canceled"
                   ? "bg-partybank-dark-brown text-white rounded px-2 py-2 text-sm font-extrabold"
                   : "bg-[rgba(0, 0, 0, 0.5)] text-partybank-light-black border-2 border-[rgba(0, 0, 0, 0.5)] rounded px-2 py-2 text-sm font-extrabold"
               }
-              onClick={() => setSelectedReason("event_canceled")}
+              onClick={() => setUnpublishReason("event_canceled")}
             >
               Event canceled
             </button>
@@ -68,6 +72,7 @@ const Modal: FC<ModalProps> = ({
           <textarea
             className="h-[6em] w-[60%] border-2 rounded-md p-2 border-[rgba(0, 0, 0, 0.8)] text-sm outline-none"
             placeholder="Enter custom reason"
+            onChange={(e: any)=> setUnpublishReason(e.target.value)}
           ></textarea>
         </div>
 
@@ -80,7 +85,7 @@ const Modal: FC<ModalProps> = ({
           </button>
           <button
             className="flex-1 bg-red-600 text-white font-extrabold py-2 px-4 rounded-md hover:bg-red-700"
-            onClick={onDelete}
+            onClick={onProceed}
           >
             Proceed
           </button>

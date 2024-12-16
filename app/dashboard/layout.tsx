@@ -21,11 +21,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <TopNav />
 
-      <div className="flex-grow flex flex-col mt-[64px] md:mt-[170px] bg-[var(--pb-c-white)] overflow-y-auto mb-16">
+      <div className="flex-grow flex flex-col mt-[64px] md:mt-[170px] bg-[var(--pb-c-white)] overflow-y-auto pb-16">
         {children}
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

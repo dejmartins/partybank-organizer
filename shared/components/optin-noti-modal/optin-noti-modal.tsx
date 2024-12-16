@@ -21,7 +21,7 @@ export default function OptinNotiModal({
   is_notification_enabled,
   setis_notification_enabled,
 }: PropT) {
-  const event = useSelector((state) => state.event);
+  const event = useSelector((state) => state.createEvent);
   const tempEvent: IEventForm = event.data.tempEvent;
   const [isChecked, setisChecked] = useState(
     tempEvent.is_notification_enabled ?? true

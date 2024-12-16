@@ -295,7 +295,6 @@ export default function TicketPage() {
                 <div className="md:block">
                   <button
                     className={`bg-partybank-red flex items-center gap-x-2 text-white  px-4 border-[1px] border-[#4E0916] disabled:border-[#FEEFF2] rounded-md h-[40px] font-bold disabled:bg-[#FEEFF2] disabled:text-[#F5B4C0]`}
-                    // onClick={handleUpdate}
                     onClick={() => setshowNotiPrefModal(true)}
                     disabled={tempEventObj.tickets.length ? false : true}
                   >

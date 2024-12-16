@@ -24,7 +24,7 @@ export default function Card({
 
 
   const toggleModal = () => {
-    router.push("/dashboard/events/details");
+    router.push(`/dashboard/events/${event.id}`);
     return;
   };
 
@@ -62,7 +62,7 @@ export default function Card({
             </div>
             <div className="flex items-center gap-2">
               <CalendarIcon className="w-6" />
-              <p className="text-[15px] line-clamp-2">{formatDate(event.date)}</p>
+              <p className="text-[15px] line-clamp-2">{event.date}</p>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-6" />

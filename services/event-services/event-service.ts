@@ -34,6 +34,12 @@ export const publishEvents = ({ id }: any): Observable<any> => {
     catchError(handleError)
   );
 };
+export const unpublishEvents = ({ id, payload }: any): Observable<any> => {
+  return from(http.put(`/event/unpublish/${id}`, payload)).pipe(
+    map((response: any) => response),
+    catchError(handleError)
+  );
+};
 
 export const getEventAnalytics = ({ id, ...payload }: any): Observable<any> => {
   return from(
@@ -48,6 +54,12 @@ export const getEventAnalytics = ({ id, ...payload }: any): Observable<any> => {
 
 export const deleteEvent = ({ id }: any): Observable<any> => {
   return from(http.delete(`/event/delete/${id}`)).pipe(
+    map((response: any) => response),
+    catchError(handleError)
+  );
+};
+export const getEventById = ({ id }: any): Observable<any> => {
+  return from(http.get(`/event/${id}`)).pipe(
     map((response: any) => response),
     catchError(handleError)
   );

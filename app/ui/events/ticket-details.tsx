@@ -244,7 +244,7 @@ export default function TicketDetails({
             <div className="w-full flex flex-col md:flex-row mt-2 md:py-2 gap-4">
               <div className="md:w-8/12 bg-[#F8F9F9] rounded-md border border-partybank-border p-3 flex flex-col gap-y-4">
                 <PBInputPerks
-                  value={perks[0]}
+                  value={!perks ? '' : perks[0]}
                   setvalue={(val: string) => {
                     setperks([val, ...perks]);
                   }}
@@ -255,7 +255,7 @@ export default function TicketDetails({
             </div>
 
             <div className="flex flex-wrap gap-x-2">
-              {perks.map((obj, index: number) => (
+              {perks && perks.map((obj, index: number) => (
                 <div
                   className="py-2 px-4 text-partybank-red rounded-md text-sm flex justify-between relative bg-[#FEEFF2] gap-x-4"
                   key={index}

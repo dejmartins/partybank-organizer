@@ -4,7 +4,7 @@ import { useSelector } from "@/store/store";
 import React, { useEffect, useState } from "react";
 
 export default function usePBEvent() {
-  const event = useSelector((state) => state.event);
+  const event = useSelector((state) => state.createEvent);
   const tempEventObj = event.data.tempEvent;
   const tempTicketsArr = tempEventObj?.tickets;
 

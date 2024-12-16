@@ -224,9 +224,9 @@ export default function TicketPage() {
         createEvent(payload).subscribe({
           next: (res) => {
             if (res) {
-              console.log(res);
               toast.success(res.data.message);
               router.push("/dashboard/events");
+              dispatch(clearEventState());
             } else {
               toast.info(res.error);
             }

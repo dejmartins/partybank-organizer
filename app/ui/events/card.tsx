@@ -24,7 +24,7 @@ export default function Card({
 
 
   const toggleModal = () => {
-    router.push(`/dashboard/events/${event.id}`);
+    router.push(`/dashboard/events/${event.event_reference}`);
     return;
   };
 

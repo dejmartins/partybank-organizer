@@ -167,14 +167,17 @@ export function QuickActions({
             </div>
             <span className="font-bold text-[0.9em]">Edit Event</span>
           </div>
-          <div className="flex items-center gap-x-2 py-3 px-4 hover:bg-red-50 rounded">
-            <div className="w-6 h-6 bg-partybank-soft-grey p-1 rounded-full flex justify-center items-center">
-              <RiDeleteBin6Line color="#E91B41" />
+          {event.is_event_with_ticket_sale === true && (
+
+            <div className="flex items-center gap-x-2 py-3 px-4 hover:bg-red-50 rounded">
+              <div className="w-6 h-6 bg-partybank-soft-grey p-1 rounded-full flex justify-center items-center">
+                <RiDeleteBin6Line color="#E91B41" />
+              </div>
+              <span className="font-bold text-[0.9em]" onClick={handleDelete}>
+                Delete Event
+              </span>
             </div>
-            <span className="font-bold text-[0.9em]" onClick={handleDelete}>
-              Delete Event
-            </span>
-          </div>
+          )}
           <div className="flex items-center gap-x-2 py-3 px-4 hover:bg-red-50 rounded">
             <div className="w-6 h-6 bg-partybank-soft-grey p-1 rounded-full flex justify-center items-center">
               <IoTicketOutline />

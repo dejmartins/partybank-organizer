@@ -13,10 +13,11 @@ import ConfirmUnpublishEvent from "../../../ui/modal/confirm-unpublish-event";
 import { FaCalendarAlt } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import {
-  getEventById,
+  getEventByRef,
   unpublishEvents,
   deleteEvent,
   publishEvents,
+  getEventAnalytics,
 } from "@/services/event-services/event-service";
 import {toast} from 'react-toastify'
 import Loader from "@/app/ui/loaders/loader";
@@ -35,7 +36,7 @@ export default function Page() {
 
   const getEvent = async()=>{
     setIsLoaderModalOpen(true);
-     getEventById({id: eventId }).subscribe({
+     getEventByRef({ref: eventId }).subscribe({
         next: (res) => {
           if (res) {
             setEvent(res)
@@ -52,9 +53,28 @@ export default function Page() {
         },
       });
   }
+  const fetchEventAnalytics = async()=>{
+     getEventAnalytics({ref: eventId }).subscribe({
+        next: (res) => {
+          if (res) {
+            console.log(res)
+          } else {
+            toast.info(res.error);
+          }
+        },
+        error: (msg) => {
+          toast.error(msg.message);
+        },
+        complete: () => {
+        },
+      });
+  }
+
+  
 
   useEffect(() => {
     getEvent();
+    fetchEventAnalytics();
   }, []);
 
   const unpublishEvent = async () => {

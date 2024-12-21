@@ -41,9 +41,9 @@ export const unpublishEvents = ({ id, payload }: any): Observable<any> => {
   );
 };
 
-export const getEventAnalytics = ({ id, ...payload }: any): Observable<any> => {
+export const getEventAnalytics = ({ ref, ...payload }: any): Observable<any> => {
   return from(
-    payHttp.get(`/details/${id}`, {
+    payHttp.get(`/details/${ref}`, {
       params: payload,
     })
   ).pipe(
@@ -58,8 +58,8 @@ export const deleteEvent = ({ id }: any): Observable<any> => {
     catchError(handleError)
   );
 };
-export const getEventById = ({ id }: any): Observable<any> => {
-  return from(http.get(`/event/${id}`)).pipe(
+export const getEventByRef = ({ ref }: any): Observable<any> => {
+  return from(http.get(`/event/reference/${ref}`)).pipe(
     map((response: any) => response),
     catchError(handleError)
   );

@@ -23,7 +23,7 @@ export default function HeroSection() {
       className="relative bg-cover bg-center min-h-screen xl:min-h-[50vh] flex flex-col md:pt-36 items-center justify-center md:justify-start text-white rounded-b-[20px]"
       style={{
         backgroundImage:
-          'url("https://res.cloudinary.com/drddoxnsi/image/upload/v1724406331/PARTYBANK/ORGANIZER/hero-image_xqdvny.png")',
+          'url("https://res.cloudinary.com/dp1zblmv4/image/upload/v1736717503/organizer/yffeizm1eqvozdwvfbsd.png")',
       }}
     >
       <div className="absolute inset-0 bg-black opacity-70 rounded-b-[30px]"></div>

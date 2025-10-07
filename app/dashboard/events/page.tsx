@@ -88,7 +88,7 @@ export default function Page() {
     return getOrgEvents({
       organizerId: USER.id,
       page: currentPage,
-      size: 10,
+      size: 100,
     }).subscribe({
       next: (res) => {
         if (res) {
